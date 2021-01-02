@@ -77,3 +77,14 @@ TEST(TupleTests, TestSubstractTuples) {
     ASSERT_TRUE(Tuple::point(-2, -4, -6) == point1 - vector2);
     ASSERT_TRUE(Tuple::vector(-2, -4, -6) == vector1 - vector2);
 }
+
+TEST(TupleTests, TestNegatingTuple) {
+    float x1 = 3, y1 = 2, z1 = 1;
+    Tuple point1 = Tuple::point(x1, y1, z1);
+
+    float x2 = -3, y2 = 2, z2 = -1;
+    Tuple vector1 = Tuple::vector(x2, y2, z2);
+
+    ASSERT_TRUE(Tuple(-3, -2, -1, -1) == -point1);
+    ASSERT_TRUE(Tuple(3, -2, 1, 0) == -vector1);
+}

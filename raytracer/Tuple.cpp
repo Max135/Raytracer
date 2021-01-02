@@ -2,6 +2,7 @@
 // Created by Max on 2021-01-01.
 //
 
+#include <string>
 #include "Tuple.h"
 #include "Helper.h"
 
@@ -27,6 +28,17 @@ Tuple Tuple::subtract(Tuple a, Tuple b) {
     tuple.y = a.y - b.y;
     tuple.z = a.z - b.z;
     tuple.w = a.w - b.w;
+
+    return tuple;
+}
+
+Tuple Tuple::negate(Tuple a) {
+    Tuple tuple;
+
+    tuple.x = -a.x;
+    tuple.y = -a.y;
+    tuple.z = -a.z;
+    tuple.w = -a.w;
 
     return tuple;
 }

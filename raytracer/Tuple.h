@@ -6,6 +6,8 @@
 #define RAYTRACER_TUPLE_H
 
 
+#include <string>
+
 class Tuple {
 public:
     float x, y, z, w;
@@ -43,10 +45,16 @@ public:
         return !areEqual(*this, other);
     }
 
+    Tuple operator - () {
+        return negate(*this);
+    }
+
+
 private:
     static bool areEqual(Tuple a, Tuple b);
     static Tuple add(Tuple a, Tuple b);
     static Tuple subtract(Tuple a, Tuple b);
+    static Tuple negate(Tuple a);
 };
 
 #endif //RAYTRACER_TUPLE_H
