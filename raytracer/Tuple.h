@@ -26,6 +26,27 @@ public:
     static Tuple vector(float x, float y, float z) {
         return Tuple(x, y, z, 0.0);
     }
+
+    Tuple operator + (const Tuple &other) {
+        return add(*this, other);
+    }
+
+    Tuple operator - (const Tuple &other) {
+        return subtract(*this, other);
+    }
+
+    bool operator == (const Tuple &other) {
+        return areEqual(*this, other);
+    }
+
+    bool operator != (const Tuple &other) {
+        return !areEqual(*this, other);
+    }
+
+private:
+    static bool areEqual(Tuple a, Tuple b);
+    static Tuple add(Tuple a, Tuple b);
+    static Tuple subtract(Tuple a, Tuple b);
 };
 
 #endif //RAYTRACER_TUPLE_H

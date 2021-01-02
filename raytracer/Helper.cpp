@@ -6,6 +6,6 @@
 #include <cmath>
 
 bool Helper::compareFloat(float a, float b) {
-    float i = INFINITY;
+//    float i = INFINITY;
     return abs(a - b) < EPSILON;
 }
