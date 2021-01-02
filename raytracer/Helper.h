@@ -11,6 +11,8 @@ class Helper {
 
 public:
     static bool compareFloat(float a, float b);
+
+    bool compareFloat(float a, float b, float range);
 };
 
 

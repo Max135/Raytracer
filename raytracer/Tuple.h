@@ -31,6 +31,12 @@ public:
 
     float magnitude();
 
+    float quickInverseSquareRoot(float number);
+
+    Tuple normalize();
+
+    Tuple preciseNormalize();
+
     Tuple operator + (const Tuple &other) {
         return add(*this, other);
     }

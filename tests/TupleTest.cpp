@@ -114,3 +114,11 @@ TEST(TupleTests, TestMagnitude) {
     ASSERT_TRUE(Helper::compareFloat(sqrt(14), vector4.magnitude()));
     ASSERT_TRUE(Helper::compareFloat(sqrt(14), vector5.magnitude()));
 }
+
+TEST(TupleTests, TestNormalization) {
+    Tuple vector1 = Tuple::vector(4, 0, 0);
+    ASSERT_TRUE(Tuple::vector(1, 0, 0) == vector1.preciseNormalize());
+
+    Tuple vector2 = Tuple::vector(1, 2, 3);
+    ASSERT_TRUE(Tuple::vector(0.26726, 0.53452, 0.80178) == vector2.preciseNormalize());
+}

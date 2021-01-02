@@ -9,3 +9,7 @@ bool Helper::compareFloat(float a, float b) {
 //    float i = INFINITY;
     return abs(a - b) < EPSILON;
 }
+
+bool Helper::compareFloat(float a, float b, float range) {
+    return abs(a - b) < range;
+}
