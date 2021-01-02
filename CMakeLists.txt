@@ -10,10 +10,12 @@ enable_testing()
 add_subdirectory(googletest)
 
 set(Headers
-        raytracer/Helper.h)
+        raytracer/Helper.h
+        raytracer/Tuple.h)
 
 set(Sources
-        raytracer/Helper.cpp)
+        raytracer/Helper.cpp
+        raytracer/Tuple.cpp)
 
 add_library(${This} STATIC ${Sources} ${Headers})
 

@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.17)
 set(This RaytracerTest)
 
 set(Sources
-        DummyTest.cpp HelperTest.cpp)
+        HelperTest.cpp
+        TupleTest.cpp)
 
 add_executable(${This} ${Sources})
 
