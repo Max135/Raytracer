@@ -2,8 +2,8 @@
 // Created by Max on 2021-01-01.
 //
 
-#include "../raytracer/Tuple.h"
-#include "../raytracer/Helper.h"
+#include "../raytracer/features/Tuple.h"
+#include "../raytracer/features/Helper.h"
 #include "gtest/gtest.h"
 
 // << "x: " << b.x << " y: " << b.y << " z: " << b.z << " w: " << b.w

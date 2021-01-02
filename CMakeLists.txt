@@ -10,13 +10,16 @@ enable_testing()
 add_subdirectory(googletest)
 
 set(Headers
-        raytracer/Helper.h
-        raytracer/Tuple.h)
+        raytracer/features/Helper.h
+        raytracer/features/Tuple.h)
 
 set(Sources
-        raytracer/Helper.cpp
-        raytracer/Tuple.cpp)
+        raytracer/features/Helper.cpp
+        raytracer/features/Tuple.cpp
+        main.cpp)
 
 add_library(${This} STATIC ${Sources} ${Headers})
+
+add_executable(RaytracerRun ${Sources} ${Headers})
 
 add_subdirectory(tests)

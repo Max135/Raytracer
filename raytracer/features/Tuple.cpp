@@ -85,19 +85,11 @@ float Tuple::quickInverseSquareRoot(float number) {
     x2 = number * 0.5F;
     y  = number;
 
-
-    i = * (long * ) &y;                   //Gets the binary representation of the float in long to get access to bit shit operator
-                                          //Get the address of y (&y) then change its internal representation to a long ((long * ))
-                                          //then read what it is (*) as if it were a long
-
-    i = 0x5f3759df - (i >> 1);            //Changes the exponent part inside float representation (IEEE 754),
-                                          //so instead of calculating sqrt, we divide exponent by 2 (i >> 1) (bit shifting to right == /2)
-                                          //Hard coded number exploit the fact that the log of float is its own binary representation
-
+    i = * (long * ) &y;                   //Gets the binary representation of the float in long to get access to bit shit operator get the address of y (&y) then change its internal representation to a long ((long * )) then read what it is (*) as if it were a long
+    i = 0x5f3759df - (i >> 1);            //Changes the exponent part inside float representation (IEEE 754), so instead of calculating sqrt, we divide exponent by 2 (i >> 1) (bit shifting to right == /2) hard coded number exploit the fact that the log of float is its own binary representation
     y = * (float * ) &i;                  //Revert the number to a float with same principle as before
 
-//    Newton iteration
-    y = y * (threehalfs - (x2 * y * y));  //Better approximate the root of the number using the function and its derivative
+    y = y * (threehalfs - (x2 * y * y));  //Use Newton iteration to better approximate the root of the number using the function and its derivative
 
     return y;
 }
