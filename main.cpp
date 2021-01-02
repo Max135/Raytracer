@@ -24,15 +24,17 @@ int main() {
 
     Environment env;
     env.gravity = Tuple::vector(0, -0.1, 0);
-    env.wind = Tuple::vector(-0.01, 0, 0);
+    env.wind = Tuple::vector(-0.11, 0, 0);
 
     Projectile proj;
     proj.position = Tuple::point(0, 1, 0);
-    proj.velocity = Tuple::vector(1, 1, 0).preciseNormalize();
+    proj.velocity = Tuple::vector(1, 2, 0).preciseNormalize();
 
     for (int i = 0; i < 100; i++) {
         proj = tick(env, proj);
         std::cout << "x: " << proj.position.x << " y: " << proj.position.y << " z: " << proj.position.z << std::endl;
+
+        if (proj.position.y <= 0) break;
     }
 
     clock_t endTime = clock();
