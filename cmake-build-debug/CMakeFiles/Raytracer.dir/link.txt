@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libRaytracer.a  CMakeFiles/Raytracer.dir/raytracer/Helper.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libRaytracer.a

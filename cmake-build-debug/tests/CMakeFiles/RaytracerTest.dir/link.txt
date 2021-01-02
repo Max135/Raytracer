@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/RaytracerTest.dir/DummyTest.cpp.o CMakeFiles/RaytracerTest.dir/HelperTest.cpp.o  -o RaytracerTest  ../lib/libgtest_maind.a ../libRaytracer.a ../lib/libgtestd.a 
