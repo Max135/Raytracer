@@ -13,14 +13,16 @@ set(Headers
         raytracer/features/Helper.h
         raytracer/features/Tuple/Tuple.h
         raytracer/features/Tuple/Vector.h
-        raytracer/features/Tuple/Tuples.h
-        raytracer/features/Tuple/Point.cpp
-        raytracer/features/Tuple/Point.h)
+        raytracer/features/Tuple/Color.h
+        raytracer/features/Tuple/Point.h
+        raytracer/features/Tuple/Tuples.h)
 
 set(Sources
         raytracer/features/Helper.cpp
         raytracer/features/Tuple/Tuple.cpp
         raytracer/features/Tuple/Vector.cpp
+        raytracer/features/Tuple/Point.cpp
+        raytracer/features/Tuple/Color.cpp
         main.cpp)
 
 add_library(${This} STATIC ${Sources} ${Headers})

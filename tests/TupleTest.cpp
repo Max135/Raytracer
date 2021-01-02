@@ -137,3 +137,14 @@ TEST(TupleTests, TestCross) {
     ASSERT_TRUE(Vector(-1, 2, -1) == vector1.cross(vector2));
     ASSERT_TRUE(Vector(1, -2, 1) == vector2.cross(vector1));
 }
+
+TEST(TupleTests, TestColor) {
+    Color color = Color(-0.5, 0.4, 1.7);
+    ASSERT_EQ(-0.5f, color.red);
+    ASSERT_EQ(0.4f, color.green);
+    ASSERT_EQ(1.7f, color.blue);
+    color.red = 1.1;
+    ASSERT_TRUE(Helper::compareFloat(color.red, 1.1));
+    color.x = 0.7;
+    ASSERT_TRUE(Helper::compareFloat(color.red, 0.7));
+}
