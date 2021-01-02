@@ -15,6 +15,7 @@ set(Headers
         raytracer/features/Tuple/Vector.h
         raytracer/features/Tuple/Color.h
         raytracer/features/Tuple/Point.h
+        raytracer/features/Canvas/Canvas.h
         raytracer/features/Tuple/Tuples.h)
 
 set(Sources
@@ -23,6 +24,7 @@ set(Sources
         raytracer/features/Tuple/Vector.cpp
         raytracer/features/Tuple/Point.cpp
         raytracer/features/Tuple/Color.cpp
+        raytracer/features/Canvas/Canvas.cpp
         main.cpp)
 
 add_library(${This} STATIC ${Sources} ${Headers})

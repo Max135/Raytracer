@@ -140,13 +140,16 @@ TEST(TupleTests, TestCross) {
 
 TEST(TupleTests, TestColorAssignation) {
     Color color = Color(-0.5, 0.4, 1.7);
-    ASSERT_EQ(-0.5f, color.red);
-    ASSERT_EQ(0.4f, color.green);
-    ASSERT_EQ(1.7f, color.blue);
-    color.red = 1.1;
-    ASSERT_TRUE(Helper::compareFloat(color.red, 1.1));
-    color.x = 0.7;
-    ASSERT_TRUE(Helper::compareFloat(color.red, 0.7));
+    ASSERT_EQ(-0.5f, color.x);
+    ASSERT_EQ(0.4f, color.y);
+    ASSERT_EQ(1.7f, color.z);
+//    ASSERT_EQ(-0.5f, color.red);
+//    ASSERT_EQ(0.4f, color.green);
+//    ASSERT_EQ(1.7f, color.blue);
+//    color.red = 1.1;
+//    ASSERT_TRUE(Helper::compareFloat(color.red, 1.1));
+//    color.x = 0.7;
+//    ASSERT_TRUE(Helper::compareFloat(color.red, 0.7));
 }
 
 TEST(TupleTests, TestColorAddition) {
