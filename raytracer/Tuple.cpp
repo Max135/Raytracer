@@ -42,3 +42,29 @@ Tuple Tuple::negate(Tuple a) {
 
     return tuple;
 }
+
+Tuple Tuple::multiplyScalar(Tuple a, float scalar) {
+    Tuple tuple;
+
+    tuple.x = a.x * scalar;
+    tuple.y = a.y * scalar;
+    tuple.z = a.z * scalar;
+    tuple.w = a.w * scalar;
+
+    return tuple;
+}
+
+Tuple Tuple::divideScalar(Tuple a, float scalar) {
+    Tuple tuple;
+
+    tuple.x = a.x / scalar;
+    tuple.y = a.y / scalar;
+    tuple.z = a.z / scalar;
+    tuple.w = a.w / scalar;
+
+    return tuple;
+}
+
+float Tuple::magnitude() {
+    return (float) sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->w, 2));
+}

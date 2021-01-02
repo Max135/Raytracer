@@ -3,7 +3,10 @@
 //
 
 #include "../raytracer/Tuple.h"
+#include "../raytracer/Helper.h"
 #include "gtest/gtest.h"
+
+// << "x: " << b.x << " y: " << b.y << " z: " << b.z << " w: " << b.w
 
 TEST(TupleTests, TestTupleValues) {
     float x = 4.3, y = -4.2, z = 3.1, w = 1.0;
@@ -87,4 +90,27 @@ TEST(TupleTests, TestNegatingTuple) {
 
     ASSERT_TRUE(Tuple(-3, -2, -1, -1) == -point1);
     ASSERT_TRUE(Tuple(3, -2, 1, 0) == -vector1);
+}
+
+TEST(TupleTests, TestScalarOperations) {
+    Tuple a = Tuple(1, -2, 3, -4);
+
+    ASSERT_TRUE(Tuple(3.5, -7, 10.5, -14) == a * 3.5);
+    ASSERT_TRUE(Tuple(0.5, -1, 1.5, -2) == a * 0.5);
+    ASSERT_TRUE(Tuple(0.5, -1, 1.5, -2) == a / 2);
+}
+
+TEST(TupleTests, TestMagnitude) {
+    Tuple vector1 = Tuple::vector(1, 0, 0);
+    Tuple vector2 = Tuple::vector(0, 1, 0);
+    Tuple vector3 = Tuple::vector(0, 0, 1);
+    Tuple vector4 = Tuple::vector(1, 2, 3);
+    Tuple vector5 = Tuple::vector(-1, -2, -3);
+
+    ASSERT_EQ(1, vector1.magnitude());
+    ASSERT_EQ(1, vector2.magnitude());
+    ASSERT_EQ(1, vector3.magnitude());
+
+    ASSERT_TRUE(Helper::compareFloat(sqrt(14), vector4.magnitude()));
+    ASSERT_TRUE(Helper::compareFloat(sqrt(14), vector5.magnitude()));
 }

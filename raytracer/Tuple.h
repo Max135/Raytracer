@@ -29,12 +29,22 @@ public:
         return Tuple(x, y, z, 0.0);
     }
 
+    float magnitude();
+
     Tuple operator + (const Tuple &other) {
         return add(*this, other);
     }
 
     Tuple operator - (const Tuple &other) {
         return subtract(*this, other);
+    }
+
+    Tuple operator * (const float &scalar) {
+        return multiplyScalar(*this, scalar);
+    }
+
+    Tuple operator / (const float &scalar) {
+        return divideScalar(*this, scalar);
     }
 
     bool operator == (const Tuple &other) {
@@ -55,6 +65,8 @@ private:
     static Tuple add(Tuple a, Tuple b);
     static Tuple subtract(Tuple a, Tuple b);
     static Tuple negate(Tuple a);
+    static Tuple multiplyScalar(Tuple a, float scalar);
+    static Tuple divideScalar(Tuple a, float scalar);
 };
 
 #endif //RAYTRACER_TUPLE_H
