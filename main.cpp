@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <ctime>
-#include "raytracer/features/Tuple.h"
+#include "raytracer/features/Tuple/Tuple.h"
 
 struct Projectile {
     Tuple position, velocity;

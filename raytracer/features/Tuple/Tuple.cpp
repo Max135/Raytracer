@@ -4,7 +4,7 @@
 
 #include <string>
 #include "Tuple.h"
-#include "Helper.h"
+#include "../Helper.h"
 
 bool Tuple::areEqual(Tuple first, Tuple second) {
     return Helper::compareFloat(first.x, second.x)
