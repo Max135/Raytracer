@@ -122,3 +122,18 @@ TEST(TupleTests, TestNormalization) {
     Tuple vector2 = Tuple::vector(1, 2, 3);
     ASSERT_TRUE(Tuple::vector(0.26726, 0.53452, 0.80178) == vector2.preciseNormalize());
 }
+
+TEST(TupleTests, TestDotProduct) {
+    Tuple vector1 = Tuple::vector(1, 2, 3);
+    Tuple vector2 = Tuple::vector(2, 3, 4);
+
+    ASSERT_EQ(20, vector1 * vector2);
+}
+
+TEST(TupleTests, TestCross) {
+    Tuple vector1 = Tuple::vector(1, 2, 3);
+    Tuple vector2 = Tuple::vector(2, 3, 4);
+
+    ASSERT_TRUE(Tuple::vector(-1, 2, -1) == vector1.cross(vector2));
+    ASSERT_TRUE(Tuple::vector(1, -2, 1) == vector2.cross(vector1));
+}

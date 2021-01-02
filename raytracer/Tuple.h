@@ -37,6 +37,8 @@ public:
 
     Tuple preciseNormalize();
 
+    Tuple cross(Tuple other);
+
     Tuple operator + (const Tuple &other) {
         return add(*this, other);
     }
@@ -47,6 +49,10 @@ public:
 
     Tuple operator * (const float &scalar) {
         return multiplyScalar(*this, scalar);
+    }
+
+    float operator * (const Tuple &other) {
+        return multiply(*this, other);
     }
 
     Tuple operator / (const float &scalar) {
@@ -67,12 +73,13 @@ public:
 
 
 private:
-    static bool areEqual(Tuple a, Tuple b);
-    static Tuple add(Tuple a, Tuple b);
-    static Tuple subtract(Tuple a, Tuple b);
-    static Tuple negate(Tuple a);
-    static Tuple multiplyScalar(Tuple a, float scalar);
-    static Tuple divideScalar(Tuple a, float scalar);
+    static bool areEqual(Tuple first, Tuple second);
+    static Tuple add(Tuple first, Tuple second);
+    static Tuple subtract(Tuple first, Tuple second);
+    static Tuple negate(Tuple tuple);
+    static Tuple multiplyScalar(Tuple tuple, float scalar);
+    static float multiply(Tuple first, Tuple second);
+    static Tuple divideScalar(Tuple tuple, float scalar);
 };
 
 #endif //RAYTRACER_TUPLE_H

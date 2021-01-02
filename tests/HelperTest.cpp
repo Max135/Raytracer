@@ -6,6 +6,8 @@
 #include "gtest/gtest.h"
 
 TEST(HelperTests, TestCompareFloat) {
-    float a = 1.1, b = 1.10000000001;
-    ASSERT_EQ(true, Helper::compareFloat(a, b));
+    ASSERT_TRUE(Helper::compareFloat(1.1, 1.10000000001));
+    ASSERT_FALSE(Helper::compareFloat(1.1, 1.2));
+    ASSERT_TRUE(Helper::compareFloat(1, 1));
+    ASSERT_FALSE(Helper::compareFloat(1, 1));
 }

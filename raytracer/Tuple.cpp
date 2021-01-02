@@ -6,63 +6,70 @@
 #include "Tuple.h"
 #include "Helper.h"
 
-bool Tuple::areEqual(Tuple a, Tuple b) {
-    return Helper::compareFloat(a.x, b.x) && Helper::compareFloat(a.y, b.y) && Helper::compareFloat(a.z, b.z) && Helper::compareFloat(a.w, b.w);
+bool Tuple::areEqual(Tuple first, Tuple second) {
+    return Helper::compareFloat(first.x, second.x)
+    && Helper::compareFloat(first.y, second.y)
+    && Helper::compareFloat(first.z, second.z)
+    && Helper::compareFloat(first.w, second.w);
 }
 
-Tuple Tuple::add(Tuple a, Tuple b) {
+Tuple Tuple::add(Tuple first, Tuple second) {
     Tuple tuple;
 
-    tuple.x = a.x + b.x;
-    tuple.y = a.y + b.y;
-    tuple.z = a.z + b.z;
-    tuple.w = a.w + b.w;
+    tuple.x = first.x + second.x;
+    tuple.y = first.y + second.y;
+    tuple.z = first.z + second.z;
+    tuple.w = first.w + second.w;
 
     return tuple;
 }
 
-Tuple Tuple::subtract(Tuple a, Tuple b) {
+Tuple Tuple::subtract(Tuple first, Tuple second) {
     Tuple tuple;
 
-    tuple.x = a.x - b.x;
-    tuple.y = a.y - b.y;
-    tuple.z = a.z - b.z;
-    tuple.w = a.w - b.w;
+    tuple.x = first.x - second.x;
+    tuple.y = first.y - second.y;
+    tuple.z = first.z - second.z;
+    tuple.w = first.w - second.w;
 
     return tuple;
 }
 
-Tuple Tuple::negate(Tuple a) {
-    Tuple tuple;
+Tuple Tuple::negate(Tuple tuple) {
+    Tuple tempTuple;
 
-    tuple.x = -a.x;
-    tuple.y = -a.y;
-    tuple.z = -a.z;
-    tuple.w = -a.w;
+    tempTuple.x = -tuple.x;
+    tempTuple.y = -tuple.y;
+    tempTuple.z = -tuple.z;
+    tempTuple.w = -tuple.w;
 
-    return tuple;
+    return tempTuple;
 }
 
-Tuple Tuple::multiplyScalar(Tuple a, float scalar) {
-    Tuple tuple;
-
-    tuple.x = a.x * scalar;
-    tuple.y = a.y * scalar;
-    tuple.z = a.z * scalar;
-    tuple.w = a.w * scalar;
-
-    return tuple;
+float Tuple::multiply(Tuple first, Tuple second) {
+    return first.x * second.x + first.y * second.y + first.z * second.z + first.w * second.w;
 }
 
-Tuple Tuple::divideScalar(Tuple a, float scalar) {
-    Tuple tuple;
+Tuple Tuple::multiplyScalar(Tuple tuple, float scalar) {
+    Tuple tempTuple;
 
-    tuple.x = a.x / scalar;
-    tuple.y = a.y / scalar;
-    tuple.z = a.z / scalar;
-    tuple.w = a.w / scalar;
+    tempTuple.x = tuple.x * scalar;
+    tempTuple.y = tuple.y * scalar;
+    tempTuple.z = tuple.z * scalar;
+    tempTuple.w = tuple.w * scalar;
 
-    return tuple;
+    return tempTuple;
+}
+
+Tuple Tuple::divideScalar(Tuple tuple, float scalar) {
+    Tuple tempTuple;
+
+    tempTuple.x = tuple.x / scalar;
+    tempTuple.y = tuple.y / scalar;
+    tempTuple.z = tuple.z / scalar;
+    tempTuple.w = tuple.w / scalar;
+
+    return tempTuple;
 }
 
 float Tuple::magnitude() {
@@ -119,4 +126,10 @@ Tuple Tuple::preciseNormalize() {
     normalized.w = this->w / magnitude;
 
     return normalized;
+}
+
+Tuple Tuple::cross(Tuple other) {
+    return Tuple::vector(this->y * other.z - this->z * other.y,
+                         this->z * other.x - this->x * other.z,
+                         this->x * other.y - this->y * other.x);
 }
