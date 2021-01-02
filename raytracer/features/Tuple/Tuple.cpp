@@ -46,8 +46,15 @@ Tuple Tuple::negate(Tuple tuple) {
     return tempTuple;
 }
 
-float Tuple::multiply(Tuple first, Tuple second) {
-    return first.x * second.x + first.y * second.y + first.z * second.z + first.w * second.w;
+Tuple Tuple::multiply(Tuple first, Tuple second) {
+    Tuple tuple;
+
+    tuple.x = first.x * second.x;
+    tuple.y = first.y * second.y;
+    tuple.z = first.z * second.z;
+    tuple.w = first.w * second.w;
+
+    return tuple;
 }
 
 Tuple Tuple::multiplyScalar(Tuple tuple, float scalar) {
@@ -124,4 +131,8 @@ Tuple Tuple::cross(Tuple other) {
     return Tuple::vector(this->y * other.z - this->z * other.y,
                          this->z * other.x - this->x * other.z,
                          this->x * other.y - this->y * other.x);
+}
+
+float Tuple::dot(Tuple other) {
+    return this->x * other.x + this->y * other.y + this->z * other.z + this->w * other.w;
 }

@@ -39,6 +39,8 @@ public:
 
     Tuple cross(Tuple other);
 
+    float dot(Tuple other);
+
     Tuple operator + (const Tuple &other) {
         return add(*this, other);
     }
@@ -51,7 +53,7 @@ public:
         return multiplyScalar(*this, scalar);
     }
 
-    float operator * (const Tuple &other) {
+    Tuple operator * (const Tuple &other) {
         return multiply(*this, other);
     }
 
@@ -78,7 +80,7 @@ private:
     static Tuple subtract(Tuple first, Tuple second);
     static Tuple negate(Tuple tuple);
     static Tuple multiplyScalar(Tuple tuple, float scalar);
-    static float multiply(Tuple first, Tuple second);
+    static Tuple multiply(Tuple first, Tuple second);
     static Tuple divideScalar(Tuple tuple, float scalar);
 };
 

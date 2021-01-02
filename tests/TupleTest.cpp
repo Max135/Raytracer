@@ -127,7 +127,7 @@ TEST(TupleTests, TestDotProduct) {
     Vector vector1 = Vector(1, 2, 3);
     Vector vector2 = Vector(2, 3, 4);
 
-    ASSERT_EQ(20, vector1 * vector2);
+    ASSERT_EQ(20, vector1.dot(vector2));
 }
 
 TEST(TupleTests, TestCross) {
@@ -138,7 +138,7 @@ TEST(TupleTests, TestCross) {
     ASSERT_TRUE(Vector(1, -2, 1) == vector2.cross(vector1));
 }
 
-TEST(TupleTests, TestColor) {
+TEST(TupleTests, TestColorAssignation) {
     Color color = Color(-0.5, 0.4, 1.7);
     ASSERT_EQ(-0.5f, color.red);
     ASSERT_EQ(0.4f, color.green);
@@ -147,4 +147,31 @@ TEST(TupleTests, TestColor) {
     ASSERT_TRUE(Helper::compareFloat(color.red, 1.1));
     color.x = 0.7;
     ASSERT_TRUE(Helper::compareFloat(color.red, 0.7));
+}
+
+TEST(TupleTests, TestColorAddition) {
+    Color c1 = Color(0.9, 0.6, 0.75);
+    Color c2 = Color(0.7, 0.1, 0.25);
+
+    ASSERT_TRUE(Color(1.6, 0.7, 1.0) == c1 + c2);
+}
+
+TEST(TupleTests, TestColorSubtraction) {
+    Color c1 = Color(0.9, 0.6, 0.75);
+    Color c2 = Color(0.7, 0.1, 0.25);
+
+    ASSERT_TRUE(Color(0.2, 0.5, 0.5) == c1 - c2);
+}
+
+TEST(TupleTests, TestColorMultiplicationScalar) {
+    Color color = Color(0.2, 0.3, 0.4);
+
+    ASSERT_TRUE(Color(0.4, 0.6, 0.8) == color * 2);
+}
+
+TEST(TupleTests, TestColorMultiplicationColor) {
+    Color c1 = Color(1, 0.2, 0.4);
+    Color c2 = Color(0.9, 1, 0.1);
+
+    ASSERT_TRUE(Color(0.9, 0.2, 0.04) == (c1 * c2));
 }
