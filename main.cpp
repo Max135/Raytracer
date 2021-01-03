@@ -27,14 +27,14 @@ int main() {
     startTime = std::clock();
 
     Environment env;
-    env.gravity = Tuple::vector(0, -0.1, 0);
-    env.wind = Tuple::vector(-0.01, 0, 0);
+    env.gravity = Vector(0, -0.1, 0);
+    env.wind = Vector(-0.01, 0.01, 0);
 
     Projectile proj;
-    proj.position = Tuple::point(0, 1, 0);
-    proj.velocity = Tuple::vector(1, 1.8, 0).preciseNormalize() * 11.25;
+    proj.position = Point(0, 1, 0);
+    proj.velocity = Vector(6, 10.8, 0).preciseNormalize() * 11.25;
 
-    Canvas canvas(900, 550);
+    Canvas canvas(1000, 1000);
 
     while (proj.position.y > 0) {
         proj = tick(env, proj, &canvas);
