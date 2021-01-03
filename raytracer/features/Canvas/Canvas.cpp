@@ -18,10 +18,12 @@ Color **Canvas::initializeGrid() {
 }
 
 void Canvas::writePixel(int x, int y, Color color) {
+    if (x > this->width || y > this->height || x < 0 || y < 0) return;
     this->pixelGrid[y][x] = color;
 }
 
 Color Canvas::pixelAt(int x, int y) {
+    if (x > this->width || y > this->height || x < 0 || y < 0) return {};
     return this->pixelGrid[y][x];
 }
 

@@ -3,8 +3,11 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include <ctime>
-#include "raytracer/features/Tuple/Tuple.h"
+#include <cmath>
+#include "raytracer/features/Tuple/Tuples.h"
+#include "raytracer/features/Canvas/Canvas.h"
 
 struct Projectile {
     Tuple position, velocity;
@@ -14,42 +17,54 @@ struct Environment {
     Tuple gravity, wind;
 };
 
-Projectile tick(Environment, Projectile);
+
+Projectile tick(Environment, Projectile, Canvas*);
+void saveCanvas(Canvas);
+
 
 int main() {
     std::clock_t startTime;
-    double duration;
-
     startTime = std::clock();
 
     Environment env;
     env.gravity = Tuple::vector(0, -0.1, 0);
-    env.wind = Tuple::vector(-0.11, 0, 0);
+    env.wind = Tuple::vector(-0.01, 0, 0);
 
     Projectile proj;
     proj.position = Tuple::point(0, 1, 0);
-    proj.velocity = Tuple::vector(1, 2, 0).preciseNormalize();
+    proj.velocity = Tuple::vector(1, 1.8, 0).preciseNormalize() * 11.25;
 
-    for (int i = 0; i < 100; i++) {
-        proj = tick(env, proj);
-        std::cout << "x: " << proj.position.x << " y: " << proj.position.y << " z: " << proj.position.z << std::endl;
+    Canvas canvas(900, 550);
 
-        if (proj.position.y <= 0) break;
+    while (proj.position.y > 0) {
+        proj = tick(env, proj, &canvas);
+//        std::cout << "x: " << proj.position.x << " y: " << proj.position.y << " z: " << proj.position.z << std::endl;
     }
+
+    saveCanvas(canvas);
 
     clock_t endTime = clock();
     clock_t clockTicksTaken = endTime - startTime;
     double timeInSeconds = clockTicksTaken / (double) CLOCKS_PER_SEC;
-    std::cout << std::fixed << "Runtime: " << timeInSeconds << std::endl;
+    std::cout << std::fixed << "Runtime: " << timeInSeconds << " s." << std::endl;
 
     return 0;
 }
 
-Projectile tick(Environment env, Projectile proj) {
+Projectile tick(Environment env, Projectile proj, Canvas* canvas) {
     Projectile projectile;
 
     projectile.position = proj.position + proj.velocity;
     projectile.velocity = proj.velocity + env.gravity + env.wind;
 
+    Tuple pos = projectile.position;
+    canvas->writePixel((int)round(pos.x), canvas->height - (int)round(pos.y), Color(1, 0, 0));
+
     return projectile;
+}
+
+void saveCanvas(Canvas canvas) {
+    std::ofstream file("Canvas.ppm");
+    file << canvas.toPPM();
+    file.close();
 }
