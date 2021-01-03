@@ -20,6 +20,14 @@ public:
         pixelGrid = initializeGrid();
     }
 
+    ~Canvas() {
+        for (int i = 0; i < height; ++i) {
+            delete[] pixelGrid[i];
+        }
+        delete[] pixelGrid;
+        pixelGrid = nullptr;
+    }
+
     void writePixel(int x, int y, Color color);
 
     void fillCanvas(Color color);
