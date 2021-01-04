@@ -231,3 +231,19 @@ TEST(MatrixTests, TestMinor) {
     ASSERT_EQ(25, matrixA.submatrix(1, 0).determinant());
     ASSERT_EQ(25, matrixA.minor(1, 0));
 }
+
+TEST(MatrixTests, TestCofactor) {
+    Matrix matrixA(3, 3);
+
+    float rowA1[] = {3, 5, 0};
+    float rowA2[] = {2, -1, -7};
+    float rowA3[] = {6, -1, 5};
+    std::copy(rowA1, rowA1 + 3, matrixA[0]);
+    std::copy(rowA2, rowA2 + 3, matrixA[1]);
+    std::copy(rowA3, rowA3 + 3, matrixA[2]);
+
+    ASSERT_EQ(-12, matrixA.minor(0, 0));
+    ASSERT_EQ(-12, matrixA.cofactor(0, 0));
+    ASSERT_EQ(25, matrixA.minor(1, 0));
+    ASSERT_EQ(-25, matrixA.cofactor(1, 0));
+}

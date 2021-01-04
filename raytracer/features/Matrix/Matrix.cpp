@@ -104,3 +104,8 @@ float Matrix::minor(int row, int column) {
     return submatrix(row, column).determinant();
 }
 
+float Matrix::cofactor(int row, int column) {
+    float minor = this->minor(row, column);
+    return (row + column % 2) ? -minor : minor;
+}
+

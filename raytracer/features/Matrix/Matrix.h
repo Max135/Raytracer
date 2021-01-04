@@ -35,6 +35,8 @@ public:
 
     float minor(int row, int column);
 
+    float cofactor(int row, int column);
+
     float determinant();
 
     float *operator[](int pos) {
