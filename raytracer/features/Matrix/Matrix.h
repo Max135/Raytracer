@@ -31,6 +31,10 @@ public:
 
     Matrix transpose();
 
+    Matrix submatrix(int row, int column);
+
+    float determinant();
+
     float* operator [] (int pos) {
         return matrix[pos];
     }

@@ -47,7 +47,8 @@ Tuple Matrix::multiplyTuple(const Tuple &tuple) {
     float temp[4];
 
     for (int i = 0; i < sizeY; ++i) {
-        temp[i] = this->matrix[i][0] * tuple.x + this->matrix[i][1] * tuple.y + this->matrix[i][2] * tuple.z + this->matrix[i][3] * tuple.w;
+        temp[i] = this->matrix[i][0] * tuple.x + this->matrix[i][1] * tuple.y + this->matrix[i][2] * tuple.z +
+                  this->matrix[i][3] * tuple.w;
     }
 
     return Tuple(temp[0], temp[1], temp[2], temp[3]);
@@ -68,6 +69,31 @@ Matrix Matrix::transpose() {
     for (int i = 0; i < this->sizeY; ++i) {
         for (int j = 0; j < this->sizeX; ++j) {
             result[j][i] = this->matrix[i][j];
+        }
+    }
+
+    return result;
+}
+
+float Matrix::determinant() {
+    return this->matrix[0][0] * this->matrix[1][1] - this->matrix[0][1] * this->matrix[1][0];
+}
+
+Matrix Matrix::submatrix(int row, int column) {
+    Matrix result(this->sizeX - 1, this->sizeY - 1);
+
+    int yPos = 0;
+
+    for (int i = 0; i < this->sizeY; ++i) {
+        if (i != row) {
+            int xPos = 0;
+            for (int j = 0; j < this->sizeX; ++j) {
+                if (j != column) {
+                    result[yPos][xPos] = this->matrix[i][j];
+                    xPos++;
+                }
+            }
+            yPos++;
         }
     }
 

@@ -7,6 +7,7 @@
 
 void initMatricesMultiplications(Matrix&, Matrix&, Matrix&);
 void initMatricesTransposition(Matrix&, Matrix&);
+void initSubmatrices(Matrix&, Matrix&, Matrix&, Matrix&);
 
 TEST(MatrixTests, TestReadWrite) {
     Matrix matrix(4, 4);
@@ -161,4 +162,56 @@ void initMatricesTransposition(Matrix& matrixA, Matrix& matrixB) {
     std::copy(rowB2, rowB2 + 4, matrixB[1]);
     std::copy(rowB3, rowB3 + 4, matrixB[2]);
     std::copy(rowB4, rowB4 + 4, matrixB[3]);
+}
+
+TEST(MatrixTests, TestDeterminant) {
+    Matrix matrix(2, 2);
+    matrix[0][0] = 1;
+    matrix[0][1] = 5;
+    matrix[1][0] = -3;
+    matrix[1][1] = 2;
+
+    ASSERT_EQ(17, matrix.determinant());
+}
+
+TEST(MatrixTests, TestSubmatrices) {
+    Matrix matrixA(3, 3);
+    Matrix resultA(2, 2);
+    Matrix matrixB(4, 4);
+    Matrix resultB(3, 3);
+
+    initSubmatrices(matrixA, resultA, matrixB, resultB);
+
+    ASSERT_TRUE(resultA == matrixA.submatrix(0, 2));
+    ASSERT_TRUE(resultB == matrixB.submatrix(2, 1));
+}
+
+void initSubmatrices(Matrix& matrixA, Matrix& resultA, Matrix& matrixB, Matrix& resultB) {
+    float rowA1[] = {1, 5, 0};
+    float rowA2[] = {-3, 2, 7};
+    float rowA3[] = {0, 6, -3};
+    std::copy(rowA1, rowA1 + 3, matrixA[0]);
+    std::copy(rowA2, rowA2 + 3, matrixA[1]);
+    std::copy(rowA3, rowA3 + 3, matrixA[2]);
+    
+    float rowRA1[] = {-3, 2};
+    float rowRA2[] = {0, 6};
+    std::copy(rowRA1, rowRA1 + 2, resultA[0]);
+    std::copy(rowRA2, rowRA2 + 2, resultA[1]);
+
+    float rowB1[] = {-6, 1, 1, 6};
+    float rowB2[] = {-8, 5, 8, 6};
+    float rowB3[] = {-1, 0, 8, 2};
+    float rowB4[] = {-7, 1, -1, 1};
+    std::copy(rowB1, rowB1 + 4, matrixB[0]);
+    std::copy(rowB2, rowB2 + 4, matrixB[1]);
+    std::copy(rowB3, rowB3 + 4, matrixB[2]);
+    std::copy(rowB4, rowB4 + 4, matrixB[3]);
+
+    float rowRB1[] = {-6, 1, 6};
+    float rowRB2[] = {-8, 8, 6};
+    float rowRB3[] = {-7, -1, 1};
+    std::copy(rowRB1, rowRB1 + 3, resultB[0]);
+    std::copy(rowRB2, rowRB2 + 3, resultB[1]);
+    std::copy(rowRB3, rowRB3 + 3, resultB[2]);
 }
