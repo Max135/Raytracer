@@ -2,6 +2,7 @@
 // Created by Max on 2021-01-03.
 //
 
+#include "../raytracer/features/Helper.h"
 #include "../raytracer/features/Matrix/Matrix.h"
 #include "gtest/gtest.h"
 
@@ -14,6 +15,8 @@ void initSubmatrices(Matrix &, Matrix &, Matrix &, Matrix &);
 void initMatricesLargeDeterminant(Matrix &, Matrix &);
 
 void initMatricesInvertibility(Matrix &, Matrix &);
+
+void initMatricesInverse(Matrix &, Matrix &);
 
 TEST(MatrixTests, TestReadWrite) {
     Matrix matrix(4, 4);
@@ -315,6 +318,42 @@ void initMatricesInvertibility(Matrix& matrixA, Matrix& matrixB) {
     float rowB2[] = {9, 6, 2, 6};
     float rowB3[] = {0, -5, 1, -5};
     float rowB4[] = {0, 0, 0, 0};
+    std::copy(rowB1, rowB1 + 4, matrixB[0]);
+    std::copy(rowB2, rowB2 + 4, matrixB[1]);
+    std::copy(rowB3, rowB3 + 4, matrixB[2]);
+    std::copy(rowB4, rowB4 + 4, matrixB[3]);
+}
+
+TEST(MatrixTests, TestMatrixInversion) {
+    Matrix matrixA(4, 4);
+    Matrix result(4, 4);
+
+    initMatricesInverse(matrixA, result);
+
+    Matrix inverse = matrixA.inverse();
+
+    ASSERT_EQ(532, matrixA.determinant());
+    ASSERT_EQ(-160, matrixA.cofactor(2, 3));
+    ASSERT_TRUE(Helper::compareFloat((-160 / 532.0), inverse[3][2])) << "actual value: " << inverse[3][2];
+    ASSERT_EQ(105, matrixA.cofactor(3, 2));
+    ASSERT_TRUE(Helper::compareFloat((105 / 532.0), inverse[2][3]));
+    ASSERT_TRUE(inverse == result);
+}
+
+void initMatricesInverse(Matrix& matrixA, Matrix& matrixB) {
+    float rowA1[] = {-5, 2, 6, -8};
+    float rowA2[] = {1, -5, 1, 8};
+    float rowA3[] = {7, 7, -6, -7};
+    float rowA4[] = {1, -3, 7, 4};
+    std::copy(rowA1, rowA1 + 4, matrixA[0]);
+    std::copy(rowA2, rowA2 + 4, matrixA[1]);
+    std::copy(rowA3, rowA3 + 4, matrixA[2]);
+    std::copy(rowA4, rowA4 + 4, matrixA[3]);
+
+    float rowB1[] = {0.21805, 0.45113, 0.24060, -0.04511};
+    float rowB2[] = {-0.80827, -1.45677, -0.44361,  0.52068};
+    float rowB3[] = {-0.07895, -0.22368, -0.05263,  0.19737};
+    float rowB4[] = {-0.52256, -0.81391, -0.30075,  0.30639};
     std::copy(rowB1, rowB1 + 4, matrixB[0]);
     std::copy(rowB2, rowB2 + 4, matrixB[1]);
     std::copy(rowB3, rowB3 + 4, matrixB[2]);

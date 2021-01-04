@@ -23,6 +23,7 @@ bool Matrix::compareMatrix(const Matrix &other) {
     for (int i = 0; i < this->sizeY; ++i) {
         for (int j = 0; j < this->sizeX; ++j) {
             if (!Helper::compareFloat(this->matrix[i][j], other.matrix[i][j])) {
+//                std::cout << "failed at i: " << i << " j: " << j << "   ->   computed: " << std::to_string(this->matrix[i][j]) << " == manual: " << std::to_string(other.matrix[i][j]) << std::endl;
                 return false;
             }
         }
@@ -104,7 +105,6 @@ Matrix Matrix::submatrix(int row, int column) {
             yPos++;
         }
     }
-
     return result;
 }
 
@@ -114,10 +114,23 @@ float Matrix::minor(int row, int column) {
 
 float Matrix::cofactor(int row, int column) {
     float minor = this->minor(row, column);
-    return (row + column % 2) ? -minor : minor;
+    return ((row + column) % 2) ? -minor : minor;
 }
 
 bool Matrix::isInvertible() {
     return determinant() != 0;
+}
+
+Matrix Matrix::inverse() {
+    Matrix inverse(this->sizeY, this->sizeX);
+
+    float determinant = this->determinant();
+    for (int i = 0; i < this->sizeY; ++i) {
+        for (int j = 0; j < this->sizeX; ++j) {
+            inverse[j][i] = this->cofactor(i, j) / determinant;
+        }
+    }
+
+    return inverse;
 }
 

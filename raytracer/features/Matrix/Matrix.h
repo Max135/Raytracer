@@ -33,6 +33,8 @@ public:
 
     Matrix submatrix(int row, int column);
 
+    Matrix inverse();
+
     float minor(int row, int column);
 
     float cofactor(int row, int column);
