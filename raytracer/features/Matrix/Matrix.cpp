@@ -100,3 +100,7 @@ Matrix Matrix::submatrix(int row, int column) {
     return result;
 }
 
+float Matrix::minor(int row, int column) {
+    return submatrix(row, column).determinant();
+}
+

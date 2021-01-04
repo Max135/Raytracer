@@ -33,6 +33,8 @@ public:
 
     Matrix submatrix(int row, int column);
 
+    float minor(int row, int column);
+
     float determinant();
 
     float *operator[](int pos) {

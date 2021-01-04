@@ -217,3 +217,17 @@ void initSubmatrices(Matrix &matrixA, Matrix &resultA, Matrix &matrixB, Matrix &
     std::copy(rowRB2, rowRB2 + 3, resultB[1]);
     std::copy(rowRB3, rowRB3 + 3, resultB[2]);
 }
+
+TEST(MatrixTests, TestMinor) {
+    Matrix matrixA(3, 3);
+
+    float rowA1[] = {3, 5, 0};
+    float rowA2[] = {2, -1, -7};
+    float rowA3[] = {6, -1, 5};
+    std::copy(rowA1, rowA1 + 3, matrixA[0]);
+    std::copy(rowA2, rowA2 + 3, matrixA[1]);
+    std::copy(rowA3, rowA3 + 3, matrixA[2]);
+
+    ASSERT_EQ(25, matrixA.submatrix(1, 0).determinant());
+    ASSERT_EQ(25, matrixA.minor(1, 0));
+}
