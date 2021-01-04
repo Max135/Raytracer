@@ -5,6 +5,8 @@
 #include "../raytracer/features/Matrix/Matrix.h"
 #include "gtest/gtest.h"
 
+void initMatricesMultiplications(Matrix &matrixA, Matrix &matrixB, Matrix &matrixC);
+
 TEST(MatrixTests, TestReadWrite) {
     Matrix matrix(4, 4);
 
@@ -55,4 +57,77 @@ TEST(MatrixTests, TestEquality) {
     matrixB[0][0] = -1;
 
     ASSERT_FALSE(matrixA == matrixB);
+}
+
+TEST(MatrixTests, TestMultipliation) {
+    Matrix matrixA(4, 4);
+    Matrix matrixB(4, 4);
+    Matrix matrixResult(4, 4);
+
+    initMatricesMultiplications(matrixA, matrixB, matrixResult);
+
+    ASSERT_TRUE(matrixResult == matrixA * matrixB);
+}
+
+void initMatricesMultiplications(Matrix& matrixA, Matrix& matrixB, Matrix& matrixC) {
+    float rowA1[] = {1, 2, 3, 4};
+    float rowA2[] = {5, 6, 7, 8};
+    float rowA3[] = {9, 8, 7, 6};
+    float rowA4[] = {5, 4, 3, 2};
+    std::copy(rowA1, rowA1 + 4, matrixA[0]);
+    std::copy(rowA2, rowA2 + 4, matrixA[1]);
+    std::copy(rowA3, rowA3 + 4, matrixA[2]);
+    std::copy(rowA4, rowA4 + 4, matrixA[3]);
+
+    float rowB1[] = {-2, 1, 2, 3};
+    float rowB2[] = {3, 2, 1, -1};
+    float rowB3[] = {4, 3, 6, 5};
+    float rowB4[] = {1, 2, 7, 8};
+    std::copy(rowB1, rowB1 + 4, matrixB[0]);
+    std::copy(rowB2, rowB2 + 4, matrixB[1]);
+    std::copy(rowB3, rowB3 + 4, matrixB[2]);
+    std::copy(rowB4, rowB4 + 4, matrixB[3]);
+
+    float rowC1[] = {20, 22, 50, 48};
+    float rowC2[] = {44, 54, 114, 108};
+    float rowC3[] = {40, 58, 110, 102};
+    float rowC4[] = {16, 26, 46, 42};
+    std::copy(rowC1, rowC1 + 4, matrixC[0]);
+    std::copy(rowC2, rowC2 + 4, matrixC[1]);
+    std::copy(rowC3, rowC3 + 4, matrixC[2]);
+    std::copy(rowC4, rowC4 + 4, matrixC[3]);
+}
+
+TEST(MatrixTests, TestTupleMultiplication) {
+    Tuple tuple(1, 2, 3, 1);
+    Matrix matrix(4, 4);
+
+    float rowA1[] = {1, 2, 3, 4};
+    float rowA2[] = {2, 4, 4, 2};
+    float rowA3[] = {8, 6, 4, 1};
+    float rowA4[] = {0, 0, 0, 1};
+    std::copy(rowA1, rowA1 + 4, matrix[0]);
+    std::copy(rowA2, rowA2 + 4, matrix[1]);
+    std::copy(rowA3, rowA3 + 4, matrix[2]);
+    std::copy(rowA4, rowA4 + 4, matrix[3]);
+    
+    ASSERT_TRUE(Tuple(18, 24, 33, 1) == matrix * tuple);
+}
+
+TEST(MatrixTests, TestIdentityMatrix) {
+    Matrix matrix(4, 4);
+    Tuple tuple(1, 2, 3, 4);
+    Matrix identity = Matrix::identityMatrix();
+
+    float rowA1[] = {0, 1, 2, 4};
+    float rowA2[] = {1, 2, 4, 8};
+    float rowA3[] = {2, 4, 8, 16};
+    float rowA4[] = {4, 8, 16, 32};
+    std::copy(rowA1, rowA1 + 4, matrix[0]);
+    std::copy(rowA2, rowA2 + 4, matrix[1]);
+    std::copy(rowA3, rowA3 + 4, matrix[2]);
+    std::copy(rowA4, rowA4 + 4, matrix[3]);
+
+    ASSERT_TRUE(matrix == matrix * identity);
+    ASSERT_TRUE(tuple == identity * tuple);
 }
