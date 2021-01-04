@@ -5,7 +5,8 @@
 #include "../raytracer/features/Matrix/Matrix.h"
 #include "gtest/gtest.h"
 
-void initMatricesMultiplications(Matrix &matrixA, Matrix &matrixB, Matrix &matrixC);
+void initMatricesMultiplications(Matrix&, Matrix&, Matrix&);
+void initMatricesTransposition(Matrix&, Matrix&);
 
 TEST(MatrixTests, TestReadWrite) {
     Matrix matrix(4, 4);
@@ -130,4 +131,34 @@ TEST(MatrixTests, TestIdentityMatrix) {
 
     ASSERT_TRUE(matrix == matrix * identity);
     ASSERT_TRUE(tuple == identity * tuple);
+}
+
+TEST(MatrixTests, TestTransposition) {
+    Matrix matrixA(4, 4);
+    Matrix result(4, 4);
+
+    initMatricesTransposition(matrixA, result);
+
+    ASSERT_TRUE(matrixA.transpose() == result);
+    ASSERT_TRUE(Matrix::identityMatrix() == Matrix::identityMatrix().transpose());
+}
+
+void initMatricesTransposition(Matrix& matrixA, Matrix& matrixB) {
+    float rowA1[] = {0, 9, 3, 0};
+    float rowA2[] = {9, 8, 0, 8};
+    float rowA3[] = {1, 8, 5, 3};
+    float rowA4[] = {0, 0, 5, 8};
+    std::copy(rowA1, rowA1 + 4, matrixA[0]);
+    std::copy(rowA2, rowA2 + 4, matrixA[1]);
+    std::copy(rowA3, rowA3 + 4, matrixA[2]);
+    std::copy(rowA4, rowA4 + 4, matrixA[3]);
+
+    float rowB1[] = {0, 9, 1, 0};
+    float rowB2[] = {9, 8, 8, 0};
+    float rowB3[] = {3, 0, 5, 5};
+    float rowB4[] = {0, 8, 3, 8};
+    std::copy(rowB1, rowB1 + 4, matrixB[0]);
+    std::copy(rowB2, rowB2 + 4, matrixB[1]);
+    std::copy(rowB3, rowB3 + 4, matrixB[2]);
+    std::copy(rowB4, rowB4 + 4, matrixB[3]);
 }

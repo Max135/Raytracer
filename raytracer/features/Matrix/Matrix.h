@@ -29,6 +29,8 @@ public:
 
     static Matrix identityMatrix(int size = 4);
 
+    Matrix transpose();
+
     float* operator [] (int pos) {
         return matrix[pos];
     }

@@ -62,3 +62,15 @@ Matrix Matrix::identityMatrix(int size) {
     return matrix;
 }
 
+Matrix Matrix::transpose() {
+    Matrix result(this->sizeY, this->sizeX);
+
+    for (int i = 0; i < this->sizeY; ++i) {
+        for (int j = 0; j < this->sizeX; ++j) {
+            result[j][i] = this->matrix[i][j];
+        }
+    }
+
+    return result;
+}
+
