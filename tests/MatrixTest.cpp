@@ -11,6 +11,8 @@ void initMatricesTransposition(Matrix &, Matrix &);
 
 void initSubmatrices(Matrix &, Matrix &, Matrix &, Matrix &);
 
+void initLargeDeterminant(Matrix &, Matrix &);
+
 TEST(MatrixTests, TestReadWrite) {
     Matrix matrix(4, 4);
 
@@ -246,4 +248,40 @@ TEST(MatrixTests, TestCofactor) {
     ASSERT_EQ(-12, matrixA.cofactor(0, 0));
     ASSERT_EQ(25, matrixA.minor(1, 0));
     ASSERT_EQ(-25, matrixA.cofactor(1, 0));
+}
+
+TEST(MatrixTests, TestLargeDeterminant) {
+    Matrix matrixA(3, 3);
+    Matrix matrixB(4, 4);
+
+    initLargeDeterminant(matrixA, matrixB);
+
+    ASSERT_EQ(56, matrixA.cofactor(0, 0));
+    ASSERT_EQ(12, matrixA.cofactor(0, 1));
+    ASSERT_EQ(-46, matrixA.cofactor(0, 2));
+    ASSERT_EQ(-196, matrixA.determinant());
+
+    ASSERT_EQ(690, matrixB.cofactor(0, 0));
+    ASSERT_EQ(447, matrixB.cofactor(0, 1));
+    ASSERT_EQ(210, matrixB.cofactor(0, 2));
+    ASSERT_EQ(51, matrixB.cofactor(0, 3));
+    ASSERT_EQ(-4071, matrixB.determinant());
+}
+
+void initLargeDeterminant(Matrix& matrixA, Matrix& matrixB) {
+    float rowA1[] = {1, 2, 6};
+    float rowA2[] = {-5, 8, -4};
+    float rowA3[] = {2, 6, 4};
+    std::copy(rowA1, rowA1 + 3, matrixA[0]);
+    std::copy(rowA2, rowA2 + 3, matrixA[1]);
+    std::copy(rowA3, rowA3 + 3, matrixA[2]);
+
+    float rowB1[] = {-2, -8, 3, 5};
+    float rowB2[] = {-3, 1, 7, 3};
+    float rowB3[] = {1, 2, -9, 6};
+    float rowB4[] = {-6, 7, 7, -9};
+    std::copy(rowB1, rowB1 + 4, matrixB[0]);
+    std::copy(rowB2, rowB2 + 4, matrixB[1]);
+    std::copy(rowB3, rowB3 + 4, matrixB[2]);
+    std::copy(rowB4, rowB4 + 4, matrixB[3]);
 }

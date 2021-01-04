@@ -76,7 +76,15 @@ Matrix Matrix::transpose() {
 }
 
 float Matrix::determinant() {
-    return this->matrix[0][0] * this->matrix[1][1] - this->matrix[0][1] * this->matrix[1][0];
+    if (this->sizeX <= 2 && this->sizeY <= 2) {
+        return this->matrix[0][0] * this->matrix[1][1] - this->matrix[0][1] * this->matrix[1][0];
+    } else {
+        float determinant = 0;
+        for (int i = 0; i < this->sizeX; ++i) {
+            determinant += cofactor(0, i) * this->matrix[0][i]; //Holy fuck that's an impressive recursion loop
+        }
+        return determinant;
+    }
 }
 
 Matrix Matrix::submatrix(int row, int column) {
