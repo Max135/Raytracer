@@ -18,6 +18,10 @@ void initMatricesInvertibility(Matrix &, Matrix &);
 
 void initMatricesInverse(Matrix &, Matrix &);
 
+void initMatricesInversion(Matrix &, Matrix &, Matrix &, Matrix &);
+
+void initCancelMultiply(Matrix &, Matrix &);
+
 TEST(MatrixTests, TestReadWrite) {
     Matrix matrix(4, 4);
 
@@ -324,7 +328,7 @@ void initMatricesInvertibility(Matrix& matrixA, Matrix& matrixB) {
     std::copy(rowB4, rowB4 + 4, matrixB[3]);
 }
 
-TEST(MatrixTests, TestMatrixInversion) {
+TEST(MatrixTests, TestMatrixInverse) {
     Matrix matrixA(4, 4);
     Matrix result(4, 4);
 
@@ -354,6 +358,87 @@ void initMatricesInverse(Matrix& matrixA, Matrix& matrixB) {
     float rowB2[] = {-0.80827, -1.45677, -0.44361,  0.52068};
     float rowB3[] = {-0.07895, -0.22368, -0.05263,  0.19737};
     float rowB4[] = {-0.52256, -0.81391, -0.30075,  0.30639};
+    std::copy(rowB1, rowB1 + 4, matrixB[0]);
+    std::copy(rowB2, rowB2 + 4, matrixB[1]);
+    std::copy(rowB3, rowB3 + 4, matrixB[2]);
+    std::copy(rowB4, rowB4 + 4, matrixB[3]);
+}
+
+TEST(MatrixTests, TestMatrixInversion) {
+    Matrix matrixA(4, 4);
+    Matrix inverseA(4, 4);
+    Matrix matrixB(4, 4);
+    Matrix inverseB(4, 4);
+
+    initMatricesInversion(matrixA, inverseA, matrixB, inverseB);
+
+    ASSERT_TRUE(matrixA.inverse() == inverseA);
+    ASSERT_TRUE(matrixB.inverse() == inverseB);
+}
+
+void initMatricesInversion(Matrix& matrixA, Matrix& resultA, Matrix& matrixB, Matrix& resultB) {
+    float rowA1[] = {8, -5, 9, 2};
+    float rowA2[] = {7, 5, 6, 1};
+    float rowA3[] = {-6, 0, 9, 6};
+    float rowA4[] = {-3, 0, -9, -4};
+    std::copy(rowA1, rowA1 + 4, matrixA[0]);
+    std::copy(rowA2, rowA2 + 4, matrixA[1]);
+    std::copy(rowA3, rowA3 + 4, matrixA[2]);
+    std::copy(rowA4, rowA4 + 4, matrixA[3]);
+
+    float rowRA1[] = {-0.15385, -0.15385, -0.28205, -0.53846};
+    float rowRA2[] = {-0.07692,  0.12308,  0.02564,  0.03077};
+    float rowRA3[] = {0.35897,  0.35897,  0.43590,  0.92308};
+    float rowRA4[] = {-0.69231, -0.69231, -0.76923, -1.92308};
+    std::copy(rowRA1, rowRA1 + 4, resultA[0]);
+    std::copy(rowRA2, rowRA2 + 4, resultA[1]);
+    std::copy(rowRA3, rowRA3 + 4, resultA[2]);
+    std::copy(rowRA4, rowRA4 + 4, resultA[3]);
+
+    float rowB1[] = {9, 3, 0, 9};
+    float rowB2[] = {-5, -2, -6, -3};
+    float rowB3[] = {-4, 9, 6, 4};
+    float rowB4[] = {-7, 6, 6, 2};
+    std::copy(rowB1, rowB1 + 4, matrixB[0]);
+    std::copy(rowB2, rowB2 + 4, matrixB[1]);
+    std::copy(rowB3, rowB3 + 4, matrixB[2]);
+    std::copy(rowB4, rowB4 + 4, matrixB[3]);
+
+    float rowRB1[] = {-0.04074, -0.07778,  0.14444, -0.22222};
+    float rowRB2[] = {-0.07778,  0.03333,  0.36667, -0.33333};
+    float rowRB3[] = {-0.02901, -0.14630, -0.10926,  0.12963};
+    float rowRB4[] = {0.17778,  0.06667, -0.26667,  0.33333};
+    std::copy(rowRB1, rowRB1 + 4, resultB[0]);
+    std::copy(rowRB2, rowRB2 + 4, resultB[1]);
+    std::copy(rowRB3, rowRB3 + 4, resultB[2]);
+    std::copy(rowRB4, rowRB4 + 4, resultB[3]);
+}
+
+TEST(MatrixTests, TestCancelMultiply) {
+    Matrix matrixA(4, 4);
+    Matrix matrixB(4, 4);
+
+    initCancelMultiply(matrixA, matrixB);
+
+    Matrix matrixC = matrixA * matrixB;
+
+    ASSERT_TRUE(matrixC * matrixB.inverse() == matrixA);
+}
+
+void initCancelMultiply(Matrix& matrixA, Matrix& matrixB) {
+    float rowA1[] = {3, -9, 7, 3};
+    float rowA2[] = {3, -8, 2, -9};
+    float rowA3[] = {-4, 4, 4, 1};
+    float rowA4[] = {-6, 5, -1, 1};
+    std::copy(rowA1, rowA1 + 4, matrixA[0]);
+    std::copy(rowA2, rowA2 + 4, matrixA[1]);
+    std::copy(rowA3, rowA3 + 4, matrixA[2]);
+    std::copy(rowA4, rowA4 + 4, matrixA[3]);
+
+    float rowB1[] = {8, 2, 2, 2};
+    float rowB2[] = {3, -1, 7, 0};
+    float rowB3[] = {7, 0, 5, 4};
+    float rowB4[] = {6, -2, 0, 5};
     std::copy(rowB1, rowB1 + 4, matrixB[0]);
     std::copy(rowB2, rowB2 + 4, matrixB[1]);
     std::copy(rowB3, rowB3 + 4, matrixB[2]);
