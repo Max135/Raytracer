@@ -5,9 +5,11 @@
 #include "../raytracer/features/Matrix/Matrix.h"
 #include "gtest/gtest.h"
 
-void initMatricesMultiplications(Matrix&, Matrix&, Matrix&);
-void initMatricesTransposition(Matrix&, Matrix&);
-void initSubmatrices(Matrix&, Matrix&, Matrix&, Matrix&);
+void initMatricesMultiplications(Matrix &, Matrix &, Matrix &);
+
+void initMatricesTransposition(Matrix &, Matrix &);
+
+void initSubmatrices(Matrix &, Matrix &, Matrix &, Matrix &);
 
 TEST(MatrixTests, TestReadWrite) {
     Matrix matrix(4, 4);
@@ -71,7 +73,7 @@ TEST(MatrixTests, TestMultipliation) {
     ASSERT_TRUE(matrixResult == matrixA * matrixB);
 }
 
-void initMatricesMultiplications(Matrix& matrixA, Matrix& matrixB, Matrix& matrixC) {
+void initMatricesMultiplications(Matrix &matrixA, Matrix &matrixB, Matrix &matrixC) {
     float rowA1[] = {1, 2, 3, 4};
     float rowA2[] = {5, 6, 7, 8};
     float rowA3[] = {9, 8, 7, 6};
@@ -112,7 +114,7 @@ TEST(MatrixTests, TestTupleMultiplication) {
     std::copy(rowA2, rowA2 + 4, matrix[1]);
     std::copy(rowA3, rowA3 + 4, matrix[2]);
     std::copy(rowA4, rowA4 + 4, matrix[3]);
-    
+
     ASSERT_TRUE(Tuple(18, 24, 33, 1) == matrix * tuple);
 }
 
@@ -144,7 +146,7 @@ TEST(MatrixTests, TestTransposition) {
     ASSERT_TRUE(Matrix::identityMatrix() == Matrix::identityMatrix().transpose());
 }
 
-void initMatricesTransposition(Matrix& matrixA, Matrix& matrixB) {
+void initMatricesTransposition(Matrix &matrixA, Matrix &matrixB) {
     float rowA1[] = {0, 9, 3, 0};
     float rowA2[] = {9, 8, 0, 8};
     float rowA3[] = {1, 8, 5, 3};
@@ -186,14 +188,14 @@ TEST(MatrixTests, TestSubmatrices) {
     ASSERT_TRUE(resultB == matrixB.submatrix(2, 1));
 }
 
-void initSubmatrices(Matrix& matrixA, Matrix& resultA, Matrix& matrixB, Matrix& resultB) {
+void initSubmatrices(Matrix &matrixA, Matrix &resultA, Matrix &matrixB, Matrix &resultB) {
     float rowA1[] = {1, 5, 0};
     float rowA2[] = {-3, 2, 7};
     float rowA3[] = {0, 6, -3};
     std::copy(rowA1, rowA1 + 3, matrixA[0]);
     std::copy(rowA2, rowA2 + 3, matrixA[1]);
     std::copy(rowA3, rowA3 + 3, matrixA[2]);
-    
+
     float rowRA1[] = {-3, 2};
     float rowRA2[] = {0, 6};
     std::copy(rowRA1, rowRA1 + 2, resultA[0]);

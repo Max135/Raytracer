@@ -35,31 +35,35 @@ public:
 
     float determinant();
 
-    float* operator [] (int pos) {
+    float *operator[](int pos) {
         return matrix[pos];
     }
 
-    float* operator [] (int pos) const {
+    float *operator[](int pos) const {
         return matrix[pos];
     }
 
-    Matrix operator * (const Matrix &other) {
+    Matrix operator*(const Matrix &other) {
         return multiplyMatrices(other);
     }
 
-    Tuple operator * (const Tuple &tuple) {
+    Tuple operator*(const Tuple &tuple) {
         return multiplyTuple(tuple);
     }
 
-    bool operator == (const Matrix &other) {
+    bool operator==(const Matrix &other) {
         return compareMatrix(other);
     }
 
 private:
-    float** matrix;
-    float** initializeMatrix();
+    float **matrix;
+
+    float **initializeMatrix();
+
     bool compareMatrix(const Matrix &other);
+
     Matrix multiplyMatrices(const Matrix &other);
+
     Tuple multiplyTuple(const Tuple &tuple);
 };
 

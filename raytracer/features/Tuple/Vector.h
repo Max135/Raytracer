@@ -8,7 +8,7 @@
 
 #include "Tuple.h"
 
-class Vector: public Tuple {
+class Vector : public Tuple {
 public:
     Vector(float x, float y, float z) {
         this->x = x;

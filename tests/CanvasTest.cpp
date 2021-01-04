@@ -30,11 +30,10 @@ TEST(CanvasTests, TestPPMConversion) {
     ASSERT_EQ("P3\n5 3\n255\n"
               "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
               "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n"
-              "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n"
-              , canvas.toPPM());
+              "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n", canvas.toPPM());
 }
 
-TEST(CanvasTests, TestPMMFormating) {
+TEST(CanvasTests, TestPPMFormating) {
     Canvas canvas(10, 2);
     Color color(1, 0.8, 0.6);
 
@@ -49,5 +48,5 @@ TEST(CanvasTests, TestPMMFormating) {
               "153 255 204 153 255 204 153 255 204 153 255 204 153\n",
               canvasPPM);
 
-    ASSERT_EQ('\n', canvasPPM[canvasPPM.size()-1]);
+    ASSERT_EQ('\n', canvasPPM[canvasPPM.size() - 1]);
 }

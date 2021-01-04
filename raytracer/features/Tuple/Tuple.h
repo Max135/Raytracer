@@ -41,46 +41,52 @@ public:
 
     float dot(Tuple other);
 
-    Tuple operator + (const Tuple &other) {
+    Tuple operator+(const Tuple &other) {
         return add(*this, other);
     }
 
-    Tuple operator - (const Tuple &other) {
+    Tuple operator-(const Tuple &other) {
         return subtract(*this, other);
     }
 
-    Tuple operator * (const float &scalar) {
+    Tuple operator*(const float &scalar) {
         return multiplyScalar(*this, scalar);
     }
 
-    Tuple operator * (const Tuple &other) {
+    Tuple operator*(const Tuple &other) {
         return multiply(*this, other);
     }
 
-    Tuple operator / (const float &scalar) {
+    Tuple operator/(const float &scalar) {
         return divideScalar(*this, scalar);
     }
 
-    bool operator == (const Tuple &other) {
+    bool operator==(const Tuple &other) {
         return areEqual(*this, other);
     }
 
-    bool operator != (const Tuple &other) {
+    bool operator!=(const Tuple &other) {
         return !areEqual(*this, other);
     }
 
-    Tuple operator - () {
+    Tuple operator-() {
         return negate(*this);
     }
 
 
 private:
     static bool areEqual(Tuple first, Tuple second);
+
     static Tuple add(Tuple first, Tuple second);
+
     static Tuple subtract(Tuple first, Tuple second);
+
     static Tuple negate(Tuple tuple);
+
     static Tuple multiplyScalar(Tuple tuple, float scalar);
+
     static Tuple multiply(Tuple first, Tuple second);
+
     static Tuple divideScalar(Tuple tuple, float scalar);
 };
 

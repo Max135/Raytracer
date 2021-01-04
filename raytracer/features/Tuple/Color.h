@@ -8,7 +8,7 @@
 
 #include "Tuple.h"
 
-class Color: public Tuple {
+class Color : public Tuple {
 public:
     //FML
 //    float& red = this->x;
