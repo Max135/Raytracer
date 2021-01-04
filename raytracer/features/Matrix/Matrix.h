@@ -39,6 +39,8 @@ public:
 
     float determinant();
 
+    bool isInvertible();
+
     float *operator[](int pos) {
         return matrix[pos];
     }

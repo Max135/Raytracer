@@ -117,3 +117,7 @@ float Matrix::cofactor(int row, int column) {
     return (row + column % 2) ? -minor : minor;
 }
 
+bool Matrix::isInvertible() {
+    return determinant() != 0;
+}
+

@@ -11,7 +11,9 @@ void initMatricesTransposition(Matrix &, Matrix &);
 
 void initSubmatrices(Matrix &, Matrix &, Matrix &, Matrix &);
 
-void initLargeDeterminant(Matrix &, Matrix &);
+void initMatricesLargeDeterminant(Matrix &, Matrix &);
+
+void initMatricesInvertibility(Matrix &, Matrix &);
 
 TEST(MatrixTests, TestReadWrite) {
     Matrix matrix(4, 4);
@@ -254,7 +256,7 @@ TEST(MatrixTests, TestLargeDeterminant) {
     Matrix matrixA(3, 3);
     Matrix matrixB(4, 4);
 
-    initLargeDeterminant(matrixA, matrixB);
+    initMatricesLargeDeterminant(matrixA, matrixB);
 
     ASSERT_EQ(56, matrixA.cofactor(0, 0));
     ASSERT_EQ(12, matrixA.cofactor(0, 1));
@@ -268,7 +270,7 @@ TEST(MatrixTests, TestLargeDeterminant) {
     ASSERT_EQ(-4071, matrixB.determinant());
 }
 
-void initLargeDeterminant(Matrix& matrixA, Matrix& matrixB) {
+void initMatricesLargeDeterminant(Matrix& matrixA, Matrix& matrixB) {
     float rowA1[] = {1, 2, 6};
     float rowA2[] = {-5, 8, -4};
     float rowA3[] = {2, 6, 4};
@@ -280,6 +282,39 @@ void initLargeDeterminant(Matrix& matrixA, Matrix& matrixB) {
     float rowB2[] = {-3, 1, 7, 3};
     float rowB3[] = {1, 2, -9, 6};
     float rowB4[] = {-6, 7, 7, -9};
+    std::copy(rowB1, rowB1 + 4, matrixB[0]);
+    std::copy(rowB2, rowB2 + 4, matrixB[1]);
+    std::copy(rowB3, rowB3 + 4, matrixB[2]);
+    std::copy(rowB4, rowB4 + 4, matrixB[3]);
+}
+
+TEST(MatrixTests, TestMatrixInvertibility) {
+    Matrix matrixA(4, 4);
+    Matrix matrixB(4, 4);
+
+    initMatricesInvertibility(matrixA, matrixB);
+
+    ASSERT_EQ(-2120, matrixA.determinant());
+    ASSERT_TRUE(matrixA.isInvertible());
+
+    ASSERT_EQ(0, matrixB.determinant());
+    ASSERT_FALSE(matrixB.isInvertible());
+}
+
+void initMatricesInvertibility(Matrix& matrixA, Matrix& matrixB) {
+    float rowA1[] = {6, 4, 4, 4};
+    float rowA2[] = {5, 5, 7, 6};
+    float rowA3[] = {4, -9, 3, -7};
+    float rowA4[] = {9, 1, 7, -6};
+    std::copy(rowA1, rowA1 + 4, matrixA[0]);
+    std::copy(rowA2, rowA2 + 4, matrixA[1]);
+    std::copy(rowA3, rowA3 + 4, matrixA[2]);
+    std::copy(rowA4, rowA4 + 4, matrixA[3]);
+
+    float rowB1[] = {-4, 2, -2, -3};
+    float rowB2[] = {9, 6, 2, 6};
+    float rowB3[] = {0, -5, 1, -5};
+    float rowB4[] = {0, 0, 0, 0};
     std::copy(rowB1, rowB1 + 4, matrixB[0]);
     std::copy(rowB2, rowB2 + 4, matrixB[1]);
     std::copy(rowB3, rowB3 + 4, matrixB[2]);
