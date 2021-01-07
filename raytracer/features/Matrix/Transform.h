@@ -24,10 +24,7 @@ public:
 
     static Transform zRotation(float angle);
 
-    void translate(float x, float y, float z);
-
-    void scale(float x, float y, float z);
+    static Transform shearing(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY);
 };
-
 
 #endif //RAYTRACER_TRANSFORM_H

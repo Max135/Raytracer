@@ -66,10 +66,15 @@ Transform Transform::zRotation(float angle) {
     return transform;
 }
 
-void Transform::translate(float x, float y, float z) {
+Transform Transform::shearing(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY) {
+    Transform transform;
 
-}
+    transform.matrix[0][1] = xToY;
+    transform.matrix[0][2] = xToZ;
+    transform.matrix[1][0] = yToX;
+    transform.matrix[1][2] = yToZ;
+    transform.matrix[2][0] = zToX;
+    transform.matrix[2][1] = zToY;
 
-void Transform::scale(float x, float y, float z) {
-
+    return transform;
 }

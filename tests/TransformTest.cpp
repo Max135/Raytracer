@@ -88,3 +88,24 @@ TEST(TransformTests, TestRotationZ) {
     ASSERT_TRUE(Point(-sqrt(2) / 2, sqrt(2) / 2, 0) == halfQuarter * point);
     ASSERT_TRUE(Point(-1, 0, 0) == fullQuarter * point);
 }
+
+TEST(TransformTests, TestShearing) {
+    Transform transformXY = Transform::shearing(1, 0, 0, 0, 0, 0);
+    Point point(2, 3, 4);
+    ASSERT_TRUE(Point(5, 3, 4) == transformXY * point);
+
+    Transform transformXZ = Transform::shearing(0, 1, 0, 0, 0, 0);
+    ASSERT_TRUE(Point(6, 3, 4) == transformXZ * point);
+
+    Transform transformYX = Transform::shearing(0, 0, 1, 0, 0, 0);
+    ASSERT_TRUE(Point(2, 5, 4) == transformYX * point);
+
+    Transform transformYZ = Transform::shearing(0, 0, 0, 1, 0, 0);
+    ASSERT_TRUE(Point(2, 7, 4) == transformYZ * point);
+
+    Transform transformZX = Transform::shearing(0, 0, 0, 0, 1, 0);
+    ASSERT_TRUE(Point(2, 3, 6) == transformZX * point);
+
+    Transform transformZY = Transform::shearing(0, 0, 0, 0, 0, 1);
+    ASSERT_TRUE(Point(2, 3, 7) == transformZY * point);
+}
