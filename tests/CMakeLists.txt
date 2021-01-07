@@ -6,7 +6,8 @@ set(Sources
         HelperTest.cpp
         TupleTest.cpp
         CanvasTest.cpp
-        MatrixTest.cpp)
+        MatrixTest.cpp
+        TransformTest.cpp)
 
 add_executable(${This} ${Sources})
 

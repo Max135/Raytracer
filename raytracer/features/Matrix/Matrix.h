@@ -12,12 +12,14 @@ class Matrix {
 public:
     int sizeX, sizeY;
 
-    Matrix(int x, int y) {
-        this->sizeX = x;
-        this->sizeY = y;
+    Matrix(int sizeX, int sizeY) {
+        this->sizeX = sizeX;
+        this->sizeY = sizeY;
 
         matrix = initializeMatrix();
     }
+
+    //TODO: Copy constructor, https://www.geeksforgeeks.org/copy-constructor-in-cpp/
 
     ~Matrix() {
         for (int i = 0; i < sizeY; ++i) {
@@ -63,9 +65,12 @@ public:
         return compareMatrix(other);
     }
 
-private:
+protected:
     float **matrix;
 
+    void setToIdentityMatrix();
+
+private:
     float **initializeMatrix();
 
     bool compareMatrix(const Matrix &other);

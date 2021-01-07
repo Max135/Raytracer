@@ -3,7 +3,7 @@
 //
 
 #include "../raytracer/features/Helper.h"
-#include "../raytracer/features/Matrix/Matrix.h"
+#include "../raytracer/features/Matrix/Matrices.h"
 #include "gtest/gtest.h"
 
 void initMatricesMultiplications(Matrix &, Matrix &, Matrix &);

@@ -134,3 +134,9 @@ Matrix Matrix::inverse() {
     return inverse;
 }
 
+void Matrix::setToIdentityMatrix() {
+    for (int i = 0; i < sizeX; ++i) {
+        this->matrix[i][i] = 1;
+    }
+}
+
