@@ -24,6 +24,48 @@ Transform Transform::scaling(float x, float y, float z) {
     return transform;
 }
 
+Transform Transform::xRotation(float angle) {
+    Transform transform;
+
+    float cosine = cos(angle);
+    float sine = sin(angle);
+
+    transform.matrix[1][1] = cosine;
+    transform.matrix[1][2] = -sine;
+    transform.matrix[2][1] = sine;
+    transform.matrix[2][2] = cosine;
+
+    return transform;
+}
+
+Transform Transform::yRotation(float angle) {
+    Transform transform;
+
+    float cosine = cos(angle);
+    float sine = sin(angle);
+
+    transform.matrix[0][0] = cosine;
+    transform.matrix[0][2] = sine;
+    transform.matrix[2][0] = -sine;
+    transform.matrix[2][2] = cosine;
+
+    return transform;
+}
+
+Transform Transform::zRotation(float angle) {
+    Transform transform;
+
+    float cosine = cos(angle);
+    float sine = sin(angle);
+
+    transform.matrix[0][0] = cosine;
+    transform.matrix[0][1] = -sine;
+    transform.matrix[1][0] = sine;
+    transform.matrix[1][1] = cosine;
+
+    return transform;
+}
+
 void Transform::translate(float x, float y, float z) {
 
 }

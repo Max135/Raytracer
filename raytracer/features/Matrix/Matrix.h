@@ -45,6 +45,8 @@ public:
 
     bool isInvertible();
 
+    std::string toString();
+
     float *operator[](int pos) {
         return matrix[pos];
     }

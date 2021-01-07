@@ -18,6 +18,12 @@ public:
 
     static Transform scaling(float x, float y, float z);
 
+    static Transform xRotation(float angle);
+
+    static Transform yRotation(float angle);
+
+    static Transform zRotation(float angle);
+
     void translate(float x, float y, float z);
 
     void scale(float x, float y, float z);

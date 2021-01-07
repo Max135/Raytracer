@@ -140,3 +140,18 @@ void Matrix::setToIdentityMatrix() {
     }
 }
 
+std::string Matrix::toString() {
+    std::string string = "\n";
+
+    for (int i = 0; i < sizeY; ++i) {
+        for (int j = 0; j < sizeX; ++j) {
+            string.append(" | ");
+            string.append(std::to_string(matrix[i][j]));
+        }
+        string.append("|\n");
+    }
+    string.append("\n");
+
+    return string;
+}
+

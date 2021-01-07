@@ -2,6 +2,7 @@
 // Created by Max on 2021-01-05.
 //
 
+#include <cmath>
 #include "../raytracer/features/Matrix/Matrices.h"
 #include "gtest/gtest.h"
 
@@ -45,4 +46,45 @@ TEST(TransformTests, TestScallingInverse) {
     Vector vector(-4 ,6, 8);
 
     ASSERT_TRUE(Vector(-2, 2, 2) == transform.inverse() * vector);
+}
+
+TEST(TransformTests, TestReflection) {
+    Transform transform = Transform::scaling(-1, 1, 1);
+    Point point(2, 3, 4);
+
+    ASSERT_TRUE(Point(-2, 3, 4) == transform * point);
+}
+
+TEST(TransformTests, TestRotationX) {
+    Point point(0, 1, 0);
+    Transform halfQuarter = Transform::xRotation(M_PI_4);
+    Transform fullQuarter = Transform::xRotation(M_PI_2);
+
+    ASSERT_TRUE(Point(0, sqrt(2) / 2, sqrt(2) / 2) == halfQuarter * point);
+    ASSERT_TRUE(Point(0, 0, 1) == fullQuarter * point);
+}
+
+TEST(TransformTests, TestInverseRotationX) {
+    Point point(0, 1, 0);
+    Transform halfQuarter = Transform::xRotation(M_PI_4);
+
+    ASSERT_TRUE(Point(0, sqrt(2) / 2, -sqrt(2) / 2) == halfQuarter.inverse() * point);
+}
+
+TEST(TransformTests, TestRotationY) {
+    Point point(0, 0, 1);
+    Transform halfQuarter = Transform::yRotation(M_PI_4);
+    Transform fullQuarter = Transform::yRotation(M_PI_2);
+
+    ASSERT_TRUE(Point(sqrt(2) / 2, 0, sqrt(2) / 2) == halfQuarter * point);
+    ASSERT_TRUE(Point(1, 0, 0) == fullQuarter * point);
+}
+
+TEST(TransformTests, TestRotationZ) {
+    Point point(0, 1, 0);
+    Transform halfQuarter = Transform::zRotation(M_PI_4);
+    Transform fullQuarter = Transform::zRotation(M_PI_2);
+
+    ASSERT_TRUE(Point(-sqrt(2) / 2, sqrt(2) / 2, 0) == halfQuarter * point);
+    ASSERT_TRUE(Point(-1, 0, 0) == fullQuarter * point);
 }
