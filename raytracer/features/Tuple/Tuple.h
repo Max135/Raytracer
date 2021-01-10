@@ -41,6 +41,8 @@ public:
 
     float dot(Tuple other);
 
+    std::string toString() const;
+
     Tuple operator+(const Tuple &other) {
         return add(*this, other);
     }

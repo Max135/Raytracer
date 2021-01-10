@@ -78,3 +78,49 @@ Transform Transform::shearing(float xToY, float xToZ, float yToX, float yToZ, fl
 
     return transform;
 }
+
+//TODO: Change function call to * operator
+Transform& Transform::translate(float x, float y, float z) {
+    return this->multiplyTransforms(Transform::translation(x, y, z));
+}
+
+Transform& Transform::scale(float x, float y, float z) {
+    return this->multiplyTransforms(Transform::scaling(x, y, z));
+}
+
+Transform& Transform::rotateX(float angle) {
+    return this->multiplyTransforms(Transform::xRotation(angle));
+}
+
+Transform& Transform::rotateY(float angle) {
+    return this->multiplyTransforms(Transform::yRotation(angle));
+}
+
+Transform& Transform::rotateZ(float angle) {
+    return this->multiplyTransforms(Transform::zRotation(angle));
+}
+
+Transform& Transform::shear(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY) {
+    return this->multiplyTransforms(Transform::shearing(xToY, xToZ, yToX, yToZ, zToX, zToY));
+}
+
+//TODO: Refactor so operation can work both on Matrix and Transform
+//TODO: Fix this shit (not efficient)
+Transform& Transform::multiplyTransforms(const Transform &other) {
+    //Bugged because it changed the matrix while calculating it
+    Transform temp;
+    for (int i = 0; i < this->sizeY; ++i) {
+        for (int j = 0; j < this->sizeX; ++j) {
+            temp[i][j] = this->matrix[i][0] * other[0][j] + this->matrix[i][1] * other[1][j] +
+                                 this->matrix[i][2] * other[2][j] + this->matrix[i][3] * other[3][j];
+        }
+    }
+
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            this->matrix[i][j] = temp[i][j];
+        }
+    }
+
+    return *this;
+}

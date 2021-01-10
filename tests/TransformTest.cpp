@@ -109,3 +109,34 @@ TEST(TransformTests, TestShearing) {
     Transform transformZY = Transform::shearing(0, 0, 0, 0, 0, 1);
     ASSERT_TRUE(Point(2, 3, 7) == transformZY * point);
 }
+
+TEST(TransformTests, TestSequence) {
+    Transform rotation = Transform::xRotation(M_PI_2);
+    Transform scale = Transform::scaling(5, 5, 5);
+    Transform translate = Transform::translation(10, 5, 7);
+
+    Point point1(1, 0, 1);
+
+    Tuple point2 = rotation * point1;
+    ASSERT_TRUE(Point(1, -1, 0) == point2);
+
+    Tuple point3 = scale * point2;
+    ASSERT_TRUE(Point(5, -5, 0) == point3);
+
+    Tuple point4 = translate * point3;
+    ASSERT_TRUE(Point(15, 0, 7) == point4);
+}
+
+TEST(TransformTests, TestChaining) {
+    Point point(1, 0, 1);
+    Transform transform1;
+    transform1.translate(10, 5, 7);
+    transform1.scale(5, 5, 5);
+    transform1.rotateX(M_PI_2);
+
+    Transform transform2;
+    transform2.translate(10, 5, 7).scale(5, 5, 5).rotateX(M_PI_2);//Have to chain in reverse order
+
+    ASSERT_TRUE(Point(15, 0, 7) == transform1 * point);
+    ASSERT_TRUE(Point(15, 0, 7) == transform2 * point);
+}

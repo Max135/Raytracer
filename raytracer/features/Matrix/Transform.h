@@ -25,6 +25,21 @@ public:
     static Transform zRotation(float angle);
 
     static Transform shearing(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY);
+
+    Transform& translate(float x, float y, float z);
+
+    Transform& scale(float x, float y, float z);
+
+    Transform& rotateX(float angle);
+
+    Transform& rotateY(float angle);
+
+    Transform& rotateZ(float angle);
+
+    Transform& shear(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY);
+
+private:
+    Transform& multiplyTransforms(const Transform &other);
 };
 
 #endif //RAYTRACER_TRANSFORM_H

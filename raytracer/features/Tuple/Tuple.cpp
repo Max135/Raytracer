@@ -142,3 +142,14 @@ Tuple Tuple::cross(Tuple other) {
 float Tuple::dot(Tuple other) {
     return this->x * other.x + this->y * other.y + this->z * other.z + this->w * other.w;
 }
+
+std::string Tuple::toString() const {
+    std::string string;
+    string.append("x: ");
+    string.append(std::to_string(x));
+    string.append(" y: ");
+    string.append(std::to_string(y));
+    string.append(" z: ");
+    string.append(std::to_string(z));
+    return string;
+}

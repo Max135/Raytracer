@@ -146,6 +146,7 @@ std::string Matrix::toString() {
     for (int i = 0; i < sizeY; ++i) {
         for (int j = 0; j < sizeX; ++j) {
             string.append(" | ");
+            string.append((matrix[i][j] > -0) ? " " : "");
             string.append(std::to_string(matrix[i][j]));
         }
         string.append("|\n");
