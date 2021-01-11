@@ -18,7 +18,9 @@ set(Headers
         raytracer/features/Canvas/Canvas.h
         raytracer/features/Matrix/Matrix.h
         raytracer/features/Matrix/Transform.h
-        raytracer/features/Tuple/Tuples.h raytracer/features/Matrix/Matrices.h)
+        raytracer/features/Tuple/Tuples.h
+        raytracer/features/Matrix/Matrices.h
+        raytracer/features/Ray/Ray.h)
 
 set(Sources
         raytracer/features/Helper.cpp
@@ -29,6 +31,7 @@ set(Sources
         raytracer/features/Canvas/Canvas.cpp
         raytracer/features/Matrix/Matrix.cpp
         raytracer/features/Matrix/Transform.cpp
+        raytracer/features/Ray/Ray.cpp
         main.cpp)
 
 add_library(${This} STATIC ${Sources} ${Headers})

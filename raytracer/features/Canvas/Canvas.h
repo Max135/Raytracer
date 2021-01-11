@@ -32,13 +32,13 @@ public:
 
     void fillCanvas(Color color);
 
+    void save();
+
     Color pixelAt(int x, int y);
 
     std::string toPPM();
 
 private:
-    //TODO: https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new
-    //3rd answer for optimisation
     Color **pixelGrid;
 
     Color **initializeGrid();

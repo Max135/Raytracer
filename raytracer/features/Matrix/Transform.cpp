@@ -80,6 +80,7 @@ Transform Transform::shearing(float xToY, float xToZ, float yToX, float yToZ, fl
 }
 
 //TODO: Change function call to * operator
+//TODO: To have normal order change this->multiply(other) to other.multiply(this)
 Transform& Transform::translate(float x, float y, float z) {
     return this->multiplyTransforms(Transform::translation(x, y, z));
 }
@@ -107,12 +108,12 @@ Transform& Transform::shear(float xToY, float xToZ, float yToX, float yToZ, floa
 //TODO: Refactor so operation can work both on Matrix and Transform
 //TODO: Fix this shit (not efficient)
 Transform& Transform::multiplyTransforms(const Transform &other) {
-    //Bugged because it changed the matrix while calculating it
+    //Bugged because it changed the matrix while calculating it 🤦
     Transform temp;
     for (int i = 0; i < this->sizeY; ++i) {
         for (int j = 0; j < this->sizeX; ++j) {
             temp[i][j] = this->matrix[i][0] * other[0][j] + this->matrix[i][1] * other[1][j] +
-                                 this->matrix[i][2] * other[2][j] + this->matrix[i][3] * other[3][j];
+                         this->matrix[i][2] * other[2][j] + this->matrix[i][3] * other[3][j];
         }
     }
 

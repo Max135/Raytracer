@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <fstream>
 #include "Canvas.h"
 
 //Took way too long to init a 2D grid...
@@ -82,4 +83,10 @@ void Canvas::fillCanvas(Color color) {
             writePixel(j, i, color);
         }
     }
+}
+
+void Canvas::save() {
+    std::ofstream file("Canvas.ppm");
+    file << this->toPPM();
+    file.close();
 }

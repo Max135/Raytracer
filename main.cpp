@@ -8,6 +8,7 @@
 #include <cmath>
 #include "raytracer/features/Tuple/Tuples.h"
 #include "raytracer/features/Canvas/Canvas.h"
+#include "raytracer/features/Matrix/Matrices.h"
 
 struct Projectile {
     Tuple position, velocity;
@@ -20,12 +21,24 @@ struct Environment {
 
 Projectile tick(Environment, Projectile, Canvas*);
 void saveCanvas(Canvas);
+void projectileTrajectory();
 
 
 int main() {
     std::clock_t startTime;
     startTime = std::clock();
 
+    projectileTrajectory();
+
+    clock_t endTime = clock();
+    clock_t clockTicksTaken = endTime - startTime;
+    double timeInSeconds = clockTicksTaken / (double) CLOCKS_PER_SEC;
+    std::cout << std::fixed << "Runtime: " << timeInSeconds << " s." << std::endl;
+
+    return 0;
+}
+
+void projectileTrajectory() {
     Environment env;
     env.gravity = Vector(0, -0.1, 0);
     env.wind = Vector(-0.01, 0.01, 0);
@@ -42,13 +55,6 @@ int main() {
     }
 
     saveCanvas(canvas);
-
-    clock_t endTime = clock();
-    clock_t clockTicksTaken = endTime - startTime;
-    double timeInSeconds = clockTicksTaken / (double) CLOCKS_PER_SEC;
-    std::cout << std::fixed << "Runtime: " << timeInSeconds << " s." << std::endl;
-
-    return 0;
 }
 
 Projectile tick(Environment env, Projectile proj, Canvas* canvas) {
