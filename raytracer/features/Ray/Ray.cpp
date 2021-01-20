@@ -8,7 +8,7 @@ Tuple Ray::position(float time) {
     return origin + direction * time;
 }
 
-std::vector<float> Ray::intersect(Sphere sphere) {
+std::vector<Intersection> Ray::intersect(Sphere sphere) {
     Tuple sphereToRay = this->origin - sphere.origin;
 
     float a = this->direction.dot(this->direction);
@@ -18,7 +18,7 @@ std::vector<float> Ray::intersect(Sphere sphere) {
     float discriminant = b * b - 4 * a * c;
 
     if(discriminant < 0)
-        return std::vector<float>();
+        return std::vector<Intersection>();
 
     float squareRoot = sqrt(discriminant);
 
@@ -26,13 +26,13 @@ std::vector<float> Ray::intersect(Sphere sphere) {
     float t2 = (-b + squareRoot) / (2 * a);
 
 
-    std::vector<float> vector;
+    std::vector<Intersection> vector;
     if(t1 > t2) {
-        vector.push_back(t2);
-        vector.push_back(t1);
+        vector.emplace_back(t2, &sphere);
+        vector.emplace_back(t1, &sphere);
     } else {
-        vector.push_back(t1);
-        vector.push_back(t2);
+        vector.emplace_back(t1, &sphere);
+        vector.emplace_back(t2, &sphere);
     }
 
     return vector;

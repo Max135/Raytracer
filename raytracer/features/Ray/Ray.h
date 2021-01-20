@@ -10,6 +10,7 @@
 #include "../Tuple/Point.h"
 #include "../Tuple/Vector.h"
 #include "../Shape/Sphere.h"
+#include "../Intersection/Intersection.h"
 
 class Ray {
 
@@ -21,7 +22,7 @@ public:
 
     Tuple position(float time);
 
-    std::vector<float> intersect(Sphere sphere);
+    std::vector<Intersection> intersect(Sphere sphere);
 };
 
 

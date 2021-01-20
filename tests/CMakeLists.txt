@@ -8,7 +8,8 @@ set(Sources
         CanvasTest.cpp
         MatrixTest.cpp
         TransformTest.cpp
-        RaySphereIntersections.cpp)
+        RaySphereIntersections.cpp
+        IntersectionTest.cpp)
 
 add_executable(${This} ${Sources})
 
