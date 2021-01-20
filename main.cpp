@@ -20,7 +20,6 @@ struct Environment {
 
 
 Projectile tick(Environment, Projectile, Canvas*);
-void saveCanvas(Canvas);
 void projectileTrajectory();
 
 
@@ -54,7 +53,7 @@ void projectileTrajectory() {
 //        std::cout << "x: " << proj.position.x << " y: " << proj.position.y << " z: " << proj.position.z << std::endl;
     }
 
-    saveCanvas(canvas);
+    canvas.save();
 }
 
 Projectile tick(Environment env, Projectile proj, Canvas* canvas) {
@@ -67,10 +66,4 @@ Projectile tick(Environment env, Projectile proj, Canvas* canvas) {
     canvas->writePixel((int)round(pos.x), canvas->height - (int)round(pos.y), Color(1, 0, 0));
 
     return projectile;
-}
-
-void saveCanvas(Canvas canvas) {
-    std::ofstream file("Canvas.ppm");
-    file << canvas.toPPM();
-    file.close();
 }

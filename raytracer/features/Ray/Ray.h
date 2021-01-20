@@ -6,8 +6,10 @@
 #define RAYTRACER_RAY_H
 
 
+#include <vector>
 #include "../Tuple/Point.h"
 #include "../Tuple/Vector.h"
+#include "../Shape/Sphere.h"
 
 class Ray {
 
@@ -18,6 +20,8 @@ public:
     Ray(Point origin, Vector direction) : origin(origin), direction(direction) {}
 
     Tuple position(float time);
+
+    std::vector<float> intersect(Sphere sphere);
 };
 
 
