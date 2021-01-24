@@ -16,6 +16,9 @@
 
 class Intersection {
 public:
+    float t;
+    Sphere *sphere;
+
     Intersection(float t, Sphere *sphere) : t(t), sphere(sphere) {}
 
     template<typename T>
@@ -27,20 +30,21 @@ public:
 
     template<typename T, typename... Ts>
     static std::vector<Intersection> intersections(T t, Ts... intersections) {
+        //Add all elements to array
         std::vector<Intersection> vector;
         recursiveIntersections<std::vector<Intersection> *, T, Ts...>(&vector, t, intersections...);
+
+        //Sort array
+        quickSortIntersections(&vector, 0, vector.size()-1);
+
         return vector;
     }
-
-    float t;
-    Sphere *sphere;
 
 private:
     template<typename Vec, typename T, typename... Ts>
     static void recursiveIntersections(Vec vector, T t, Ts... ts) {
         std::vector<Intersection> *temp = vector;
         temp->push_back(t);
-//        *vector->push_back(t);
         recursiveIntersections<std::vector<Intersection> *, Ts...>(vector, ts...);
     }
 
@@ -48,8 +52,11 @@ private:
     static void recursiveIntersections(Vec vector, T t) {
         std::vector<Intersection> *temp = vector;
         temp->push_back(t);
-//        *vector->push_back(t);
     }
+
+    static void quickSortIntersections(std::vector<Intersection> *vector, int startIndex, int endIndex);
+
+    static int partition(std::vector<Intersection> array[], int startIndex, int endIndex);
 };
 
 
