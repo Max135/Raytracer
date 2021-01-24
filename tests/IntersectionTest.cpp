@@ -21,10 +21,18 @@ TEST(IntersectionTests, TestAggregation) {
 
     Intersection i1(1, &s);
     Intersection i2(2, &s);
+    Intersection i3(3, &s);
 
-    std::vector<Intersection> xs = Intersection::intersections(i1, i2);
+    std::vector<Intersection> xs = Intersection::intersections<Intersection>(i1, i2, i3);
 
-    ASSERT_EQ(2, xs.size());
+    Intersection i4(4, &s);
+
+    std::vector<Intersection> ss = Intersection::intersections(i1, i2, i3, i4);
+
+    ASSERT_EQ(3, xs.size());
     ASSERT_EQ(1, xs[0].t);
     ASSERT_EQ(2, xs[1].t);
+    ASSERT_EQ(3, xs[2].t);
+
+    ASSERT_EQ(4, ss.size());
 }
