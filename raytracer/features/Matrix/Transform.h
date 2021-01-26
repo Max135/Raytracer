@@ -8,7 +8,7 @@
 
 #include "Matrix.h"
 
-class Transform : public Matrix{
+class Transform : public Matrix {
 public:
     Transform() : Matrix(4, 4) {
         setToIdentityMatrix();
@@ -26,20 +26,20 @@ public:
 
     static Transform shearing(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY);
 
-    Transform& translate(float x, float y, float z);
+    Transform &translate(float x, float y, float z);
 
-    Transform& scale(float x, float y, float z);
+    Transform &scale(float x, float y, float z);
 
-    Transform& rotateX(float angle);
+    Transform &rotateX(float angle);
 
-    Transform& rotateY(float angle);
+    Transform &rotateY(float angle);
 
-    Transform& rotateZ(float angle);
+    Transform &rotateZ(float angle);
 
-    Transform& shear(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY);
+    Transform &shear(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY);
 
 private:
-    Transform& multiplyTransforms(const Transform &other);
+    Transform &multiplyTransforms(const Transform &other);
 };
 
 #endif //RAYTRACER_TRANSFORM_H

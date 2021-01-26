@@ -17,7 +17,7 @@ std::vector<Intersection> Ray::intersect(Sphere sphere) {
 
     float discriminant = b * b - 4 * a * c;
 
-    if(discriminant < 0)
+    if (discriminant < 0)
         return std::vector<Intersection>();
 
     float squareRoot = sqrt(discriminant);
@@ -27,7 +27,7 @@ std::vector<Intersection> Ray::intersect(Sphere sphere) {
 
 
     std::vector<Intersection> vector;
-    if(t1 > t2) {
+    if (t1 > t2) {
         vector.emplace_back(t2, &sphere);
         vector.emplace_back(t1, &sphere);
     } else {
@@ -36,4 +36,9 @@ std::vector<Intersection> Ray::intersect(Sphere sphere) {
     }
 
     return vector;
+}
+
+Ray Ray::transform(Matrix *transform) {
+    Ray ray(*transform * this->origin, *transform * this->direction);
+    return ray;
 }

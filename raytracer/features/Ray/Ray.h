@@ -11,18 +11,23 @@
 #include "../Tuple/Vector.h"
 #include "../Shape/Sphere.h"
 #include "../Intersection/Intersection.h"
+#include "../Matrix/Matrices.h"
 
 class Ray {
 
 public:
-    Point origin;
-    Vector direction;
+    Tuple origin;
+    Tuple direction;
 
     Ray(Point origin, Vector direction) : origin(origin), direction(direction) {}
+
+    Ray(Tuple origin, Tuple direction) : origin(origin), direction(direction) {}
 
     Tuple position(float time);
 
     std::vector<Intersection> intersect(Sphere sphere);
+
+    Ray transform(Matrix *transform);
 };
 
 

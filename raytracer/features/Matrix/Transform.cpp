@@ -81,33 +81,33 @@ Transform Transform::shearing(float xToY, float xToZ, float yToX, float yToZ, fl
 
 //TODO: Change function call to * operator
 //TODO: To have normal order change this->multiply(other) to other.multiply(this)
-Transform& Transform::translate(float x, float y, float z) {
+Transform &Transform::translate(float x, float y, float z) {
     return this->multiplyTransforms(Transform::translation(x, y, z));
 }
 
-Transform& Transform::scale(float x, float y, float z) {
+Transform &Transform::scale(float x, float y, float z) {
     return this->multiplyTransforms(Transform::scaling(x, y, z));
 }
 
-Transform& Transform::rotateX(float angle) {
+Transform &Transform::rotateX(float angle) {
     return this->multiplyTransforms(Transform::xRotation(angle));
 }
 
-Transform& Transform::rotateY(float angle) {
+Transform &Transform::rotateY(float angle) {
     return this->multiplyTransforms(Transform::yRotation(angle));
 }
 
-Transform& Transform::rotateZ(float angle) {
+Transform &Transform::rotateZ(float angle) {
     return this->multiplyTransforms(Transform::zRotation(angle));
 }
 
-Transform& Transform::shear(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY) {
+Transform &Transform::shear(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY) {
     return this->multiplyTransforms(Transform::shearing(xToY, xToZ, yToX, yToZ, zToX, zToY));
 }
 
 //TODO: Refactor so operation can work both on Matrix and Transform
 //TODO: Fix this shit (not efficient)
-Transform& Transform::multiplyTransforms(const Transform &other) {
+Transform &Transform::multiplyTransforms(const Transform &other) {
     //Bugged because it changed the matrix while calculating it 🤦
     Transform temp;
     for (int i = 0; i < this->sizeY; ++i) {

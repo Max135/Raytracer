@@ -29,21 +29,21 @@ TEST(TransformTests, TestVectorMultiplication) {
 
 TEST(TransformTests, TestScallingPoint) {
     Transform transform = Transform::scaling(2, 3, 4);
-    Point point(-4 ,6, 8);
+    Point point(-4, 6, 8);
 
     ASSERT_TRUE(Point(-8, 18, 32) == transform * point);
 }
 
 TEST(TransformTests, TestScallingVector) {
     Transform transform = Transform::scaling(2, 3, 4);
-    Vector vector(-4 ,6, 8);
+    Vector vector(-4, 6, 8);
 
     ASSERT_TRUE(Vector(-8, 18, 32) == transform * vector);
 }
 
 TEST(TransformTests, TestScallingInverse) {
     Transform transform = Transform::scaling(2, 3, 4);
-    Vector vector(-4 ,6, 8);
+    Vector vector(-4, 6, 8);
 
     ASSERT_TRUE(Vector(-2, 2, 2) == transform.inverse() * vector);
 }
