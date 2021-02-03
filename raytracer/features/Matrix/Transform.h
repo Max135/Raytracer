@@ -5,7 +5,7 @@
 #ifndef RAYTRACER_TRANSFORM_H
 #define RAYTRACER_TRANSFORM_H
 
-
+#include <iostream>
 #include "Matrix.h"
 
 class Transform : public Matrix {
@@ -13,6 +13,8 @@ public:
     Transform() : Matrix(4, 4) {
         setToIdentityMatrix();
     }
+
+    Transform(const Transform &other) : Matrix(other) {}
 
     static Transform translation(float x, float y, float z);
 

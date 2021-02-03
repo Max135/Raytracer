@@ -3,6 +3,7 @@
 //
 
 #include "Ray.h"
+#include <iostream>
 
 Tuple Ray::position(float time) {
     return origin + direction * time;
@@ -46,5 +47,14 @@ std::vector<Intersection> Ray::intersection(Ray ray, Sphere *sphere) {
     }
 
     return vector;
+}
+
+std::string Ray::toString() {
+    std::string string;
+    string.append("Origin: ");
+    string.append(this->origin.toString());
+    string.append(" Direction: ");
+    string.append(this->direction.toString());
+    return string;
 }
 

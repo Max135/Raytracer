@@ -115,5 +115,5 @@ TEST(RayTests, TestIntersectionTranslatedSphere) {
 
     std::vector<Intersection> xs = r.intersect(&s);
 
-    ASSERT_EQ(2, xs.size());
+    ASSERT_EQ(0, xs.size());
 }

@@ -5,7 +5,7 @@
 #ifndef RAYTRACER_MATRIX_H
 #define RAYTRACER_MATRIX_H
 
-
+#include <iostream>
 #include "../Tuple/Tuples.h"
 
 class Matrix {
@@ -19,7 +19,13 @@ public:
         matrix = initializeMatrix();
     }
 
-    //TODO: Copy constructor, https://www.geeksforgeeks.org/copy-constructor-in-cpp/
+    //Copy constructor, https://www.geeksforgeeks.org/copy-constructor-in-cpp/
+    Matrix(const Matrix &m2) {
+        this->sizeX = m2.sizeX;
+        this->sizeY = m2.sizeY;
+
+        this->matrix = initializeMatrix(m2);
+    }
 
     ~Matrix() {
         for (int i = 0; i < sizeY; ++i) {
@@ -67,13 +73,26 @@ public:
         return compareMatrix(other);
     }
 
+    void operator = (const Matrix &other) {
+        this->sizeX = other.sizeX;
+        this->sizeY = other.sizeY;
+
+        for (int i = 0; i < this->sizeY; ++i) {
+            for (int j = 0; j < this->sizeX; ++j) {
+                this->matrix[i][j] = other.matrix[i][j];
+            }
+        }
+    }
+
 protected:
     float **matrix;
 
     void setToIdentityMatrix();
 
 private:
-    float **initializeMatrix();
+    float **initializeMatrix() const;
+
+    float **initializeMatrix(const Matrix &other) const;
 
     bool compareMatrix(const Matrix &other);
 

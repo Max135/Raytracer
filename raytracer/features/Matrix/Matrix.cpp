@@ -6,12 +6,23 @@
 #include "../Helper.h"
 #include "Matrix.h"
 
-float **Matrix::initializeMatrix() {
+float **Matrix::initializeMatrix() const {
     float **grid = new float *[this->sizeY];
     for (int i = 0; i < this->sizeY; ++i) {
         grid[i] = new float[this->sizeX];
         for (int j = 0; j < this->sizeX; ++j) {
             grid[i][j] = 0.0;
+        }
+    }
+    return grid;
+}
+
+float **Matrix::initializeMatrix(const Matrix &other) const {
+    float **grid = new float *[this->sizeY];
+    for (int i = 0; i < this->sizeY; ++i) {
+        grid[i] = new float[this->sizeX];
+        for (int j = 0; j < this->sizeX; ++j) {
+            grid[i][j] = other.matrix[i][j];
         }
     }
     return grid;

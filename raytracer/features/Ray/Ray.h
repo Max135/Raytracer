@@ -29,6 +29,8 @@ public:
 
     Ray transform(Matrix *transform);
 
+    std::string toString();
+
 private:
     std::vector<Intersection> intersection(Ray ray, Sphere *sphere);
 };
