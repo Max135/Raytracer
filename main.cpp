@@ -3,12 +3,14 @@
 //
 
 #include <iostream>
-#include <fstream>
 #include <ctime>
 #include <cmath>
 #include "raytracer/features/Tuple/Tuples.h"
 #include "raytracer/features/Canvas/Canvas.h"
 #include "raytracer/features/Matrix/Matrices.h"
+#include "raytracer/features/Ray/Ray.h"
+#include "raytracer/features/Intersection/Intersection.h"
+#include "raytracer/features/Shape/Shapes.h"
 
 struct Projectile {
     Tuple position, velocity;
@@ -21,13 +23,15 @@ struct Environment {
 
 Projectile tick(Environment, Projectile, Canvas*);
 void projectileTrajectory();
+void traceSphere();
 
 
 int main() {
     std::clock_t startTime;
     startTime = std::clock();
 
-    projectileTrajectory();
+//    projectileTrajectory();
+    traceSphere();
 
     clock_t endTime = clock();
     clock_t clockTicksTaken = endTime - startTime;
@@ -35,6 +39,34 @@ int main() {
     std::cout << std::fixed << "Runtime: " << timeInSeconds << " s." << std::endl;
 
     return 0;
+}
+
+void traceSphere() {
+    const int canvasSize = 1000;
+    const int wallSize = 7;
+    const int wallZ = 10;
+    Sphere sphere;
+    Color color(0, 0, 255);
+    Canvas canvas(canvasSize, canvasSize);
+    Point rayOrigin(0, 0, -5);
+    float pixelSize = (float)wallSize / canvasSize;
+    float half = wallSize / 2.0;
+
+    for (int y = 0; y < canvasSize - 1; ++y) {
+        float worldY = half - pixelSize * (float)y;
+        for (int x = 0; x < canvasSize - 1; ++x) {
+            float worldX = -half + pixelSize * (float)x;
+            Point position(worldX, worldY, wallZ);
+            Ray ray(rayOrigin, (position - rayOrigin).normalize());
+            std::vector<Intersection> xs = ray.intersect(&sphere);
+
+            if(!xs.empty()) {
+                canvas.writePixel(x, y, color);
+            }
+        }
+    }
+
+    canvas.save();
 }
 
 void projectileTrajectory() {
