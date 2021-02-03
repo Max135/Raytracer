@@ -3,3 +3,7 @@
 //
 
 #include "Sphere.h"
+
+void Sphere::setTransform(Transform transform) {
+    this->transform = transform;
+}

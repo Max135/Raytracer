@@ -22,7 +22,8 @@ set(Headers
         raytracer/features/Matrix/Matrices.h
         raytracer/features/Ray/Ray.h
         raytracer/features/Shape/Sphere.h
-        raytracer/features/Intersection/Intersection.h)
+        raytracer/features/Intersection/Intersection.h
+        raytracer/features/Shape/Shapes.h)
 
 set(Sources
         raytracer/features/Helper.cpp

@@ -7,14 +7,19 @@
 
 
 #include "../Tuple/Point.h"
+#include "../Matrix/Matrices.h"
 
 class Sphere {
 public:
+    Transform transform;
+
     Sphere() {}
 
     Sphere(Point origin) {
         this->origin = origin;
     }
+
+    void setTransform(Transform transform);
 
     Point origin = Point(0, 0, 0);
 };

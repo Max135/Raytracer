@@ -4,7 +4,6 @@
 
 #include "gtest/gtest.h"
 #include "../raytracer/features/Ray/Ray.h"
-#include "../raytracer/features/Matrix/Matrices.h"
 
 TEST(RayTests, TestRayCreation) {
     Point origin(1, 2, 3);
@@ -42,4 +41,79 @@ TEST(RayTests, TestScalling) {
 
     ASSERT_TRUE(ray2.origin == Point(2, 6, 12));
     ASSERT_TRUE(ray2.direction == Vector(0, 3, 0));
+}
+
+TEST(RayTests, TestRayIntersectSphere) {
+    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere sphere;
+
+    std::vector<Intersection> intersections = ray.intersect(&sphere);
+
+    ASSERT_EQ(2, intersections.size());
+    ASSERT_EQ(4.0, intersections[0].t);
+    ASSERT_EQ(6.0, intersections[1].t);
+}
+
+TEST(RayTests, TestRayIntersectSphereTangent) {
+    Ray ray(Point(0, 1, -5), Vector(0, 0, 1));
+    Sphere sphere;
+
+    std::vector<Intersection> intersections = ray.intersect(&sphere);
+
+    ASSERT_EQ(2, intersections.size());
+    ASSERT_EQ(5.0, intersections[0].t);
+    ASSERT_EQ(5.0, intersections[1].t);
+}
+
+TEST(RayTests, TestRayIntersectionMiss) {
+    Ray ray(Point(0, 2, -5), Vector(0, 0, 1));
+    Sphere sphere;
+
+    std::vector<Intersection> intersections = ray.intersect(&sphere);
+
+    ASSERT_EQ(0, intersections.size());
+}
+
+TEST(RayTests, TestRayInsideSphere) {
+    Ray ray(Point(0, 0, 0), Vector(0, 0, 1));
+    Sphere sphere;
+
+    std::vector<Intersection> intersections = ray.intersect(&sphere);
+
+    ASSERT_EQ(2, intersections.size());
+    ASSERT_EQ(-1.0, intersections[0].t);
+    ASSERT_EQ(1.0, intersections[1].t);
+}
+
+TEST(RayTests, TestRayFrontSphere) {
+    Ray ray(Point(0, 0, 5), Vector(0, 0, 1));
+    Sphere sphere;
+
+    std::vector<Intersection> intersections = ray.intersect(&sphere);
+
+    ASSERT_EQ(2, intersections.size());
+    ASSERT_EQ(-6.0, intersections[0].t);
+    ASSERT_EQ(-4.0, intersections[1].t);
+}
+
+TEST(RayTests, TestIntersectionScalledSphere) {
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere s;
+    s.setTransform(Transform::scaling(2, 2, 2));
+
+    std::vector<Intersection> xs = r.intersect(&s);
+
+    ASSERT_EQ(2, xs.size());
+    ASSERT_EQ(3, xs[0].t);
+    ASSERT_EQ(7, xs[1].t);
+}
+
+TEST(RayTests, TestIntersectionTranslatedSphere) {
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere s;
+    s.setTransform(Transform::translation(5, 0, 0));
+
+    std::vector<Intersection> xs = r.intersect(&s);
+
+    ASSERT_EQ(2, xs.size());
 }

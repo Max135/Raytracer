@@ -25,9 +25,12 @@ public:
 
     Tuple position(float time);
 
-    std::vector<Intersection> intersect(Sphere sphere);
+    std::vector<Intersection> intersect(Sphere *sphere);
 
     Ray transform(Matrix *transform);
+
+private:
+    std::vector<Intersection> intersection(Ray ray, Sphere *sphere);
 };
 
 

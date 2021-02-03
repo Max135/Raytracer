@@ -8,11 +8,21 @@ Tuple Ray::position(float time) {
     return origin + direction * time;
 }
 
-std::vector<Intersection> Ray::intersect(Sphere sphere) {
-    Tuple sphereToRay = this->origin - sphere.origin;
+std::vector<Intersection> Ray::intersect(Sphere *sphere) {
+    Matrix t = sphere->transform.inverse();
+    return intersection(this->transform(&t), sphere);
+}
 
-    float a = this->direction.dot(this->direction);
-    float b = 2 * this->direction.dot(sphereToRay);
+Ray Ray::transform(Matrix *transform) {
+    Ray ray(*transform * this->origin, *transform * this->direction);
+    return ray;
+}
+
+std::vector<Intersection> Ray::intersection(Ray ray, Sphere *sphere) {
+    Tuple sphereToRay = ray.origin - sphere->origin;
+
+    float a = ray.direction.dot(ray.direction);
+    float b = 2 * ray.direction.dot(sphereToRay);
     float c = sphereToRay.dot(sphereToRay) - 1;
 
     float discriminant = b * b - 4 * a * c;
@@ -28,17 +38,13 @@ std::vector<Intersection> Ray::intersect(Sphere sphere) {
 
     std::vector<Intersection> vector;
     if (t1 > t2) {
-        vector.emplace_back(t2, &sphere);
-        vector.emplace_back(t1, &sphere);
+        vector.emplace_back(t2, sphere);
+        vector.emplace_back(t1, sphere);
     } else {
-        vector.emplace_back(t1, &sphere);
-        vector.emplace_back(t2, &sphere);
+        vector.emplace_back(t1, sphere);
+        vector.emplace_back(t2, sphere);
     }
 
     return vector;
 }
 
-Ray Ray::transform(Matrix *transform) {
-    Ray ray(*transform * this->origin, *transform * this->direction);
-    return ray;
-}
