@@ -18,7 +18,7 @@ Color **Canvas::initializeGrid() {
     return grid;
 }
 
-void Canvas::writePixel(int x, int y, Color color) {
+void Canvas::writePixel(int x, int y, Tuple color) {
     if (x > this->width || y > this->height || x < 0 || y < 0) return;
     this->pixelGrid[y][x] = color;
 }

@@ -28,7 +28,7 @@ public:
         pixelGrid = nullptr;
     }
 
-    void writePixel(int x, int y, Color color);
+    void writePixel(int x, int y, Tuple color);
 
     void fillCanvas(Color color);
 

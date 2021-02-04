@@ -23,7 +23,7 @@ public:
                 Helper::compareFloat(this->shininess, other.shininess);
     }
 
-    Tuple lighting(Light light, Point point, Vector eye, Vector normal);
+    Tuple lighting(Light light, Tuple point, Tuple eye, Tuple normal);
 
     std::string toString();
 };

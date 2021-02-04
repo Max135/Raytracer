@@ -8,7 +8,7 @@ void Sphere::setTransform(Transform transform) {
     this->transform = transform;
 }
 
-Tuple Sphere::normalAt(Point worldPoint) {
+Tuple Sphere::normalAt(Tuple worldPoint) {
     Tuple objectPoint = this->transform.inverse() * worldPoint;
     Tuple objectNormal = objectPoint - Point(0, 0, 0);
     Tuple worldNormal = this->transform.inverse().transpose() * objectNormal;

@@ -4,7 +4,7 @@
 
 #include "Material.h"
 
-Tuple Material::lighting(Light light, Point point, Vector eye, Vector normal) {
+Tuple Material::lighting(Light light, Tuple point, Tuple eye, Tuple normal) {
     //Combine the surface color with the light's color/intensity
     Tuple effectiveColor = this->color * light.intensity;
 

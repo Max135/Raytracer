@@ -48,15 +48,21 @@ int main() {
 //http://boostorg.github.io/compute/
 
 void traceSphere() {
-    const int canvasSize = 700;
+    const int canvasSize = 300;
     const int wallSize = 7;
     const int wallZ = 10;
+
     Sphere sphere;
-    sphere.transform.shear(1, 0, 0.01, 0, 1, 0).scale(0.5, 1, 1);
+    sphere.material.color = Color(1, 0.2, 1);
+//    sphere.transform.shear(1, 0, 0.01, 0, 1, 0).scale(0.5, 1, 1);
 
     Color color(0, 0, 255);
     Canvas canvas(canvasSize, canvasSize);
+
+    Light light(Point(-10, 10, -10), Color(1, 1, 1));
+
     Point rayOrigin(0, 0, -5);
+
     float pixelSize = (float) wallSize / canvasSize;
     float half = wallSize / 2.0;
 
@@ -65,11 +71,16 @@ void traceSphere() {
         for (int x = 0; x < canvasSize - 1; ++x) {
             float worldX = -half + pixelSize * (float) x;
             Point position(worldX, worldY, wallZ);
-            Ray ray(rayOrigin, (position - rayOrigin).fastNormalize());
+            Ray ray(rayOrigin, (position - rayOrigin).normalize());
             std::vector<Intersection> xs = ray.intersect(&sphere);
 
             if (!xs.empty()) {
-                canvas.writePixel(x, y, color);
+                Intersection hit = xs[0];
+                Tuple point = ray.position(hit.t);
+                Tuple normal = hit.sphere->normalAt(point);
+                Tuple eye = -(ray.direction);
+
+                canvas.writePixel(x, y, hit.sphere->material.lighting(light, point, eye, normal));
             }
         }
     }

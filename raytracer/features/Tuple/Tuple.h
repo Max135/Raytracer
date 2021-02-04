@@ -65,7 +65,7 @@ public:
         return divideScalar(*this, scalar);
     }
 
-    Tuple &operator=(const Tuple &other) {
+    virtual Tuple &operator=(const Tuple &other) {
         if (this == &other)
             return *this;
 

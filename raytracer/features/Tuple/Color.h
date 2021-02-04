@@ -23,6 +23,15 @@ public:
 
     Color() {}
 
+    Color &operator=(const Tuple &other) {
+        this->x = other.x;
+        this->y = other.y;
+        this->z = other.z;
+        this->w = other.w;
+
+        return *this;
+    }
+
 //    static Color black() {
 //        return Color(0, 0, 0);
 //    }
