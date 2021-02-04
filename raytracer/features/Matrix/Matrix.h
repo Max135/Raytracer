@@ -73,7 +73,10 @@ public:
         return compareMatrix(other);
     }
 
-    void operator = (const Matrix &other) {
+    Matrix &operator=(const Matrix &other) {
+        if (this == &other)
+            return *this;
+
         this->sizeX = other.sizeX;
         this->sizeY = other.sizeY;
 
@@ -82,6 +85,8 @@ public:
                 this->matrix[i][j] = other.matrix[i][j];
             }
         }
+
+        return *this;
     }
 
 protected:

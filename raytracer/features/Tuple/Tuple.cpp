@@ -107,7 +107,7 @@ float Tuple::quickInverseSquareRoot(float number) {
     return y;
 }
 
-Tuple Tuple::normalize() {
+Tuple Tuple::fastNormalize() {
     Tuple normalized;
 
     float inverseSquare = quickInverseSquareRoot(this->x * this->x + this->y * this->y + this->z * this->z);
@@ -120,7 +120,7 @@ Tuple Tuple::normalize() {
     return normalized;
 }
 
-Tuple Tuple::preciseNormalize() {
+Tuple Tuple::normalize() {
     Tuple normalized;
 
     float magnitude = this->magnitude();

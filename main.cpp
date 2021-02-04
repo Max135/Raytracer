@@ -21,8 +21,10 @@ struct Environment {
 };
 
 
-Projectile tick(Environment, Projectile, Canvas*);
+Projectile tick(Environment, Projectile, Canvas *);
+
 void projectileTrajectory();
+
 void traceSphere();
 
 
@@ -41,26 +43,32 @@ int main() {
     return 0;
 }
 
+//TODO: https://stackoverflow.com/questions/16438099/high-level-gpu-programming-in-c
+//https://thrust.github.io/
+//http://boostorg.github.io/compute/
+
 void traceSphere() {
-    const int canvasSize = 1000;
+    const int canvasSize = 700;
     const int wallSize = 7;
     const int wallZ = 10;
     Sphere sphere;
+    sphere.transform.shear(1, 0, 0.01, 0, 1, 0).scale(0.5, 1, 1);
+
     Color color(0, 0, 255);
     Canvas canvas(canvasSize, canvasSize);
     Point rayOrigin(0, 0, -5);
-    float pixelSize = (float)wallSize / canvasSize;
+    float pixelSize = (float) wallSize / canvasSize;
     float half = wallSize / 2.0;
 
     for (int y = 0; y < canvasSize - 1; ++y) {
-        float worldY = half - pixelSize * (float)y;
+        float worldY = half - pixelSize * (float) y;
         for (int x = 0; x < canvasSize - 1; ++x) {
-            float worldX = -half + pixelSize * (float)x;
+            float worldX = -half + pixelSize * (float) x;
             Point position(worldX, worldY, wallZ);
-            Ray ray(rayOrigin, (position - rayOrigin).normalize());
+            Ray ray(rayOrigin, (position - rayOrigin).fastNormalize());
             std::vector<Intersection> xs = ray.intersect(&sphere);
 
-            if(!xs.empty()) {
+            if (!xs.empty()) {
                 canvas.writePixel(x, y, color);
             }
         }
@@ -76,7 +84,7 @@ void projectileTrajectory() {
 
     Projectile proj;
     proj.position = Point(0, 1, 0);
-    proj.velocity = Vector(6, 10.8, 0).preciseNormalize() * 11.25;
+    proj.velocity = Vector(6, 10.8, 0).normalize() * 11.25;
 
     Canvas canvas(1000, 1000);
 
@@ -88,14 +96,14 @@ void projectileTrajectory() {
     canvas.save();
 }
 
-Projectile tick(Environment env, Projectile proj, Canvas* canvas) {
+Projectile tick(Environment env, Projectile proj, Canvas *canvas) {
     Projectile projectile;
 
     projectile.position = proj.position + proj.velocity;
     projectile.velocity = proj.velocity + env.gravity + env.wind;
 
     Tuple pos = projectile.position;
-    canvas->writePixel((int)round(pos.x), canvas->height - (int)round(pos.y), Color(1, 0, 0));
+    canvas->writePixel((int) round(pos.x), canvas->height - (int) round(pos.y), Color(1, 0, 0));
 
     return projectile;
 }

@@ -21,9 +21,12 @@ public:
 
     Intersection(float t, Sphere *sphere) : t(t), sphere(sphere) {}
 
-    Intersection() {t = 0; sphere = nullptr;}
+    Intersection() {
+        t = 0;
+        sphere = nullptr;
+    }
 
-    bool operator == (const Intersection &other);
+    bool operator==(const Intersection &other);
 
 
     static Intersection hit(std::vector<Intersection> vector);
@@ -42,7 +45,7 @@ public:
         recursiveIntersections<std::vector<Intersection> *, T, Ts...>(&vector, t, intersections...);
 
         //Sort array
-        quickSortIntersections(&vector, 0, vector.size()-1);
+        quickSortIntersections(&vector, 0, vector.size() - 1);
 
         return vector;
     }

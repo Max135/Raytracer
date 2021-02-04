@@ -277,7 +277,7 @@ TEST(MatrixTests, TestLargeDeterminant) {
     ASSERT_EQ(-4071, matrixB.determinant());
 }
 
-void initMatricesLargeDeterminant(Matrix& matrixA, Matrix& matrixB) {
+void initMatricesLargeDeterminant(Matrix &matrixA, Matrix &matrixB) {
     float rowA1[] = {1, 2, 6};
     float rowA2[] = {-5, 8, -4};
     float rowA3[] = {2, 6, 4};
@@ -308,7 +308,7 @@ TEST(MatrixTests, TestMatrixInvertibility) {
     ASSERT_FALSE(matrixB.isInvertible());
 }
 
-void initMatricesInvertibility(Matrix& matrixA, Matrix& matrixB) {
+void initMatricesInvertibility(Matrix &matrixA, Matrix &matrixB) {
     float rowA1[] = {6, 4, 4, 4};
     float rowA2[] = {5, 5, 7, 6};
     float rowA3[] = {4, -9, 3, -7};
@@ -344,7 +344,7 @@ TEST(MatrixTests, TestMatrixInverse) {
     ASSERT_TRUE(inverse == result);
 }
 
-void initMatricesInverse(Matrix& matrixA, Matrix& matrixB) {
+void initMatricesInverse(Matrix &matrixA, Matrix &matrixB) {
     float rowA1[] = {-5, 2, 6, -8};
     float rowA2[] = {1, -5, 1, 8};
     float rowA3[] = {7, 7, -6, -7};
@@ -355,9 +355,9 @@ void initMatricesInverse(Matrix& matrixA, Matrix& matrixB) {
     std::copy(rowA4, rowA4 + 4, matrixA[3]);
 
     float rowB1[] = {0.21805, 0.45113, 0.24060, -0.04511};
-    float rowB2[] = {-0.80827, -1.45677, -0.44361,  0.52068};
-    float rowB3[] = {-0.07895, -0.22368, -0.05263,  0.19737};
-    float rowB4[] = {-0.52256, -0.81391, -0.30075,  0.30639};
+    float rowB2[] = {-0.80827, -1.45677, -0.44361, 0.52068};
+    float rowB3[] = {-0.07895, -0.22368, -0.05263, 0.19737};
+    float rowB4[] = {-0.52256, -0.81391, -0.30075, 0.30639};
     std::copy(rowB1, rowB1 + 4, matrixB[0]);
     std::copy(rowB2, rowB2 + 4, matrixB[1]);
     std::copy(rowB3, rowB3 + 4, matrixB[2]);
@@ -376,7 +376,7 @@ TEST(MatrixTests, TestMatrixInversion) {
     ASSERT_TRUE(matrixB.inverse() == inverseB);
 }
 
-void initMatricesInversion(Matrix& matrixA, Matrix& resultA, Matrix& matrixB, Matrix& resultB) {
+void initMatricesInversion(Matrix &matrixA, Matrix &resultA, Matrix &matrixB, Matrix &resultB) {
     float rowA1[] = {8, -5, 9, 2};
     float rowA2[] = {7, 5, 6, 1};
     float rowA3[] = {-6, 0, 9, 6};
@@ -387,8 +387,8 @@ void initMatricesInversion(Matrix& matrixA, Matrix& resultA, Matrix& matrixB, Ma
     std::copy(rowA4, rowA4 + 4, matrixA[3]);
 
     float rowRA1[] = {-0.15385, -0.15385, -0.28205, -0.53846};
-    float rowRA2[] = {-0.07692,  0.12308,  0.02564,  0.03077};
-    float rowRA3[] = {0.35897,  0.35897,  0.43590,  0.92308};
+    float rowRA2[] = {-0.07692, 0.12308, 0.02564, 0.03077};
+    float rowRA3[] = {0.35897, 0.35897, 0.43590, 0.92308};
     float rowRA4[] = {-0.69231, -0.69231, -0.76923, -1.92308};
     std::copy(rowRA1, rowRA1 + 4, resultA[0]);
     std::copy(rowRA2, rowRA2 + 4, resultA[1]);
@@ -404,10 +404,10 @@ void initMatricesInversion(Matrix& matrixA, Matrix& resultA, Matrix& matrixB, Ma
     std::copy(rowB3, rowB3 + 4, matrixB[2]);
     std::copy(rowB4, rowB4 + 4, matrixB[3]);
 
-    float rowRB1[] = {-0.04074, -0.07778,  0.14444, -0.22222};
-    float rowRB2[] = {-0.07778,  0.03333,  0.36667, -0.33333};
-    float rowRB3[] = {-0.02901, -0.14630, -0.10926,  0.12963};
-    float rowRB4[] = {0.17778,  0.06667, -0.26667,  0.33333};
+    float rowRB1[] = {-0.04074, -0.07778, 0.14444, -0.22222};
+    float rowRB2[] = {-0.07778, 0.03333, 0.36667, -0.33333};
+    float rowRB3[] = {-0.02901, -0.14630, -0.10926, 0.12963};
+    float rowRB4[] = {0.17778, 0.06667, -0.26667, 0.33333};
     std::copy(rowRB1, rowRB1 + 4, resultB[0]);
     std::copy(rowRB2, rowRB2 + 4, resultB[1]);
     std::copy(rowRB3, rowRB3 + 4, resultB[2]);
@@ -425,7 +425,7 @@ TEST(MatrixTests, TestCancelMultiply) {
     ASSERT_TRUE(matrixC * matrixB.inverse() == matrixA);
 }
 
-void initCancelMultiply(Matrix& matrixA, Matrix& matrixB) {
+void initCancelMultiply(Matrix &matrixA, Matrix &matrixB) {
     float rowA1[] = {3, -9, 7, 3};
     float rowA2[] = {3, -8, 2, -9};
     float rowA3[] = {-4, 4, 4, 1};

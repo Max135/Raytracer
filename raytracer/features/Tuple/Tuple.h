@@ -33,9 +33,9 @@ public:
 
     float quickInverseSquareRoot(float number);
 
-    Tuple normalize();
+    Tuple fastNormalize();
 
-    Tuple preciseNormalize();
+    Tuple normalize();
 
     Tuple cross(Tuple other);
 
@@ -61,6 +61,18 @@ public:
 
     Tuple operator/(const float &scalar) {
         return divideScalar(*this, scalar);
+    }
+
+    Tuple &operator=(const Tuple &other) {
+        if (this == &other)
+            return *this;
+
+        this->x = other.x;
+        this->y = other.y;
+        this->z = other.z;
+        this->w = other.w;
+
+        return *this;
     }
 
     bool operator==(const Tuple &other) {

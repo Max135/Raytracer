@@ -21,6 +21,8 @@ public:
 
     void setTransform(Transform transform);
 
+    Tuple normalAt(Point worldPoint);
+
     Point origin = Point(0, 0, 0);
 };
 

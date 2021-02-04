@@ -35,7 +35,7 @@ TEST(RayTests, TestTranslation) {
 
 TEST(RayTests, TestScalling) {
     Ray ray(Point(1, 2, 3), Vector(0, 1, 0));
-    Transform s = Transform::scaling(2, 3 ,4);
+    Transform s = Transform::scaling(2, 3, 4);
 
     Ray ray2 = ray.transform(&s);
 

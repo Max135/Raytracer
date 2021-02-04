@@ -117,10 +117,10 @@ TEST(TupleTests, TestMagnitude) {
 
 TEST(TupleTests, TestNormalization) {
     Vector vector1 = Vector(4, 0, 0);
-    ASSERT_TRUE(Vector(1, 0, 0) == vector1.preciseNormalize());
+    ASSERT_TRUE(Vector(1, 0, 0) == vector1.normalize());
 
     Vector vector2 = Vector(1, 2, 3);
-    ASSERT_TRUE(Vector(0.26726, 0.53452, 0.80178) == vector2.preciseNormalize());
+    ASSERT_TRUE(Vector(0.26726, 0.53452, 0.80178) == vector2.normalize());
 }
 
 TEST(TupleTests, TestDotProduct) {
