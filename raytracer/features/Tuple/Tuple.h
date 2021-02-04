@@ -41,6 +41,8 @@ public:
 
     float dot(Tuple other);
 
+    Tuple reflectOff(Tuple other);
+
     std::string toString() const;
 
     Tuple operator+(const Tuple &other) {

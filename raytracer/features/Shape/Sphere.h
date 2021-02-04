@@ -8,10 +8,12 @@
 
 #include "../Tuple/Point.h"
 #include "../Matrix/Matrices.h"
+#include "../Material/Material.h"
 
 class Sphere {
 public:
     Transform transform;
+    Material material;
 
     Sphere() {}
 

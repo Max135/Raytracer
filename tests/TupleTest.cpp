@@ -178,3 +178,21 @@ TEST(TupleTests, TestColorMultiplicationColor) {
 
     ASSERT_TRUE(Color(0.9, 0.2, 0.04) == (c1 * c2));
 }
+
+TEST(TupleTests, TestReflectingVector) {
+    Vector v(1, -1, 0);
+    Vector ground(0, 1, 0);
+
+    Tuple reflection = v.reflectOff(ground);
+
+    ASSERT_TRUE(Vector(1, 1, 0) == reflection);
+}
+
+TEST(TupleTests, TestReflectingSlanted) {
+    Vector v(0, -1, 0);
+    Vector ground(sqrt(2)/2.0, sqrt(2)/2.0, 0);
+
+    Tuple reflection = v.reflectOff(ground);
+
+    ASSERT_TRUE(Vector(1, 0, 0) == reflection);
+}

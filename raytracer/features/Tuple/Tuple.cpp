@@ -153,3 +153,7 @@ std::string Tuple::toString() const {
     string.append(std::to_string(z));
     return string;
 }
+
+Tuple Tuple::reflectOff(Tuple other) {
+    return *this - other * 2 * this->dot(other);
+}

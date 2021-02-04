@@ -70,3 +70,18 @@ TEST(SphereTests, TestNormalTransformed) {
     Tuple n = s.normalAt(Point(0, sqrt(2) / 2.0, -sqrt(2) / 2.0));
     ASSERT_TRUE(Vector(0, 0.97014, -0.24254) == n);
 }
+
+TEST(SphereTests, TestDefaultMaterial) {
+    Sphere s;
+
+    ASSERT_TRUE(Material() == s.material);
+}
+
+TEST(SphereTests, TestMaterialAssignation) {
+    Sphere s;
+    Material m;
+    m.ambient = 1;
+    s.material = m;
+
+    ASSERT_TRUE(m == s.material);
+}
