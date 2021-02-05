@@ -26,38 +26,36 @@ Projectile tick(Environment, Projectile, Canvas *);
 
 void projectileTrajectory();
 
+void traceSphereThreads();
+
 void traceSphere();
 
 void writePixel(std::vector<Intersection> xs, Ray *ray, Canvas *canvas, Light *light, int x, int y);
-void calculateColisions(int canvasSize, float half, float pixelSize, float worldY, float wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y);
+void calculateColisions(int canvasSize, float half, float pixelSize, float wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y);
 
 
 int main() {
-    std::clock_t startTime;
-    startTime = std::clock();
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    start = std::chrono::system_clock::now();
 
 //    projectileTrajectory();
-    traceSphere();
+//    traceSphere();
+    traceSphereThreads();
 
-    clock_t endTime = clock();
-    clock_t clockTicksTaken = endTime - startTime;
-    double timeInSeconds = clockTicksTaken / (double) CLOCKS_PER_SEC;
-    std::cout << std::fixed << "Runtime: " << timeInSeconds << " s." << std::endl;
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << "Runtime: " << elapsed_seconds.count() << "s\n";
 
     return 0;
 }
 
-//TODO: https://stackoverflow.com/questions/16438099/high-level-gpu-programming-in-c
-//https://thrust.github.io/
-//http://boostorg.github.io/compute/
-
 void traceSphere() {
-    const int canvasSize = 5000;
+    const int canvasSize = 1000;
     const int wallSize = 7;
     const int wallZ = 10;
 
     Sphere sphere;
-    sphere.material.color = Color(0, 0, 1);
+    sphere.material.color = Color(1, 0.2, 1);
     sphere.transform.shear(1, 0, 0.01, 0, 1, 0).scale(0.5, 1, 1);
 
     Canvas canvas(canvasSize, canvasSize);
@@ -69,14 +67,62 @@ void traceSphere() {
     float pixelSize = (float) wallSize / canvasSize;
     float half = wallSize / 2.0;
 
-    for (int y = 0; y < canvasSize - 1; y+=10) {
+    for (int y = 0; y < canvasSize - 1; ++y) {
+        if (y % 100 == 0)
+            std::cout << y << std::endl;
+
+        float worldY = half - pixelSize * (float) y;
+//        calculateColisions(canvasSize, half, pixelSize, worldY, wallZ, rayOrigin, &sphere, &canvas, &light, y);
+        for (int x = 0; x < canvasSize - 1; ++x) {
+            float worldX = -half + pixelSize * (float) x;
+            Point position(worldX, worldY, wallZ);
+            Ray ray(rayOrigin, (position - rayOrigin).normalize());
+            std::vector<Intersection> xs = ray.intersect(&sphere);
+
+            if (!xs.empty()) {
+                Intersection hit = xs[0];
+                Tuple point = ray.position(hit.t);
+                Tuple normal = hit.sphere->normalAt(point);
+                Tuple eye = -(ray.direction);
+
+                canvas.writePixel(x, y, hit.sphere->material.lighting(light, point, eye, normal));
+            }
+        }
+    }
+
+    canvas.save();
+}
+
+//TODO: https://stackoverflow.com/questions/16438099/high-level-gpu-programming-in-c
+//https://thrust.github.io/
+//http://boostorg.github.io/compute/
+
+void traceSphereThreads() {
+    const int threadNb = 20;
+    const int canvasSize = 200;
+    const int wallSize = 7;
+    const int wallZ = 10;
+
+    Sphere sphere;
+    sphere.material.color = Color(0, 0, 1);
+//    sphere.transform.shear(1, 0, 0.01, 0, 1, 0).scale(0.5, 1, 1);
+
+    Canvas canvas(canvasSize, canvasSize);
+
+    Light light(Point(-10, 10, -10), Color(1, 1, 1));
+
+    Point rayOrigin(0, 0, -5);
+
+    float pixelSize = (float) wallSize / canvasSize;
+    float half = wallSize / 2.0;
+
+    for (int y = 0; y < canvasSize - 1; y+=threadNb) {
         if (y % 100 == 0)
             std::cout << y << std::endl;
 
         std::vector<std::thread> threads;
-        for (int limit = y; limit < y + 10; limit++) {
-            float worldY = half - pixelSize * (float) y;
-            std::thread thread(calculateColisions, canvasSize, half, pixelSize, worldY, wallZ, rayOrigin, &sphere,
+        for (int limit = y; limit < y + threadNb; limit++) {
+            std::thread thread(calculateColisions, canvasSize, half, pixelSize, wallZ, rayOrigin, &sphere,
                                &canvas, &light, limit);
             threads.push_back(std::move(thread));
 //          calculateColisions(canvasSize, half, pixelSize, worldY, wallZ, rayOrigin, &sphere, &canvas, &light, y);
@@ -89,7 +135,8 @@ void traceSphere() {
     canvas.save();
 }
 
-void calculateColisions(int canvasSize, float half, float pixelSize, float worldY, float wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y) {
+void calculateColisions(int canvasSize, float half, float pixelSize, float wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y) {
+    float worldY = half - pixelSize * (float) y;
     for (int x = 0; x < canvasSize - 1; ++x) {
         float worldX = -half + pixelSize * (float) x;
         Point position(worldX, worldY, wallZ);
