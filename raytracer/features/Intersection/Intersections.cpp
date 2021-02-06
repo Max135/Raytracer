@@ -16,6 +16,14 @@ void Intersections::sort() {
     Intersections::quickSortIntersections(&this->xs, 0, this->xs.size());
 }
 
+Intersection Intersections::hit() {
+    for (Intersection i : this->xs) {
+        if (i.t >= 0) return i;
+    }
+
+    return {};
+}
+
 //TODO: if vectors are often nearly sorted switch to insertion sort which is fastest in this situation
 void Intersections::quickSortIntersections(std::vector<Intersection> *vector, int startIndex, int endIndex) {
     if (endIndex <= startIndex) return;
@@ -40,4 +48,8 @@ int Intersections::partition(std::vector<Intersection> *vector, int startIndex, 
     }
     std::swap(array[i], array[endIndex]);
     return i;
+}
+
+int Intersections::size() const {
+    return this->xs.size();
 }

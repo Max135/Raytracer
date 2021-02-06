@@ -8,7 +8,7 @@
 
 #include <utility>
 #include <vector>
-#include "Intersection.h"
+#include "Junctions.h"
 
 
 ///https://stackoverflow.com/questions/1657883/variable-number-of-arguments-in-c/49435122
@@ -31,29 +31,41 @@ public:
         this->xs = intersections.xs;
     }
 
+    Intersection operator[](int pos) {
+        return this->xs[pos];
+    }
+
+    Intersection operator[](int pos) const {
+        return this->xs[pos];
+    }
+
     void append(std::vector<Intersection> intersections);
 
     void append(Intersections intersections);
 
     void sort();
 
+    int size() const;
+
+    Intersection hit();
+
     template<typename T>
-    static std::vector<Intersection> intersections(T t) {
-        std::vector<Intersection> vector;
-        vector.push_back(t);
-        return vector;
+    static Intersections intersections(T t) {
+        Intersections intersections;
+        intersections.xs.push_back(t);
+        return intersections;
     }
 
     template<typename T, typename... Ts>
-    static std::vector<Intersection> intersections(T t, Ts... intersections) {
+    static Intersections intersections(T t, Ts... intersections) {
         //Add all elements to array
-        std::vector<Intersection> vector;
-        recursiveIntersections<std::vector<Intersection> *, T, Ts...>(&vector, t, intersections...);
+        Intersections intersectionsClass;
+        recursiveIntersections<std::vector<Intersection> *, T, Ts...>(&intersectionsClass.xs, t, intersections...);
 
         //Sort array
-        quickSortIntersections(&vector, 0, vector.size() - 1);
+        quickSortIntersections(&intersectionsClass.xs, 0, intersectionsClass.xs.size() - 1);
 
-        return vector;
+        return intersectionsClass;
     }
 
 private:

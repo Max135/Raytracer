@@ -20,11 +20,7 @@ public:
         sphere = nullptr;
     }
 
-    bool operator==(const Intersection &other);
-
-
-    static Intersection hit(const std::vector<Intersection>& vector);
-
+    bool operator==(const Intersection &other) const;
 };
 
 

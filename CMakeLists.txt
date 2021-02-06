@@ -27,7 +27,7 @@ set(Headers
         raytracer/features/Light/Light.h
         raytracer/features/Material/Material.h
         raytracer/features/World/World.h
-        raytracer/features/Intersection/Intersections.h)
+        raytracer/features/Intersection/Intersections.h raytracer/features/Intersection/Junctions.h)
 
 set(Sources
         raytracer/features/Helper.cpp

@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "../raytracer/features/Shape/Sphere.h"
-#include "../raytracer/features/Intersection/Intersection.h"
+#include "../raytracer/features/Intersection/Intersections.h"
 
 TEST(IntersectionTests, TestCreation) {
     Sphere sphere;
@@ -23,11 +23,11 @@ TEST(IntersectionTests, TestAggregation) {
     Intersection i2(2, &s);
     Intersection i3(3, &s);
 
-    std::vector<Intersection> xs = Intersection::intersections<Intersection>(i1, i2, i3);
+    Intersections xs = Intersections::intersections<Intersection>(i1, i2, i3);
 
     Intersection i4(4, &s);
 
-    std::vector<Intersection> ss = Intersection::intersections(i4, i2, i1, i3);
+    Intersections ss = Intersections::intersections(i4, i2, i1, i3);
 
     ASSERT_EQ(3, xs.size());
     ASSERT_EQ(1, xs[0].t);
@@ -46,9 +46,9 @@ TEST(IntersectionTests, TestHitsPositive) {
 
     Intersection i1(1, &s);
     Intersection i2(2, &s);
-    std::vector<Intersection> xs = Intersection::intersections(i2, i1);
+    Intersections xs = Intersections::intersections(i2, i1);
 
-    Intersection i = Intersection::hit(xs);
+    Intersection i = xs.hit();
 
     ASSERT_TRUE(i == i1);
 }
@@ -58,9 +58,9 @@ TEST(IntersectionTests, TestHitsMix) {
 
     Intersection i1(-1, &s);
     Intersection i2(1, &s);
-    std::vector<Intersection> xs = Intersection::intersections(i2, i1);
+    Intersections xs = Intersections::intersections(i2, i1);
 
-    Intersection i = Intersection::hit(xs);
+    Intersection i = xs.hit();
 
     ASSERT_TRUE(i == i2);
 }
@@ -70,9 +70,9 @@ TEST(IntersectionTests, TestHitsNegative) {
 
     Intersection i1(-2, &s);
     Intersection i2(-1, &s);
-    std::vector<Intersection> xs = Intersection::intersections(i2, i1);
+    Intersections xs = Intersections::intersections(i2, i1);
 
-    Intersection i = Intersection::hit(xs);
+    Intersection i = xs.hit();
 
     ASSERT_TRUE(i == Intersection());
 }
@@ -85,9 +85,9 @@ TEST(IntersectionTests, TestGoodHit) {
     Intersection i3(-3, &s);
     Intersection i4(2, &s);
 
-    std::vector<Intersection> xs = Intersection::intersections(i1, i2, i3, i4);
+    Intersections xs = Intersections::intersections(i1, i2, i3, i4);
 
-    Intersection i = Intersection::hit(xs);
+    Intersection i = xs.hit();
 
     ASSERT_TRUE(i == i4);
 }
