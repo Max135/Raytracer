@@ -4,6 +4,11 @@
 
 #include "World.h"
 
+
+World::World() {
+    light = Light();
+}
+
 World World::defaultWorld() {
     World world;
     Light light(Point(-10, 10, -10), Color(1, 1, 1));

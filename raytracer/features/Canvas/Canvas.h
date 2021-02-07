@@ -13,24 +13,13 @@ class Canvas {
 public:
     int width, height;
 
-    Canvas(int width, int height) {
-        this->width = width;
-        this->height = height;
+    Canvas(int width, int height);
 
-        pixelGrid = initializeGrid();
-    }
+    ~Canvas();
 
-    ~Canvas() {
-        for (int i = 0; i < height; ++i) {
-            delete[] pixelGrid[i];
-        }
-        delete[] pixelGrid;
-        pixelGrid = nullptr;
-    }
+    void writePixel(int x, int y, const Tuple& color);
 
-    void writePixel(int x, int y, Tuple color);
-
-    void fillCanvas(Color color);
+    void fillCanvas(const Color& color);
 
     void save();
 
@@ -45,7 +34,7 @@ private:
 
     std::string createHeader();
 
-    void addColorBody(Color pixel, std::string *body);
+    void addColorBody(const Color& pixel, std::string *body);
 };
 
 

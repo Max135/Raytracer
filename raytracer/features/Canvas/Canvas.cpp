@@ -6,6 +6,22 @@
 #include <fstream>
 #include "Canvas.h"
 
+
+Canvas::Canvas(int width, int height) {
+    this->width = width;
+    this->height = height;
+
+    pixelGrid = initializeGrid();
+}
+
+Canvas::~Canvas() {
+    for (int i = 0; i < height; ++i) {
+        delete[] pixelGrid[i];
+    }
+    delete[] pixelGrid;
+    pixelGrid = nullptr;
+}
+
 //Took way too long to init a 2D grid...
 Color **Canvas::initializeGrid() {
     Color **grid = new Color *[this->height];
@@ -18,7 +34,7 @@ Color **Canvas::initializeGrid() {
     return grid;
 }
 
-void Canvas::writePixel(int x, int y, Tuple color) {
+void Canvas::writePixel(int x, int y, const Tuple& color) {
     if (x > this->width || y > this->height || x < 0 || y < 0) return;
     this->pixelGrid[y][x] = color;
 }
@@ -49,7 +65,7 @@ std::string Canvas::toPPM() {
     return header.append(body);
 }
 
-void Canvas::addColorBody(Color pixel, std::string *body) {
+void Canvas::addColorBody(const Color& pixel, std::string *body) {
     int red = (int) round(pixel.x * COLOR_VALUE);
     red = (red < 0) ? 0 : (red > COLOR_VALUE) ? COLOR_VALUE : red;
     int green = (int) round(pixel.y * COLOR_VALUE);
@@ -77,7 +93,7 @@ std::string Canvas::createHeader() {
     return header;
 }
 
-void Canvas::fillCanvas(Color color) {
+void Canvas::fillCanvas(const Color& color) {
     for (int i = 0; i < this->height; ++i) {
         for (int j = 0; j < this->width; ++j) {
             writePixel(j, i, color);

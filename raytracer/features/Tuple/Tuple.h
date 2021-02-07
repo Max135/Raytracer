@@ -14,20 +14,11 @@ public:
 
     Tuple() {}
 
-    Tuple(float x, float y, float z, float w) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
-        this->w = w;
-    }
+    Tuple(float x, float y, float z, float w);
 
-    static Tuple point(float x, float y, float z) {
-        return Tuple(x, y, z, 1.0);
-    }
+    static Tuple point(float x, float y, float z);
 
-    static Tuple vector(float x, float y, float z) {
-        return Tuple(x, y, z, 0.0);
-    }
+    static Tuple vector(float x, float y, float z);
 
     float magnitude();
 
@@ -45,49 +36,23 @@ public:
 
     std::string toString() const;
 
-    Tuple operator+(const Tuple &other) {
-        return add(*this, other);
-    }
+    Tuple operator+(const Tuple &other);
 
-    Tuple operator-(const Tuple &other) {
-        return subtract(*this, other);
-    }
+    Tuple operator-(const Tuple &other);
 
-    Tuple operator*(const float &scalar) {
-        return multiplyScalar(*this, scalar);
-    }
+    Tuple operator*(const float &scalar);
 
-    Tuple operator*(const Tuple &other) {
-        return multiply(*this, other);
-    }
+    Tuple operator*(const Tuple &other);
 
-    Tuple operator/(const float &scalar) {
-        return divideScalar(*this, scalar);
-    }
+    Tuple operator/(const float &scalar);
 
-    virtual Tuple &operator=(const Tuple &other) {
-        if (this == &other)
-            return *this;
+    virtual Tuple &operator=(const Tuple &other);
 
-        this->x = other.x;
-        this->y = other.y;
-        this->z = other.z;
-        this->w = other.w;
+    bool operator==(const Tuple &other);
 
-        return *this;
-    }
+    bool operator!=(const Tuple &other);
 
-    bool operator==(const Tuple &other) {
-        return areEqual(*this, other);
-    }
-
-    bool operator!=(const Tuple &other) {
-        return !areEqual(*this, other);
-    }
-
-    Tuple operator-() {
-        return negate(*this);
-    }
+    Tuple operator-();
 
 
 private:

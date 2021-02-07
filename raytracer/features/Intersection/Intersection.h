@@ -15,10 +15,7 @@ public:
 
     Intersection(float t, Sphere *sphere) : t(t), sphere(sphere) {}
 
-    Intersection() {
-        t = 0;
-        sphere = nullptr;
-    }
+    Intersection();
 
     std::string toString();
 

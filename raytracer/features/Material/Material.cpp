@@ -4,7 +4,14 @@
 
 #include "Material.h"
 
-Tuple Material::lighting(Light light, Tuple point, Tuple eye, Tuple normal) {
+
+bool Material::operator==(const Material &other) {
+    return this->color == other.color && Helper::compareFloat(this->ambient, other.ambient) &&
+           Helper::compareFloat(this->diffuse, other.diffuse) && Helper::compareFloat(this->specular, other.specular) &&
+           Helper::compareFloat(this->shininess, other.shininess);
+}
+
+Tuple Material::lighting(Light light, const Tuple& point, const Tuple& eye, const Tuple& normal) {
     //Combine the surface color with the light's color/intensity
     Tuple effectiveColor = this->color * light.intensity;
 

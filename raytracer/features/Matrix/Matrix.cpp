@@ -6,6 +6,65 @@
 #include "../Helper.h"
 #include "Matrix.h"
 
+
+Matrix::Matrix(int sizeX, int sizeY) {
+    this->sizeX = sizeX;
+    this->sizeY = sizeY;
+
+    matrix = initializeMatrix();
+}
+
+Matrix::Matrix(const Matrix &m2) {
+    this->sizeX = m2.sizeX;
+    this->sizeY = m2.sizeY;
+
+    this->matrix = initializeMatrix(m2);
+}
+
+Matrix::~Matrix() {
+    for (int i = 0; i < sizeY; ++i) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+    matrix = nullptr;
+}
+
+float *Matrix::operator[](int pos) {
+    return matrix[pos];
+}
+
+float *Matrix::operator[](int pos) const {
+    return matrix[pos];
+}
+
+Matrix Matrix::operator*(const Matrix &other) {
+    return multiplyMatrices(other);
+}
+
+Tuple Matrix::operator*(const Tuple &tuple) {
+    return multiplyTuple(tuple);
+}
+
+bool Matrix::operator==(const Matrix &other) {
+    return compareMatrix(other);
+}
+
+Matrix &Matrix::operator=(const Matrix &other) {
+    if (this == &other)
+        return *this;
+
+    this->sizeX = other.sizeX;
+    this->sizeY = other.sizeY;
+
+    for (int i = 0; i < this->sizeY; ++i) {
+        for (int j = 0; j < this->sizeX; ++j) {
+            this->matrix[i][j] = other.matrix[i][j];
+        }
+    }
+
+    return *this;
+}
+
 float **Matrix::initializeMatrix() const {
     float **grid = new float *[this->sizeY];
     for (int i = 0; i < this->sizeY; ++i) {

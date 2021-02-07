@@ -12,28 +12,12 @@ class Matrix {
 public:
     int sizeX, sizeY;
 
-    Matrix(int sizeX, int sizeY) {
-        this->sizeX = sizeX;
-        this->sizeY = sizeY;
-
-        matrix = initializeMatrix();
-    }
+    Matrix(int sizeX, int sizeY);
 
     //Copy constructor, https://www.geeksforgeeks.org/copy-constructor-in-cpp/
-    Matrix(const Matrix &m2) {
-        this->sizeX = m2.sizeX;
-        this->sizeY = m2.sizeY;
+    Matrix(const Matrix &m2);
 
-        this->matrix = initializeMatrix(m2);
-    }
-
-    ~Matrix() {
-        for (int i = 0; i < sizeY; ++i) {
-            delete[] matrix[i];
-        }
-        delete[] matrix;
-        matrix = nullptr;
-    }
+    ~Matrix();
 
     static Matrix identityMatrix(int size = 4);
 
@@ -53,41 +37,17 @@ public:
 
     std::string toString();
 
-    float *operator[](int pos) {
-        return matrix[pos];
-    }
+    float *operator[](int pos);
 
-    float *operator[](int pos) const {
-        return matrix[pos];
-    }
+    float *operator[](int pos) const;
 
-    Matrix operator*(const Matrix &other) {
-        return multiplyMatrices(other);
-    }
+    Matrix operator*(const Matrix &other);
 
-    Tuple operator*(const Tuple &tuple) {
-        return multiplyTuple(tuple);
-    }
+    Tuple operator*(const Tuple &tuple);
 
-    bool operator==(const Matrix &other) {
-        return compareMatrix(other);
-    }
+    bool operator==(const Matrix &other);
 
-    Matrix &operator=(const Matrix &other) {
-        if (this == &other)
-            return *this;
-
-        this->sizeX = other.sizeX;
-        this->sizeY = other.sizeY;
-
-        for (int i = 0; i < this->sizeY; ++i) {
-            for (int j = 0; j < this->sizeX; ++j) {
-                this->matrix[i][j] = other.matrix[i][j];
-            }
-        }
-
-        return *this;
-    }
+    Matrix &operator=(const Matrix &other);
 
 protected:
     float **matrix;

@@ -12,12 +12,7 @@ class Point : public Tuple {
 public:
     Point() {}
 
-    Point(float x, float y, float z) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
-        this->w = 1.0;
-    }
+    Point(float x, float y, float z);
 };
 
 

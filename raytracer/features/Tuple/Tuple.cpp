@@ -6,6 +6,67 @@
 #include "Tuple.h"
 #include "../Helper.h"
 
+
+Tuple::Tuple(float x, float y, float z, float w) {
+    this->x = x;
+    this->y = y;
+    this->z = z;
+    this->w = w;
+}
+
+Tuple Tuple::point(float x, float y, float z) {
+    return Tuple(x, y, z, 1.0);
+}
+
+Tuple Tuple::vector(float x, float y, float z) {
+    return Tuple(x, y, z, 0.0);
+}
+
+Tuple Tuple::operator+(const Tuple &other) {
+    return add(*this, other);
+}
+
+Tuple Tuple::operator-(const Tuple &other) {
+    return subtract(*this, other);
+}
+
+Tuple Tuple::operator*(const float &scalar) {
+    return multiplyScalar(*this, scalar);
+}
+
+Tuple Tuple::operator*(const Tuple &other) {
+    return multiply(*this, other);
+}
+
+Tuple Tuple::operator/(const float &scalar) {
+    return divideScalar(*this, scalar);
+}
+
+Tuple &Tuple::operator=(const Tuple &other) {
+    if (this == &other)
+        return *this;
+
+    this->x = other.x;
+    this->y = other.y;
+    this->z = other.z;
+    this->w = other.w;
+
+    return *this;
+}
+
+bool Tuple::operator==(const Tuple &other) {
+    return areEqual(*this, other);
+}
+
+bool Tuple::operator!=(const Tuple &other) {
+    return !areEqual(*this, other);
+}
+
+Tuple Tuple::operator-() {
+    return negate(*this);
+}
+
+
 bool Tuple::areEqual(Tuple first, Tuple second) {
     return Helper::compareFloat(first.x, second.x)
            && Helper::compareFloat(first.y, second.y)

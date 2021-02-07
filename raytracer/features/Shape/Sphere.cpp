@@ -4,6 +4,8 @@
 
 #include "Sphere.h"
 
+#include <utility>
+
 void Sphere::setTransform(Transform transform) {
     this->transform = transform;
 }
@@ -28,4 +30,18 @@ std::string Sphere::toString() {
     string.append("\n");
 
     return string;
+}
+
+Sphere::Sphere(Point origin) {
+    this->origin = std::move(origin);
+}
+
+Sphere::Sphere(const Sphere &other) {
+    this->transform = other.transform;
+    this->material = other.material;
+    this->origin = other.origin;
+}
+
+bool Sphere::operator==(const Sphere &other) {
+    return this->transform == other.transform && this->material == other.material && this->origin == other.origin;
 }

@@ -10,12 +10,7 @@
 
 class Vector : public Tuple {
 public:
-    Vector(float x, float y, float z) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
-        this->w = 0.0;
-    }
+    Vector(float x, float y, float z);
 };
 
 

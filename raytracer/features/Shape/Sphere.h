@@ -18,19 +18,11 @@ public:
 
     Sphere() {}
 
-    Sphere(Point origin) {
-        this->origin = origin;
-    }
+    Sphere(Point origin);
 
-    Sphere (Sphere const &other) {
-        this->transform = other.transform;
-        this->material = other.material;
-        this->origin = other.origin;
-    }
+    Sphere (Sphere const &other);
 
-    bool operator==(const Sphere &other) {
-        return this->transform == other.transform && this->material == other.material && this->origin == other.origin;
-    }
+    bool operator==(const Sphere &other);
 
     void setTransform(Transform transform);
 

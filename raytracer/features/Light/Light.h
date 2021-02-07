@@ -7,7 +7,6 @@
 
 
 #include <utility>
-
 #include "../Tuple/Tuples.h"
 
 class Light {
@@ -15,25 +14,13 @@ public:
     Color intensity;
     Point position;
 
-    Light() {
-        intensity = Color();
-        position = Point();
-    }
+    Light();
 
     Light(Point position, Color intensity) : position(std::move(position)), intensity(std::move(intensity)) {}
 
-    bool operator==(const Light & other) {
-        return this->position == other.position && this->intensity == other.intensity;
-    }
+    bool operator==(const Light & other);
 
-    Light& operator=(const Light & other) {
-        if(this == &other)
-            return *this;
-
-        this->intensity = other.intensity;
-        this->position = other.position;
-        return *this;
-    }
+    Light& operator=(const Light & other);
 };
 
 

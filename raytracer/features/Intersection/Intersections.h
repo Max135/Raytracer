@@ -23,21 +23,13 @@ public:
 
     Intersections() {}
 
-    Intersections(std::vector<Intersection> intersections) {
-        this->xs = std::move(intersections);
-    }
+    Intersections(std::vector<Intersection> intersections);
 
-    Intersections(Intersections const &intersections) {
-        this->xs = std::move(intersections.xs);
-    }
+    Intersections(Intersections const &intersections);
 
-    Intersection operator[](int pos) {
-        return this->xs[pos];
-    }
+    Intersection operator[](int pos);
 
-    Intersection operator[](int pos) const {
-        return this->xs[pos];
-    }
+    Intersection operator[](int pos) const;
 
     void append(const std::vector<Intersection>& intersections);
 

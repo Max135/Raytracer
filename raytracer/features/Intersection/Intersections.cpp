@@ -4,6 +4,23 @@
 
 #include "Intersections.h"
 
+
+Intersections::Intersections(std::vector<Intersection> intersections) {
+    this->xs = std::move(intersections);
+}
+
+Intersections::Intersections(const Intersections &intersections) {
+    this->xs = intersections.xs;
+}
+
+Intersection Intersections::operator[](int pos) {
+    return this->xs[pos];
+}
+
+Intersection Intersections::operator[](int pos) const {
+    return this->xs[pos];
+}
+
 void Intersections::append(const std::vector<Intersection>& intersections) {
     this->xs.insert(this->xs.end(), intersections.begin(), intersections.end());
 }

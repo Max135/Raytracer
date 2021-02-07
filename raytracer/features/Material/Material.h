@@ -17,13 +17,9 @@ public:
     float specular = 0.9;
     float shininess = 200.0;
 
-    bool operator==(const Material &other) {
-        return this->color == other.color && Helper::compareFloat(this->ambient, other.ambient) &&
-                Helper::compareFloat(this->diffuse, other.diffuse) && Helper::compareFloat(this->specular, other.specular) &&
-                Helper::compareFloat(this->shininess, other.shininess);
-    }
+    bool operator==(const Material &other);
 
-    Tuple lighting(Light light, Tuple point, Tuple eye, Tuple normal);
+    Tuple lighting(Light light, const Tuple& point, const Tuple& eye, const Tuple& normal);
 
     std::string toString();
 };

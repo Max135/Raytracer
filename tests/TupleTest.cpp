@@ -146,7 +146,7 @@ TEST(TupleTests, TestMagnitudeNormalized) {
     Vector v(1, 2, 3);
     Tuple norm = v.normalize();
 
-    ASSERT_EQ(1, norm.magnitude());
+    ASSERT_TRUE(Helper::compareFloat(1, norm.magnitude()));
 }
 
 // The dot product of two tuples

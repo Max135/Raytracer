@@ -15,9 +15,7 @@ public:
     Light light;
     std::vector<Sphere> objects;
 
-    World() {
-        light = Light();
-    }
+    World();
 
     static World defaultWorld();
 
