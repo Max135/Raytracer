@@ -5,6 +5,7 @@
 #include "gtest/gtest.h"
 #include "../raytracer/features/Ray/Ray.h"
 
+// Creating and querying a ray
 TEST(RayTests, TestRayCreation) {
     Point origin(1, 2, 3);
     Vector direction(4, 5, 6);
@@ -14,6 +15,7 @@ TEST(RayTests, TestRayCreation) {
     ASSERT_TRUE(direction == ray.direction);
 }
 
+// Computing a point from a distance
 TEST(RayTests, TestPosition) {
     Ray ray(Point(2, 3, 4), Vector(1, 0, 0));
 
@@ -23,26 +25,7 @@ TEST(RayTests, TestPosition) {
     ASSERT_TRUE(Point(4.5, 3, 4) == ray.position(2.5));
 }
 
-TEST(RayTests, TestTranslation) {
-    Ray ray(Point(1, 2, 3), Vector(0, 1, 0));
-    Transform t = Transform::translation(3, 4, 5);
-
-    Ray ray2 = ray.transform(&t);
-
-    ASSERT_TRUE(ray2.origin == Point(4, 6, 8));
-    ASSERT_TRUE(ray2.direction == Vector(0, 1, 0));
-}
-
-TEST(RayTests, TestScalling) {
-    Ray ray(Point(1, 2, 3), Vector(0, 1, 0));
-    Transform s = Transform::scaling(2, 3, 4);
-
-    Ray ray2 = ray.transform(&s);
-
-    ASSERT_TRUE(ray2.origin == Point(2, 6, 12));
-    ASSERT_TRUE(ray2.direction == Vector(0, 3, 0));
-}
-
+// A ray intersects a sphere at two points
 TEST(RayTests, TestRayIntersectSphere) {
     Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
     Sphere sphere;
@@ -54,6 +37,7 @@ TEST(RayTests, TestRayIntersectSphere) {
     ASSERT_EQ(6.0, intersections[1].t);
 }
 
+// A ray intersects a sphere at a tangent
 TEST(RayTests, TestRayIntersectSphereTangent) {
     Ray ray(Point(0, 1, -5), Vector(0, 0, 1));
     Sphere sphere;
@@ -65,6 +49,7 @@ TEST(RayTests, TestRayIntersectSphereTangent) {
     ASSERT_EQ(5.0, intersections[1].t);
 }
 
+// A ray misses a sphere
 TEST(RayTests, TestRayIntersectionMiss) {
     Ray ray(Point(0, 2, -5), Vector(0, 0, 1));
     Sphere sphere;
@@ -74,6 +59,7 @@ TEST(RayTests, TestRayIntersectionMiss) {
     ASSERT_EQ(0, intersections.size());
 }
 
+// A ray originates inside a sphere
 TEST(RayTests, TestRayInsideSphere) {
     Ray ray(Point(0, 0, 0), Vector(0, 0, 1));
     Sphere sphere;
@@ -85,6 +71,7 @@ TEST(RayTests, TestRayInsideSphere) {
     ASSERT_EQ(1.0, intersections[1].t);
 }
 
+// A sphere is behind a ray
 TEST(RayTests, TestRayFrontSphere) {
     Ray ray(Point(0, 0, 5), Vector(0, 0, 1));
     Sphere sphere;
@@ -96,6 +83,29 @@ TEST(RayTests, TestRayFrontSphere) {
     ASSERT_EQ(-4.0, intersections[1].t);
 }
 
+// Translating a ray
+TEST(RayTests, TestTranslation) {
+    Ray ray(Point(1, 2, 3), Vector(0, 1, 0));
+    Transform t = Transform::translation(3, 4, 5);
+
+    Ray ray2 = ray.transform(&t);
+
+    ASSERT_TRUE(ray2.origin == Point(4, 6, 8));
+    ASSERT_TRUE(ray2.direction == Vector(0, 1, 0));
+}
+
+// Scaling a ray
+TEST(RayTests, TestScalling) {
+    Ray ray(Point(1, 2, 3), Vector(0, 1, 0));
+    Transform s = Transform::scaling(2, 3, 4);
+
+    Ray ray2 = ray.transform(&s);
+
+    ASSERT_TRUE(ray2.origin == Point(2, 6, 12));
+    ASSERT_TRUE(ray2.direction == Vector(0, 3, 0));
+}
+
+// Intersecting a scaled sphere with a ray
 TEST(RayTests, TestIntersectionScalledSphere) {
     Ray r(Point(0, 0, -5), Vector(0, 0, 1));
     Sphere s;
@@ -108,6 +118,7 @@ TEST(RayTests, TestIntersectionScalledSphere) {
     ASSERT_EQ(7, xs[1].t);
 }
 
+// Intersecting a translated sphere with a ray
 TEST(RayTests, TestIntersectionTranslatedSphere) {
     Ray r(Point(0, 0, -5), Vector(0, 0, 1));
     Sphere s;

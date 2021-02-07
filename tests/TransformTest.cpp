@@ -6,6 +6,7 @@
 #include "../raytracer/features/Matrix/Matrices.h"
 #include "gtest/gtest.h"
 
+// Multiplying by a translation matrix
 TEST(TransformTests, TestTranslationMatrixMultiplication) {
     Transform transform = Transform::translation(5, -3, 2);
     Point point(-3, 4, 5);
@@ -13,6 +14,7 @@ TEST(TransformTests, TestTranslationMatrixMultiplication) {
     ASSERT_TRUE(Point(2, 1, 7) == transform * point);
 }
 
+// Multiplying by the inverse of a translation matrix
 TEST(TransformTests, TestTranlationInverseMultiplication) {
     Transform transform = Transform::translation(5, -3, 2);
     Point point(-3, 4, 5);
@@ -20,6 +22,7 @@ TEST(TransformTests, TestTranlationInverseMultiplication) {
     ASSERT_TRUE(Point(-8, 7, 3) == transform.inverse() * point);
 }
 
+// Translation does not affect vectors
 TEST(TransformTests, TestVectorMultiplication) {
     Transform transform = Transform::translation(5, -3, 2);
     Vector vector(-3, 4, 5);
@@ -27,6 +30,7 @@ TEST(TransformTests, TestVectorMultiplication) {
     ASSERT_TRUE(vector == transform * vector);
 }
 
+// A scaling matrix applied to a point
 TEST(TransformTests, TestScallingPoint) {
     Transform transform = Transform::scaling(2, 3, 4);
     Point point(-4, 6, 8);
@@ -34,6 +38,7 @@ TEST(TransformTests, TestScallingPoint) {
     ASSERT_TRUE(Point(-8, 18, 32) == transform * point);
 }
 
+// A scaling matrix applied to a vector
 TEST(TransformTests, TestScallingVector) {
     Transform transform = Transform::scaling(2, 3, 4);
     Vector vector(-4, 6, 8);
@@ -41,6 +46,7 @@ TEST(TransformTests, TestScallingVector) {
     ASSERT_TRUE(Vector(-8, 18, 32) == transform * vector);
 }
 
+// Multiplying by the inverse of a scaling matrix
 TEST(TransformTests, TestScallingInverse) {
     Transform transform = Transform::scaling(2, 3, 4);
     Vector vector(-4, 6, 8);
@@ -48,6 +54,7 @@ TEST(TransformTests, TestScallingInverse) {
     ASSERT_TRUE(Vector(-2, 2, 2) == transform.inverse() * vector);
 }
 
+// Reflection is scaling by a negative value
 TEST(TransformTests, TestReflection) {
     Transform transform = Transform::scaling(-1, 1, 1);
     Point point(2, 3, 4);
@@ -55,6 +62,7 @@ TEST(TransformTests, TestReflection) {
     ASSERT_TRUE(Point(-2, 3, 4) == transform * point);
 }
 
+// Rotating a point around the x axis
 TEST(TransformTests, TestRotationX) {
     Point point(0, 1, 0);
     Transform halfQuarter = Transform::xRotation(M_PI_4);
@@ -64,6 +72,7 @@ TEST(TransformTests, TestRotationX) {
     ASSERT_TRUE(Point(0, 0, 1) == fullQuarter * point);
 }
 
+// The inverse of an x-rotation rotates in the opposite direction
 TEST(TransformTests, TestInverseRotationX) {
     Point point(0, 1, 0);
     Transform halfQuarter = Transform::xRotation(M_PI_4);
@@ -71,6 +80,7 @@ TEST(TransformTests, TestInverseRotationX) {
     ASSERT_TRUE(Point(0, sqrt(2) / 2, -sqrt(2) / 2) == halfQuarter.inverse() * point);
 }
 
+// Rotating a point around the y axis
 TEST(TransformTests, TestRotationY) {
     Point point(0, 0, 1);
     Transform halfQuarter = Transform::yRotation(M_PI_4);
@@ -80,6 +90,7 @@ TEST(TransformTests, TestRotationY) {
     ASSERT_TRUE(Point(1, 0, 0) == fullQuarter * point);
 }
 
+// Rotating a point around the z axis
 TEST(TransformTests, TestRotationZ) {
     Point point(0, 1, 0);
     Transform halfQuarter = Transform::zRotation(M_PI_4);
@@ -89,6 +100,7 @@ TEST(TransformTests, TestRotationZ) {
     ASSERT_TRUE(Point(-1, 0, 0) == fullQuarter * point);
 }
 
+// Shearing transformation moves an axis in proportion to an other
 TEST(TransformTests, TestShearing) {
     Transform transformXY = Transform::shearing(1, 0, 0, 0, 0, 0);
     Point point(2, 3, 4);
@@ -110,6 +122,7 @@ TEST(TransformTests, TestShearing) {
     ASSERT_TRUE(Point(2, 3, 7) == transformZY * point);
 }
 
+// Individual transformations are applied in sequence
 TEST(TransformTests, TestSequence) {
     Transform rotation = Transform::xRotation(M_PI_2);
     Transform scale = Transform::scaling(5, 5, 5);
@@ -127,6 +140,7 @@ TEST(TransformTests, TestSequence) {
     ASSERT_TRUE(Point(15, 0, 7) == point4);
 }
 
+// Chained transformations must be applied in reverse order
 TEST(TransformTests, TestChaining) {
     Point point(1, 0, 1);
     Transform transform1;

@@ -6,6 +6,7 @@
 #include "../raytracer/features/World/World.h"
 #include "../raytracer/features/Ray/Ray.h"
 
+// Creating a world
 TEST(WorldTests, TestCreateWorld) {
     World world;
 
@@ -13,6 +14,7 @@ TEST(WorldTests, TestCreateWorld) {
 //    ASSERT_TRUE(world.light == Light());
 }
 
+// The default world
 TEST(WorldTests, TestDefaultWorld) {
     Light light(Point(-10, 10, -10), Color(1, 1, 1));
     Sphere s1;
@@ -30,6 +32,7 @@ TEST(WorldTests, TestDefaultWorld) {
     ASSERT_EQ(2, world.objects.size());
 }
 
+// Intersect a world with a ray
 TEST(WorldTests, TestWorldRayIntersection) {
     World world = World::defaultWorld();
     Ray ray(Point(0, 0, -5), Vector(0, 0, 1));

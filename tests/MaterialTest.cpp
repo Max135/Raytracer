@@ -4,8 +4,8 @@
 
 #include "../raytracer/features/Material/Material.h"
 #include "gtest/gtest.h"
-#include "../raytracer/features/Light/Light.h"
 
+// The default material
 TEST(MaterialTests, TestDefaultMaterial) {
     Material mat;
 
@@ -16,6 +16,7 @@ TEST(MaterialTests, TestDefaultMaterial) {
     ASSERT_TRUE(Helper::compareFloat(mat.shininess, 200.0));
 }
 
+// Lighting with the eye between the light and the surface
 TEST(MaterialTests, TestEyeBetween) {
     Material m;
     Point position(0, 0, 0);
@@ -28,6 +29,7 @@ TEST(MaterialTests, TestEyeBetween) {
     ASSERT_TRUE(Color(1.9, 1.9, 1.9) == result);
 }
 
+// Lighting with the eye between light and surface, eye offset 45°
 TEST(MaterialTests, TestEyeBetweenOffset45) {
     Material m;
     Point position(0, 0, 0);
@@ -40,6 +42,7 @@ TEST(MaterialTests, TestEyeBetweenOffset45) {
     ASSERT_TRUE(Color(1.0, 1.0, 1.0) == result);
 }
 
+// Lighting with eye opposite surface, light offset 45°
 TEST(MaterialTests, TestEyeBetweenLightOffset45) {
     Material m;
     Point position(0, 0, 0);
@@ -52,6 +55,7 @@ TEST(MaterialTests, TestEyeBetweenLightOffset45) {
     ASSERT_TRUE(Color(0.7364, 0.7364, 0.7364) == result);
 }
 
+// Lighting with eye in the path of the reflection vector
 TEST(MaterialTests, TestEyeReflectionPath) {
     Material m;
     Point position(0, 0, 0);
@@ -64,6 +68,7 @@ TEST(MaterialTests, TestEyeReflectionPath) {
     ASSERT_TRUE(Color(1.63639, 1.63639, 1.63639) == result) << result.toString();
 }
 
+// Lighting with the light behind the surface
 TEST(MaterialTests, TestEyeBehindSurface) {
     Material m;
     Point position(0, 0, 0);

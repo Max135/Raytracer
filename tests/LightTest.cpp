@@ -5,6 +5,7 @@
 #include "../raytracer/features/Light/Light.h"
 #include "gtest/gtest.h"
 
+// A point light has a position and intensity
 TEST(LightTests, TestPositionAndIntensity) {
     Color intensity(1, 1, 1);
     Point position(0, 0, 0);

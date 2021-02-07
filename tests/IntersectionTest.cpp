@@ -6,6 +6,7 @@
 #include "../raytracer/features/Shape/Sphere.h"
 #include "../raytracer/features/Intersection/Intersections.h"
 
+// An intersection encapsulates t and object
 TEST(IntersectionTests, TestCreation) {
     Sphere sphere;
     float point = 3.5;
@@ -16,6 +17,7 @@ TEST(IntersectionTests, TestCreation) {
     ASSERT_EQ(&sphere, intersection.sphere);
 }
 
+// Aggregating intersections
 TEST(IntersectionTests, TestAggregation) {
     Sphere s;
 
@@ -41,6 +43,7 @@ TEST(IntersectionTests, TestAggregation) {
     ASSERT_EQ(4, ss[3].t);
 }
 
+// The hit, when all intersections have positive t
 TEST(IntersectionTests, TestHitsPositive) {
     Sphere s;
 
@@ -53,6 +56,7 @@ TEST(IntersectionTests, TestHitsPositive) {
     ASSERT_TRUE(i == i1);
 }
 
+// The hit, when some intersections have negative t
 TEST(IntersectionTests, TestHitsMix) {
     Sphere s;
 
@@ -65,6 +69,7 @@ TEST(IntersectionTests, TestHitsMix) {
     ASSERT_TRUE(i == i2);
 }
 
+// The hit, when all intersections have negative t
 TEST(IntersectionTests, TestHitsNegative) {
     Sphere s;
 
@@ -77,6 +82,7 @@ TEST(IntersectionTests, TestHitsNegative) {
     ASSERT_TRUE(i == Intersection());
 }
 
+// The hit is always the lowest non negative intersection
 TEST(IntersectionTests, TestGoodHit) {
     Sphere s;
 
@@ -90,4 +96,9 @@ TEST(IntersectionTests, TestGoodHit) {
     Intersection i = xs.hit();
 
     ASSERT_TRUE(i == i4);
+}
+
+// Precomputing the state of an intersection
+TEST(IntersectionTests, TestPrecomputation) {
+
 }

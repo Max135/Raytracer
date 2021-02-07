@@ -5,6 +5,7 @@
 #include "../raytracer/features/Canvas/Canvas.h"
 #include "gtest/gtest.h"
 
+// Creating a canvas
 TEST(CanvasTests, TestCanvasCreation) {
     Canvas canvas(10, 20);
 
@@ -12,6 +13,7 @@ TEST(CanvasTests, TestCanvasCreation) {
     ASSERT_EQ(20, canvas.height);
 }
 
+// Writing pixels to a canvas
 TEST(CanvasTests, TestWritingPixel) {
     Canvas canvas(10, 20);
 
@@ -20,6 +22,7 @@ TEST(CanvasTests, TestWritingPixel) {
     ASSERT_TRUE(Color(1, 0, 0) == canvas.pixelAt(2, 3));
 }
 
+// Constructing the PPM header
 TEST(CanvasTests, TestPPMConversion) {
     Canvas canvas(5, 3);
 
@@ -33,6 +36,7 @@ TEST(CanvasTests, TestPPMConversion) {
               "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n", canvas.toPPM());
 }
 
+// Constructing the PPM pixel data
 TEST(CanvasTests, TestPPMFormating) {
     Canvas canvas(10, 2);
     Color color(1, 0.8, 0.6);
