@@ -10,8 +10,9 @@
 #include "../Tuple/Point.h"
 #include "../Tuple/Vector.h"
 #include "../Shape/Sphere.h"
-#include "../Intersection/Intersection.h"
+#include "../Intersection/Junctions.h"
 #include "../Matrix/Matrices.h"
+#include "../World/World.h"
 
 class Ray {
 
@@ -25,7 +26,9 @@ public:
 
     Tuple position(float time);
 
-    std::vector<Intersection> intersect(Sphere *sphere);
+    Intersections intersect(Sphere *sphere);
+
+    Intersections intersect(World *world);
 
     Ray transform(Matrix *transform);
 

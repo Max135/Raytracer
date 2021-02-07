@@ -30,7 +30,7 @@ void traceSphereThreads();
 
 void traceSphere();
 
-void writePixel(std::vector<Intersection> xs, Ray *ray, Canvas *canvas, Light *light, int x, int y);
+void writePixel(Intersections xs, Ray *ray, Canvas *canvas, Light *light, int x, int y);
 void calculateColisions(int canvasSize, float half, float pixelSize, float wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y);
 
 
@@ -77,7 +77,7 @@ void traceSphere() {
             float worldX = -half + pixelSize * (float) x;
             Point position(worldX, worldY, wallZ);
             Ray ray(rayOrigin, (position - rayOrigin).normalize());
-            std::vector<Intersection> xs = ray.intersect(&sphere);
+            Intersections xs = ray.intersect(&sphere);
 
             if (!xs.empty()) {
                 Intersection hit = xs[0];
@@ -141,7 +141,7 @@ void calculateColisions(int canvasSize, float half, float pixelSize, float wallZ
         float worldX = -half + pixelSize * (float) x;
         Point position(worldX, worldY, wallZ);
         Ray ray(rayOrigin, (position - rayOrigin).normalize());
-        std::vector<Intersection> xs = ray.intersect(sphere);
+        Intersections xs = ray.intersect(sphere);
 
         if (!xs.empty()) {
             writePixel(xs, &ray, canvas, light, x, y);
@@ -149,7 +149,7 @@ void calculateColisions(int canvasSize, float half, float pixelSize, float wallZ
     }
 }
 
-void writePixel(std::vector<Intersection> xs, Ray *ray, Canvas *canvas, Light *light, int x, int y) {
+void writePixel(Intersections xs, Ray *ray, Canvas *canvas, Light *light, int x, int y) {
     Intersection hit = xs[0];
     Tuple point = ray->position(hit.t);
     Tuple normal = hit.sphere->normalAt(point);

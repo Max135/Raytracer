@@ -47,13 +47,13 @@ std::string Material::toString() {
     std::string string;
     string.append("Color: ");
     string.append(this->color.toString());
-    string.append("ambient: ");
+    string.append("    Ambient: ");
     string.append(std::to_string(this->ambient));
-    string.append("diffuse: ");
+    string.append("  Diffuse: ");
     string.append(std::to_string(this->diffuse));
-    string.append("specular: ");
+    string.append("  Specular: ");
     string.append(std::to_string(this->specular));
-    string.append("shininess: ");
+    string.append("  Shininess: ");
     string.append(std::to_string(this->shininess));
 
     return string;

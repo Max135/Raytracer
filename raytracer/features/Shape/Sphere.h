@@ -14,6 +14,7 @@ class Sphere {
 public:
     Transform transform;
     Material material;
+    Point origin = Point(0, 0, 0);
 
     Sphere() {}
 
@@ -21,11 +22,21 @@ public:
         this->origin = origin;
     }
 
+    Sphere (Sphere const &other) {
+        this->transform = other.transform;
+        this->material = other.material;
+        this->origin = other.origin;
+    }
+
+    bool operator==(const Sphere &other) {
+        return this->transform == other.transform && this->material == other.material && this->origin == other.origin;
+    }
+
     void setTransform(Transform transform);
 
-    Tuple normalAt(Tuple worldPoint);
+    Tuple normalAt(const Tuple& worldPoint);
 
-    Point origin = Point(0, 0, 0);
+    std::string toString();
 };
 
 

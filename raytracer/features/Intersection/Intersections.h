@@ -21,14 +21,14 @@ class Intersections {
 public:
     std::vector<Intersection> xs;
 
-    Intersections() = default;;
+    Intersections() {}
 
     Intersections(std::vector<Intersection> intersections) {
         this->xs = std::move(intersections);
     }
 
     Intersections(Intersections const &intersections) {
-        this->xs = intersections.xs;
+        this->xs = std::move(intersections.xs);
     }
 
     Intersection operator[](int pos) {
@@ -39,13 +39,17 @@ public:
         return this->xs[pos];
     }
 
-    void append(std::vector<Intersection> intersections);
+    void append(const std::vector<Intersection>& intersections);
 
-    void append(Intersections intersections);
+    void append(const Intersections& intersections);
 
     void sort();
 
     int size() const;
+
+    bool empty() const;
+
+    std::string toString();
 
     Intersection hit();
 

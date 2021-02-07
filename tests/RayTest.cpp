@@ -47,7 +47,7 @@ TEST(RayTests, TestRayIntersectSphere) {
     Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
     Sphere sphere;
 
-    std::vector<Intersection> intersections = ray.intersect(&sphere);
+    Intersections intersections = ray.intersect(&sphere);
 
     ASSERT_EQ(2, intersections.size());
     ASSERT_EQ(4.0, intersections[0].t);
@@ -58,7 +58,7 @@ TEST(RayTests, TestRayIntersectSphereTangent) {
     Ray ray(Point(0, 1, -5), Vector(0, 0, 1));
     Sphere sphere;
 
-    std::vector<Intersection> intersections = ray.intersect(&sphere);
+    Intersections intersections = ray.intersect(&sphere);
 
     ASSERT_EQ(2, intersections.size());
     ASSERT_EQ(5.0, intersections[0].t);
@@ -69,7 +69,7 @@ TEST(RayTests, TestRayIntersectionMiss) {
     Ray ray(Point(0, 2, -5), Vector(0, 0, 1));
     Sphere sphere;
 
-    std::vector<Intersection> intersections = ray.intersect(&sphere);
+    Intersections intersections = ray.intersect(&sphere);
 
     ASSERT_EQ(0, intersections.size());
 }
@@ -78,7 +78,7 @@ TEST(RayTests, TestRayInsideSphere) {
     Ray ray(Point(0, 0, 0), Vector(0, 0, 1));
     Sphere sphere;
 
-    std::vector<Intersection> intersections = ray.intersect(&sphere);
+    Intersections intersections = ray.intersect(&sphere);
 
     ASSERT_EQ(2, intersections.size());
     ASSERT_EQ(-1.0, intersections[0].t);
@@ -89,7 +89,7 @@ TEST(RayTests, TestRayFrontSphere) {
     Ray ray(Point(0, 0, 5), Vector(0, 0, 1));
     Sphere sphere;
 
-    std::vector<Intersection> intersections = ray.intersect(&sphere);
+    Intersections intersections = ray.intersect(&sphere);
 
     ASSERT_EQ(2, intersections.size());
     ASSERT_EQ(-6.0, intersections[0].t);
@@ -101,7 +101,7 @@ TEST(RayTests, TestIntersectionScalledSphere) {
     Sphere s;
     s.setTransform(Transform::scaling(2, 2, 2));
 
-    std::vector<Intersection> xs = r.intersect(&s);
+    Intersections xs = r.intersect(&s);
 
     ASSERT_EQ(2, xs.size());
     ASSERT_EQ(3, xs[0].t);
@@ -113,7 +113,7 @@ TEST(RayTests, TestIntersectionTranslatedSphere) {
     Sphere s;
     s.setTransform(Transform::translation(5, 0, 0));
 
-    std::vector<Intersection> xs = r.intersect(&s);
+    Intersections xs = r.intersect(&s);
 
     ASSERT_EQ(0, xs.size());
 }

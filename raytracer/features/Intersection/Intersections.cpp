@@ -4,16 +4,16 @@
 
 #include "Intersections.h"
 
-void Intersections::append(std::vector<Intersection> intersections) {
+void Intersections::append(const std::vector<Intersection>& intersections) {
     this->xs.insert(this->xs.end(), intersections.begin(), intersections.end());
 }
 
-void Intersections::append(Intersections intersections) {
+void Intersections::append(const Intersections& intersections) {
     this->append(intersections.xs);
 }
 
 void Intersections::sort() {
-    Intersections::quickSortIntersections(&this->xs, 0, this->xs.size());
+    Intersections::quickSortIntersections(&this->xs, 0, this->xs.size()-1); //😤 forgot -1
 }
 
 Intersection Intersections::hit() {
@@ -52,4 +52,19 @@ int Intersections::partition(std::vector<Intersection> *vector, int startIndex, 
 
 int Intersections::size() const {
     return this->xs.size();
+}
+
+bool Intersections::empty() const {
+    return this->xs.empty();
+}
+
+std::string Intersections::toString() {
+    std::string string;
+    string.append("[ ");
+    for (auto & object: this->xs) {
+        string.append(object.toString());
+        string.append(", ");
+    }
+    string.append("]\n");
+    return string;
 }

@@ -20,6 +20,8 @@ public:
         sphere = nullptr;
     }
 
+    std::string toString();
+
     bool operator==(const Intersection &other) const;
 };
 

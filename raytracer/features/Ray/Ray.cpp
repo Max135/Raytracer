@@ -9,9 +9,18 @@ Tuple Ray::position(float time) {
     return origin + direction * time;
 }
 
-std::vector<Intersection> Ray::intersect(Sphere *sphere) {
+Intersections Ray::intersect(Sphere *sphere) {
     Matrix t = sphere->transform.inverse();
     return intersection(this->transform(&t), sphere);
+}
+
+Intersections Ray::intersect(World *world) {
+    Intersections intersections;
+    for (auto & object: world->objects) {
+        intersections.append(this->intersect(&object));
+    }
+    intersections.sort();
+    return intersections;
 }
 
 Ray Ray::transform(Matrix *transform) {
