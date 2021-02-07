@@ -5,6 +5,23 @@
 #include "Ray.h"
 #include <iostream>
 
+
+preComps Ray::prepareComputations(Intersection intersection) {
+    // Instantiate a data structure for storing some precomputed values
+    preComps comps;
+
+    // Copy the intersection's properties, for convenience
+    comps.t = intersection.t;
+    comps.object = intersection.sphere;
+
+    // Precompute some useful values
+    comps.point = this->position(comps.t);
+    comps.eyeV = -this->direction;
+    comps.normalV = comps.object->normalAt(comps.point);
+
+    return comps;
+}
+
 Tuple Ray::position(float time) {
     return origin + direction * time;
 }

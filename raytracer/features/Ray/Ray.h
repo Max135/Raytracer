@@ -14,8 +14,13 @@
 #include "../Matrix/Matrices.h"
 #include "../World/World.h"
 
-class Ray {
+struct preComps {
+    float t;
+    Sphere *object;
+    Tuple point, eyeV, normalV;
+};
 
+class Ray {
 public:
     Tuple origin;
     Tuple direction;
@@ -23,6 +28,8 @@ public:
     Ray(Point origin, Vector direction) : origin(origin), direction(direction) {}
 
     Ray(Tuple origin, Tuple direction) : origin(origin), direction(direction) {}
+
+    preComps prepareComputations(Intersection ray);
 
     Tuple position(float time);
 

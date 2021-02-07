@@ -10,6 +10,8 @@
 
 class Vector : public Tuple {
 public:
+    Vector() {}
+
     Vector(float x, float y, float z);
 };
 
