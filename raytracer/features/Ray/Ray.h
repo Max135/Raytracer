@@ -18,6 +18,7 @@ struct preComps {
     float t;
     Sphere *object;
     Tuple point, eyeV, normalV;
+    bool inside;
 };
 
 class Ray {

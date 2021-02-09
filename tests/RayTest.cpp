@@ -128,3 +128,41 @@ TEST(RayTests, TestIntersectionTranslatedSphere) {
 
     ASSERT_EQ(0, xs.size());
 }
+
+// Precomputing the state of an intersection
+TEST(RayTests, TestPrecomputation) {
+    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere shape;
+    Intersection i(4, &shape);
+    preComps comps = ray.prepareComputations(i);
+
+    ASSERT_EQ(i.t, comps.t);
+    ASSERT_TRUE(shape == *comps.object);
+    ASSERT_TRUE(Point(0, 0, -1) == comps.point);
+    ASSERT_TRUE(Vector(0, 0, -1) == comps.eyeV);
+    ASSERT_TRUE(Vector(0, 0, -1) == comps.normalV);
+}
+
+// The hit, when an intersection occurs on the outside
+TEST(RayTests, TestIntersectionOutside) {
+    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere shape;
+    Intersection i(4, &shape);
+    preComps comps = ray.prepareComputations(i);
+
+    ASSERT_EQ(false, comps.inside);
+}
+
+// The hit, when an intersection occurs on the inside
+TEST(RayTests, TestIntersectionInside) {
+    Ray ray(Point(0, 0, 0), Vector(0, 0, 1));
+    Sphere shape;
+    Intersection i(1, &shape);
+    preComps comps = ray.prepareComputations(i);
+
+    ASSERT_TRUE(Point(0, 0, 1) == comps.point);
+    ASSERT_TRUE(Vector(0, 0, -1) == comps.eyeV);
+    ASSERT_EQ(true, comps.inside);
+    //Normal would have been (0, 0, 1), but is inverted
+    ASSERT_TRUE(Vector(0, 0, -1) == comps.normalV);
+}

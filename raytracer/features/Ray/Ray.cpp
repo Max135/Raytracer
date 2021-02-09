@@ -19,6 +19,13 @@ preComps Ray::prepareComputations(Intersection intersection) {
     comps.eyeV = -this->direction;
     comps.normalV = comps.object->normalAt(comps.point);
 
+    if(comps.normalV.dot(comps.eyeV) < 0) {
+        comps.inside = true;
+        comps.normalV = -comps.normalV;
+    } else {
+        comps.inside = false;
+    }
+
     return comps;
 }
 

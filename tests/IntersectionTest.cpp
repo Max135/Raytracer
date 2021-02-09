@@ -98,17 +98,3 @@ TEST(IntersectionTests, TestGoodHit) {
 
     ASSERT_TRUE(i == i4);
 }
-
-// Precomputing the state of an intersection
-TEST(IntersectionTests, TestPrecomputation) {
-    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
-    Sphere shape;
-    Intersection i(4, &shape);
-    preComps comps = ray.prepareComputations(i);
-
-    ASSERT_EQ(i.t, comps.t);
-    ASSERT_TRUE(shape == *comps.object);
-    ASSERT_TRUE(Point(0, 0, -1) == comps.point);
-    ASSERT_TRUE(Vector(0, 0, -1) == comps.eyeV);
-    ASSERT_TRUE(Vector(0, 0, -1) == comps.normalV);
-}
