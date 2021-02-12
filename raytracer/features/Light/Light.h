@@ -18,9 +18,9 @@ public:
 
     Light(Point position, Color intensity) : position(std::move(position)), intensity(std::move(intensity)) {}
 
-    bool operator==(const Light & other);
+    bool operator==(const Light &other);
 
-    Light& operator=(const Light & other);
+    Light &operator=(const Light &other);
 };
 
 

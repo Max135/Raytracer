@@ -2,10 +2,7 @@
 // Created by Max on 2021-01-01.
 //
 
-#include <string>
 #include "Tuple.h"
-#include "../Helper.h"
-
 
 Tuple::Tuple(float x, float y, float z, float w) {
     this->x = x;

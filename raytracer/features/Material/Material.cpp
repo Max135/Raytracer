@@ -4,14 +4,13 @@
 
 #include "Material.h"
 
-
 bool Material::operator==(const Material &other) {
     return this->color == other.color && Helper::compareFloat(this->ambient, other.ambient) &&
            Helper::compareFloat(this->diffuse, other.diffuse) && Helper::compareFloat(this->specular, other.specular) &&
            Helper::compareFloat(this->shininess, other.shininess);
 }
 
-Tuple Material::lighting(Light light, const Tuple& point, const Tuple& eye, const Tuple& normal) {
+Tuple Material::lighting(Light light, const Tuple &point, const Tuple &eye, const Tuple &normal) {
     //Combine the surface color with the light's color/intensity
     Tuple effectiveColor = this->color * light.intensity;
 
@@ -26,7 +25,7 @@ Tuple Material::lighting(Light light, const Tuple& point, const Tuple& eye, cons
     float lightDotNormal = lightVector.dot(normal);
 
     Tuple currentDiffuse, currentSpecular;
-    if(lightDotNormal < 0) {
+    if (lightDotNormal < 0) {
         currentDiffuse = Color(0, 0, 0);
         currentSpecular = Color(0, 0, 0);
     } else {
@@ -38,7 +37,7 @@ Tuple Material::lighting(Light light, const Tuple& point, const Tuple& eye, cons
         Tuple reflectVector = (-lightVector).reflectOff(normal);
         float reflectDotEye = reflectVector.dot(eye);
 
-        if(reflectDotEye <= 0) {
+        if (reflectDotEye <= 0) {
             currentSpecular = Color(0, 0, 0);
         } else {
             //Compute the specular contribution

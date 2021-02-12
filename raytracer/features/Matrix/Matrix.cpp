@@ -2,10 +2,7 @@
 // Created by Max on 2021-01-03.
 //
 
-#include <algorithm>
-#include "../Helper.h"
 #include "Matrix.h"
-
 
 Matrix::Matrix(int sizeX, int sizeY) {
     this->sizeX = sizeX;

@@ -5,8 +5,11 @@
 #ifndef RAYTRACER_CANVAS_H
 #define RAYTRACER_CANVAS_H
 
+
 #include <vector>
-#include "../Tuple/Tuples.h"
+#include <cmath>
+#include <fstream>
+#include "../Tuple/Color.h"
 
 class Canvas {
     constexpr static const int COLOR_VALUE = 255;
@@ -17,9 +20,9 @@ public:
 
     ~Canvas();
 
-    void writePixel(int x, int y, const Tuple& color);
+    void writePixel(int x, int y, const Tuple &color);
 
-    void fillCanvas(const Color& color);
+    void fillCanvas(const Color &color);
 
     void save();
 
@@ -34,7 +37,7 @@ private:
 
     std::string createHeader();
 
-    void addColorBody(const Color& pixel, std::string *body);
+    void addColorBody(const Color &pixel, std::string *body);
 };
 
 

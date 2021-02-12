@@ -6,6 +6,7 @@
 #define RAYTRACER_SPHERE_H
 
 
+#include <utility>
 #include "../Tuple/Point.h"
 #include "../Matrix/Matrices.h"
 #include "../Material/Material.h"
@@ -20,13 +21,13 @@ public:
 
     Sphere(Point origin);
 
-    Sphere (Sphere const &other);
+    Sphere(Sphere const &other);
 
     bool operator==(const Sphere &other);
 
     void setTransform(Transform transform);
 
-    Tuple normalAt(const Tuple& worldPoint);
+    Tuple normalAt(const Tuple &worldPoint);
 
     std::string toString();
 };

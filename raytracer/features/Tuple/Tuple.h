@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include "../Helper.h"
 
 class Tuple {
 public:

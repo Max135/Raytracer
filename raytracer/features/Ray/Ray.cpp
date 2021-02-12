@@ -3,8 +3,6 @@
 //
 
 #include "Ray.h"
-#include <iostream>
-
 
 preComps Ray::prepareComputations(Intersection intersection) {
     // Instantiate a data structure for storing some precomputed values
@@ -19,7 +17,7 @@ preComps Ray::prepareComputations(Intersection intersection) {
     comps.eyeV = -this->direction;
     comps.normalV = comps.object->normalAt(comps.point);
 
-    if(comps.normalV.dot(comps.eyeV) < 0) {
+    if (comps.normalV.dot(comps.eyeV) < 0) {
         comps.inside = true;
         comps.normalV = -comps.normalV;
     } else {
@@ -40,7 +38,7 @@ Intersections Ray::intersect(Sphere *sphere) {
 
 Intersections Ray::intersect(World *world) {
     Intersections intersections;
-    for (auto & object: world->objects) {
+    for (auto &object: world->objects) {
         intersections.append(this->intersect(&object));
     }
     intersections.sort();

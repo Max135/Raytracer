@@ -27,7 +27,9 @@ set(Headers
         raytracer/features/Light/Light.h
         raytracer/features/Material/Material.h
         raytracer/features/World/World.h
-        raytracer/features/Intersection/Intersections.h raytracer/features/Intersection/Junctions.h)
+        raytracer/features/Intersection/Intersections.h
+        raytracer/features/Ray/PreComputation.h
+        raytracer/features/Intersection/Junctions.h)
 
 set(Sources
         raytracer/features/Helper.cpp
@@ -45,6 +47,7 @@ set(Sources
         raytracer/features/Material/Material.cpp
         raytracer/features/World/World.cpp
         raytracer/features/Intersection/Intersections.cpp
+        raytracer/features/Ray/PreComputation.cpp
         main.cpp)
 
 add_library(${This} STATIC ${Sources} ${Headers})

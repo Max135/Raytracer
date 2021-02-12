@@ -19,7 +19,9 @@ public:
 
     static World defaultWorld();
 
-    bool contains(const Sphere& sphere);
+    bool contains(const Sphere &sphere);
+
+    Color shadeHit(preComps comps);
 };
 
 

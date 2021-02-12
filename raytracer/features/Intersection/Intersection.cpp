@@ -4,7 +4,6 @@
 
 #include "Intersection.h"
 
-
 Intersection::Intersection() {
     this->t = 0;
     this->sphere = nullptr;

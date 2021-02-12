@@ -4,7 +4,6 @@
 
 #include "Intersections.h"
 
-
 Intersections::Intersections(std::vector<Intersection> intersections) {
     this->xs = std::move(intersections);
 }
@@ -21,16 +20,16 @@ Intersection Intersections::operator[](int pos) const {
     return this->xs[pos];
 }
 
-void Intersections::append(const std::vector<Intersection>& intersections) {
+void Intersections::append(const std::vector<Intersection> &intersections) {
     this->xs.insert(this->xs.end(), intersections.begin(), intersections.end());
 }
 
-void Intersections::append(const Intersections& intersections) {
+void Intersections::append(const Intersections &intersections) {
     this->append(intersections.xs);
 }
 
 void Intersections::sort() {
-    Intersections::quickSortIntersections(&this->xs, 0, this->xs.size()-1); //😤 forgot -1
+    Intersections::quickSortIntersections(&this->xs, 0, this->xs.size() - 1); //😤 forgot -1
 }
 
 Intersection Intersections::hit() {
@@ -78,7 +77,7 @@ bool Intersections::empty() const {
 std::string Intersections::toString() {
     std::string string;
     string.append("[ ");
-    for (auto & object: this->xs) {
+    for (auto &object: this->xs) {
         string.append(object.toString());
         string.append(", ");
     }

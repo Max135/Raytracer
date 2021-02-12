@@ -8,8 +8,7 @@
 
 #include <utility>
 #include <vector>
-#include "Junctions.h"
-
+#include "Intersection.h"
 
 ///https://stackoverflow.com/questions/1657883/variable-number-of-arguments-in-c/49435122
 ///https://www.stroustrup.com/C++11FAQ.html#variadic-templates
@@ -31,9 +30,9 @@ public:
 
     Intersection operator[](int pos) const;
 
-    void append(const std::vector<Intersection>& intersections);
+    void append(const std::vector<Intersection> &intersections);
 
-    void append(const Intersections& intersections);
+    void append(const Intersections &intersections);
 
     void sort();
 

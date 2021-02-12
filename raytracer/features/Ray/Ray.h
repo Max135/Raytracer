@@ -7,19 +7,11 @@
 
 
 #include <vector>
-#include "../Tuple/Point.h"
-#include "../Tuple/Vector.h"
+#include <iostream>
+#include "../Tuple/Tuples.h"
 #include "../Shape/Sphere.h"
 #include "../Intersection/Junctions.h"
-#include "../Matrix/Matrices.h"
 #include "../World/World.h"
-
-struct preComps {
-    float t;
-    Sphere *object;
-    Tuple point, eyeV, normalV;
-    bool inside;
-};
 
 class Ray {
 public:

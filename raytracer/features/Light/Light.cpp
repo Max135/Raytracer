@@ -14,7 +14,7 @@ bool Light::operator==(const Light &other) {
 }
 
 Light &Light::operator=(const Light &other) {
-    if(this == &other)
+    if (this == &other)
         return *this;
 
     this->intensity = other.intensity;

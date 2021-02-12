@@ -4,13 +4,11 @@
 
 #include "Sphere.h"
 
-#include <utility>
-
 void Sphere::setTransform(Transform transform) {
     this->transform = transform;
 }
 
-Tuple Sphere::normalAt(const Tuple& worldPoint) {
+Tuple Sphere::normalAt(const Tuple &worldPoint) {
     Tuple objectPoint = this->transform.inverse() * worldPoint;
     Tuple objectNormal = objectPoint - Point(0, 0, 0);
     Tuple worldNormal = this->transform.inverse().transpose() * objectNormal;

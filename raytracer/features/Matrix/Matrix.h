@@ -5,7 +5,10 @@
 #ifndef RAYTRACER_MATRIX_H
 #define RAYTRACER_MATRIX_H
 
+
 #include <iostream>
+#include <algorithm>
+#include "../Helper.h"
 #include "../Tuple/Tuples.h"
 
 class Matrix {

@@ -4,7 +4,6 @@
 
 #include "World.h"
 
-
 World::World() {
     light = Light();
 }
@@ -26,7 +25,7 @@ World World::defaultWorld() {
     return world;
 }
 
-bool World::contains(const Sphere& sphere) {
+bool World::contains(const Sphere &sphere) {
     for (Sphere &object : this->objects) {
         if (object == sphere)
             return true;
