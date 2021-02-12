@@ -98,13 +98,13 @@ void traceSphere() {
 //http://boostorg.github.io/compute/
 
 void traceSphereThreads() {
-    const int threadNb = 20;
-    const int canvasSize = 200;
+    const int threadNb = 10;
+    const int canvasSize = 1000;
     const int wallSize = 7;
     const int wallZ = 10;
 
     Sphere sphere;
-    sphere.material.color = Color(0, 0, 1);
+    sphere.material.color = Color(1, 0, 1);
 //    sphere.transform.shear(1, 0, 0.01, 0, 1, 0).scale(0.5, 1, 1);
 
     Canvas canvas(canvasSize, canvasSize);

@@ -39,6 +39,10 @@ Tuple Tuple::operator/(const float &scalar) {
     return divideScalar(*this, scalar);
 }
 
+Tuple Tuple::operator+=(const Tuple &other) {
+    return *this + other;
+}
+
 Tuple &Tuple::operator=(const Tuple &other) {
     if (this == &other)
         return *this;

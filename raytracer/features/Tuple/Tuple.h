@@ -47,6 +47,8 @@ public:
 
     Tuple operator/(const float &scalar);
 
+    Tuple operator+=(const Tuple &other);
+
     virtual Tuple &operator=(const Tuple &other);
 
     bool operator==(const Tuple &other);

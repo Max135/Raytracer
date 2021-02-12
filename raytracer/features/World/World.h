@@ -9,6 +9,7 @@
 #include <vector>
 #include "../Light/Light.h"
 #include "../Shape/Shapes.h"
+#include "../Ray/PreComputation.h"
 
 class World {
 public:
@@ -21,7 +22,7 @@ public:
 
     bool contains(const Sphere &sphere);
 
-    Color shadeHit(preComps comps);
+    Tuple shadeHit(const PreComputation& comps);
 };
 
 

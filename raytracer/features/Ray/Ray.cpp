@@ -4,9 +4,9 @@
 
 #include "Ray.h"
 
-preComps Ray::prepareComputations(Intersection intersection) {
+PreComputation Ray::prepareComputations(Intersection intersection) {
     // Instantiate a data structure for storing some precomputed values
-    preComps comps;
+    PreComputation comps;
 
     // Copy the intersection's properties, for convenience
     comps.t = intersection.t;

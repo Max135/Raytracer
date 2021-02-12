@@ -32,3 +32,9 @@ bool World::contains(const Sphere &sphere) {
     }
     return false;
 }
+
+//TODO: Support multiple lights
+//Page: 96
+Tuple World::shadeHit(const PreComputation& comps) {
+    return comps.object->material.lighting(light, comps.point, comps.eyeV, comps.normalV);
+}

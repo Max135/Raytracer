@@ -134,7 +134,7 @@ TEST(RayTests, TestPrecomputation) {
     Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
     Sphere shape;
     Intersection i(4, &shape);
-    preComps comps = ray.prepareComputations(i);
+    PreComputation comps = ray.prepareComputations(i);
 
     ASSERT_EQ(i.t, comps.t);
     ASSERT_TRUE(shape == *comps.object);
@@ -148,7 +148,7 @@ TEST(RayTests, TestIntersectionOutside) {
     Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
     Sphere shape;
     Intersection i(4, &shape);
-    preComps comps = ray.prepareComputations(i);
+    PreComputation comps = ray.prepareComputations(i);
 
     ASSERT_EQ(false, comps.inside);
 }
@@ -158,7 +158,7 @@ TEST(RayTests, TestIntersectionInside) {
     Ray ray(Point(0, 0, 0), Vector(0, 0, 1));
     Sphere shape;
     Intersection i(1, &shape);
-    preComps comps = ray.prepareComputations(i);
+    PreComputation comps = ray.prepareComputations(i);
 
     ASSERT_TRUE(Point(0, 0, 1) == comps.point);
     ASSERT_TRUE(Vector(0, 0, -1) == comps.eyeV);

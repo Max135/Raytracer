@@ -9,6 +9,7 @@
 #include "../Shape/Sphere.h"
 
 class PreComputation {
+public:
     float t;
     Sphere *object;
     Tuple point, eyeV, normalV;

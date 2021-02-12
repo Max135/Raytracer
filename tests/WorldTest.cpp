@@ -45,3 +45,24 @@ TEST(WorldTests, TestWorldRayIntersection) {
     ASSERT_EQ(5.5, xs[2].t);
     ASSERT_EQ(6, xs[3].t);
 }
+
+// Shading an intersection
+TEST(WorldTests, TestShading) {
+    World world = World::defaultWorld();
+    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Intersection i(4, &world.objects[0]);
+    Tuple c = world.shadeHit(ray.prepareComputations(i));
+
+    ASSERT_TRUE(Color(0.38066, 0.47583, 0.2855) == c);
+}
+
+// Shading an intersection from the inside
+TEST(WorldTests, TestShadingInside) {
+    World world = World::defaultWorld();
+    world.light = Light(Point(0, 0.25, 0), Color(1, 1, 1));
+    Ray ray(Point(0, 0, 0), Vector(0, 0, 1));
+    Intersection i(0.5, &world.objects[1]);
+    Tuple c = world.shadeHit(ray.prepareComputations(i));
+
+    ASSERT_TRUE(Color(0.90498, 0.90498, 0.90498) == c);
+}

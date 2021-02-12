@@ -22,7 +22,7 @@ public:
 
     Ray(Tuple origin, Tuple direction) : origin(origin), direction(direction) {}
 
-    preComps prepareComputations(Intersection ray);
+    PreComputation prepareComputations(Intersection intersection);
 
     Tuple position(float time);
 
