@@ -20,13 +20,13 @@ public:
 
     Color &operator=(const Tuple &other);
 
-//    static Color black() {
-//        return Color(0, 0, 0);
-//    }
-//
-//    static Color white() {
-//        return Color(1, 1, 1);
-//    }
+    static Color black() {
+        return Color(0, 0, 0);
+    }
+
+    static Color white() {
+        return Color(1, 1, 1);
+    }
 
 };
 

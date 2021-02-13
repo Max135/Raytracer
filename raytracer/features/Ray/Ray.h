@@ -30,6 +30,8 @@ public:
 
     Intersections intersect(World *world);
 
+    Tuple colorAt(World world);
+
     Ray transform(Matrix *transform);
 
     std::string toString();

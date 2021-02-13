@@ -166,3 +166,36 @@ TEST(RayTests, TestIntersectionInside) {
     //Normal would have been (0, 0, 1), but is inverted
     ASSERT_TRUE(Vector(0, 0, -1) == comps.normalV);
 }
+
+// The color when a ray misses
+TEST(RayTests, TestColorRayMiss) {
+    World world = World::defaultWorld();
+    Ray ray(Point(0, 0, -5), Vector(0, 1, 0));
+    Tuple color = ray.colorAt(world);
+
+    ASSERT_TRUE(Color(0, 0, 0) == color);
+}
+
+// The color when a ray hits
+TEST(RayTests, TestColorRayHit) {
+    World world = World::defaultWorld();
+    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Tuple color = ray.colorAt(world);
+
+    ASSERT_TRUE(Color(0.38066, 0.47583, 0.2855) == color);
+}
+
+// The color with an intersection behind the ray
+TEST(RayTests, TestIntersectionBehind) {
+    World world = World::defaultWorld();
+    Sphere *outer = &world.objects[0];
+    outer->material.ambient = 1;
+
+    Sphere *inner = &world.objects[1];
+    inner->material.ambient = 1.0;
+
+    Ray ray(Point(0, 0, 0.75), Vector(0, 0, -1));
+    Tuple color = ray.colorAt(world);
+
+    ASSERT_TRUE( inner->material.color == color);
+}

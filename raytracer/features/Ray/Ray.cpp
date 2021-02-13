@@ -31,6 +31,18 @@ Tuple Ray::position(float time) {
     return origin + direction * time;
 }
 
+//TODO: Figure out the Ray::intersect() and World::shadeHit cluster fuck
+Tuple Ray::colorAt(World world) {
+    Intersections intersections = this->intersect(&world);
+    Intersection intersection = intersections.hit();
+    if (intersection.sphere == nullptr) {
+        return Color::black();
+    } else {
+        PreComputation preComps = this->prepareComputations(intersection);
+        return world.shadeHit(preComps);
+    }
+}
+
 Intersections Ray::intersect(Sphere *sphere) {
     Matrix t = sphere->transform.inverse();
     return intersection(this->transform(&t), sphere);
@@ -88,4 +100,3 @@ std::string Ray::toString() {
     string.append(this->direction.toString());
     return string;
 }
-
