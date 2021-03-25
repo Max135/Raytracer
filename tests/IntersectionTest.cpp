@@ -10,7 +10,7 @@
 // An intersection encapsulates t and object
 TEST(IntersectionTests, TestCreation) {
     Sphere sphere;
-    float point = 3.5;
+    double point = 3.5;
 
     Intersection intersection(point, &sphere);
 

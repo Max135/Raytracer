@@ -5,11 +5,11 @@
 #include "Helper.h"
 #include <cmath>
 
-bool Helper::compareFloat(float a, float b) {
-//    float i = INFINITY;
+bool Helper::compareFloat(double a, double b) {
+//    double i = INFINITY;
     return abs(a - b) < EPSILON;
 }
 
-bool Helper::compareFloat(float a, float b, float range) {
+bool Helper::compareFloat(double a, double b, double range) {
     return abs(a - b) < range;
 }

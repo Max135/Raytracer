@@ -26,7 +26,7 @@ Transform Transform::viewTransform(Point from, Point to, Vector up) {
     return orientation.translate(-from.x, -from.y, -from.z);
 }
 
-Transform Transform::translation(float x, float y, float z) {
+Transform Transform::translation(double x, double y, double z) {
     Transform transform;
 
     transform.matrix[0][3] = x;
@@ -36,7 +36,7 @@ Transform Transform::translation(float x, float y, float z) {
     return transform;
 }
 
-Transform Transform::scaling(float x, float y, float z) {
+Transform Transform::scaling(double x, double y, double z) {
     Transform transform;
 
     transform.matrix[0][0] = x;
@@ -46,11 +46,11 @@ Transform Transform::scaling(float x, float y, float z) {
     return transform;
 }
 
-Transform Transform::xRotation(float angle) {
+Transform Transform::xRotation(double angle) {
     Transform transform;
 
-    float cosine = cos(angle);
-    float sine = sin(angle);
+    double cosine = cos(angle);
+    double sine = sin(angle);
 
     transform.matrix[1][1] = cosine;
     transform.matrix[1][2] = -sine;
@@ -60,11 +60,11 @@ Transform Transform::xRotation(float angle) {
     return transform;
 }
 
-Transform Transform::yRotation(float angle) {
+Transform Transform::yRotation(double angle) {
     Transform transform;
 
-    float cosine = cos(angle);
-    float sine = sin(angle);
+    double cosine = cos(angle);
+    double sine = sin(angle);
 
     transform.matrix[0][0] = cosine;
     transform.matrix[0][2] = sine;
@@ -74,11 +74,11 @@ Transform Transform::yRotation(float angle) {
     return transform;
 }
 
-Transform Transform::zRotation(float angle) {
+Transform Transform::zRotation(double angle) {
     Transform transform;
 
-    float cosine = cos(angle);
-    float sine = sin(angle);
+    double cosine = cos(angle);
+    double sine = sin(angle);
 
     transform.matrix[0][0] = cosine;
     transform.matrix[0][1] = -sine;
@@ -88,7 +88,7 @@ Transform Transform::zRotation(float angle) {
     return transform;
 }
 
-Transform Transform::shearing(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY) {
+Transform Transform::shearing(double xToY, double xToZ, double yToX, double yToZ, double zToX, double zToY) {
     Transform transform;
 
     transform.matrix[0][1] = xToY;
@@ -103,27 +103,27 @@ Transform Transform::shearing(float xToY, float xToZ, float yToX, float yToZ, fl
 
 //TODO: Change function call to * operator
 //TODO: To have normal order change this->multiply(other) to other.multiply(this)
-Transform &Transform::translate(float x, float y, float z) {
+Transform &Transform::translate(double x, double y, double z) {
     return this->multiplyTransforms(Transform::translation(x, y, z));
 }
 
-Transform &Transform::scale(float x, float y, float z) {
+Transform &Transform::scale(double x, double y, double z) {
     return this->multiplyTransforms(Transform::scaling(x, y, z));
 }
 
-Transform &Transform::rotateX(float angle) {
+Transform &Transform::rotateX(double angle) {
     return this->multiplyTransforms(Transform::xRotation(angle));
 }
 
-Transform &Transform::rotateY(float angle) {
+Transform &Transform::rotateY(double angle) {
     return this->multiplyTransforms(Transform::yRotation(angle));
 }
 
-Transform &Transform::rotateZ(float angle) {
+Transform &Transform::rotateZ(double angle) {
     return this->multiplyTransforms(Transform::zRotation(angle));
 }
 
-Transform &Transform::shear(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY) {
+Transform &Transform::shear(double xToY, double xToZ, double yToX, double yToZ, double zToX, double zToY) {
     return this->multiplyTransforms(Transform::shearing(xToY, xToZ, yToX, yToZ, zToX, zToY));
 }
 

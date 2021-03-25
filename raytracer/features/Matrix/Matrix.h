@@ -30,19 +30,19 @@ public:
 
     Matrix inverse();
 
-    float minor(int row, int column);
+    double minor(int row, int column);
 
-    float cofactor(int row, int column);
+    double cofactor(int row, int column);
 
-    float determinant();
+    double determinant();
 
     bool isInvertible();
 
     std::string toString();
 
-    float *operator[](int pos);
+    double *operator[](int pos);
 
-    float *operator[](int pos) const;
+    double *operator[](int pos) const;
 
     Matrix operator*(const Matrix &other);
 
@@ -53,14 +53,14 @@ public:
     Matrix &operator=(const Matrix &other);
 
 protected:
-    float **matrix;
+    double **matrix;
 
     void setToIdentityMatrix();
 
 private:
-    float **initializeMatrix() const;
+    double **initializeMatrix() const;
 
-    float **initializeMatrix(const Matrix &other) const;
+    double **initializeMatrix(const Matrix &other) const;
 
     bool compareMatrix(const Matrix &other);
 

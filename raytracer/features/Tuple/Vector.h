@@ -12,7 +12,7 @@ class Vector : public Tuple {
 public:
     Vector() {}
 
-    Vector(float x, float y, float z);
+    Vector(double x, double y, double z);
 };
 
 

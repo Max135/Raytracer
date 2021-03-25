@@ -12,12 +12,12 @@
 
 class Camera {
 public:
-    Camera(int hSize, int vSize, float fov);
+    Camera(int hSize, int vSize, double fov);
 
     int hSize;
     int vSize;
-    float fov;
-    float pixelSize;
+    double fov;
+    double pixelSize;
     Transform transform;
 
     Ray rayForPixel(int px, int py);
@@ -25,8 +25,8 @@ public:
     Canvas render(const World& world);
 
 private:
-    float halfWidth;
-    float halfHeight;
+    double halfWidth;
+    double halfHeight;
 
     void calculatePixelSize();
 };

@@ -26,11 +26,11 @@ Matrix::~Matrix() {
     matrix = nullptr;
 }
 
-float *Matrix::operator[](int pos) {
+double *Matrix::operator[](int pos) {
     return matrix[pos];
 }
 
-float *Matrix::operator[](int pos) const {
+double *Matrix::operator[](int pos) const {
     return matrix[pos];
 }
 
@@ -62,10 +62,10 @@ Matrix &Matrix::operator=(const Matrix &other) {
     return *this;
 }
 
-float **Matrix::initializeMatrix() const {
-    float **grid = new float *[this->sizeY];
+double **Matrix::initializeMatrix() const {
+    double **grid = new double *[this->sizeY];
     for (int i = 0; i < this->sizeY; ++i) {
-        grid[i] = new float[this->sizeX];
+        grid[i] = new double[this->sizeX];
         for (int j = 0; j < this->sizeX; ++j) {
             grid[i][j] = 0.0;
         }
@@ -73,10 +73,10 @@ float **Matrix::initializeMatrix() const {
     return grid;
 }
 
-float **Matrix::initializeMatrix(const Matrix &other) const {
-    float **grid = new float *[this->sizeY];
+double **Matrix::initializeMatrix(const Matrix &other) const {
+    double **grid = new double *[this->sizeY];
     for (int i = 0; i < this->sizeY; ++i) {
-        grid[i] = new float[this->sizeX];
+        grid[i] = new double[this->sizeX];
         for (int j = 0; j < this->sizeX; ++j) {
             grid[i][j] = other.matrix[i][j];
         }
@@ -112,7 +112,7 @@ Matrix Matrix::multiplyMatrices(const Matrix &other) {
 }
 
 Tuple Matrix::multiplyTuple(const Tuple &tuple) {
-    float temp[4];
+    double temp[4];
 
     for (int i = 0; i < sizeY; ++i) {
         temp[i] = this->matrix[i][0] * tuple.x + this->matrix[i][1] * tuple.y + this->matrix[i][2] * tuple.z +
@@ -143,11 +143,11 @@ Matrix Matrix::transpose() {
     return result;
 }
 
-float Matrix::determinant() {
+double Matrix::determinant() {
     if (this->sizeX <= 2 && this->sizeY <= 2) {
         return this->matrix[0][0] * this->matrix[1][1] - this->matrix[0][1] * this->matrix[1][0];
     } else {
-        float determinant = 0;
+        double determinant = 0;
         for (int i = 0; i < this->sizeX; ++i) {
             determinant += cofactor(0, i) * this->matrix[0][i]; //Holy fuck that's an impressive recursion loop
         }
@@ -175,12 +175,12 @@ Matrix Matrix::submatrix(int row, int column) {
     return result;
 }
 
-float Matrix::minor(int row, int column) {
+double Matrix::minor(int row, int column) {
     return submatrix(row, column).determinant();
 }
 
-float Matrix::cofactor(int row, int column) {
-    float minor = this->minor(row, column);
+double Matrix::cofactor(int row, int column) {
+    double minor = this->minor(row, column);
     return ((row + column) % 2) ? -minor : minor;
 }
 
@@ -191,7 +191,7 @@ bool Matrix::isInvertible() {
 Matrix Matrix::inverse() {
     Matrix inverse(this->sizeY, this->sizeX);
 
-    float determinant = this->determinant();
+    double determinant = this->determinant();
     for (int i = 0; i < this->sizeY; ++i) {
         for (int j = 0; j < this->sizeX; ++j) {
             inverse[j][i] = this->cofactor(i, j) / determinant;

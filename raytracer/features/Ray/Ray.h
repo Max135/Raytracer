@@ -24,7 +24,7 @@ public:
 
     PreComputation prepareComputations(Intersection intersection);
 
-    Tuple position(float time);
+    Tuple position(double time);
 
     Intersections intersect(Sphere *sphere);
 

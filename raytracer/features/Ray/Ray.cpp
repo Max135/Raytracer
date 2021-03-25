@@ -27,7 +27,7 @@ PreComputation Ray::prepareComputations(Intersection intersection) {
     return comps;
 }
 
-Tuple Ray::position(float time) {
+Tuple Ray::position(double time) {
     return origin + direction * time;
 }
 
@@ -65,19 +65,19 @@ Ray Ray::transform(Matrix *transform) {
 std::vector<Intersection> Ray::intersection(Ray ray, Sphere *sphere) {
     Tuple sphereToRay = ray.origin - sphere->origin;
 
-    float a = ray.direction.dot(ray.direction);
-    float b = 2 * ray.direction.dot(sphereToRay);
-    float c = sphereToRay.dot(sphereToRay) - 1;
+    double a = ray.direction.dot(ray.direction);
+    double b = 2 * ray.direction.dot(sphereToRay);
+    double c = sphereToRay.dot(sphereToRay) - 1;
 
-    float discriminant = b * b - 4 * a * c;
+    double discriminant = b * b - 4 * a * c;
 
     if (discriminant < 0)
         return std::vector<Intersection>();
 
-    float squareRoot = sqrt(discriminant);
+    double squareRoot = sqrt(discriminant);
 
-    float t1 = (-b - squareRoot) / (2 * a);
-    float t2 = (-b + squareRoot) / (2 * a);
+    double t1 = (-b - squareRoot) / (2 * a);
+    double t2 = (-b + squareRoot) / (2 * a);
 
 
     std::vector<Intersection> vector;

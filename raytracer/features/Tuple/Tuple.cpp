@@ -4,18 +4,18 @@
 
 #include "Tuple.h"
 
-Tuple::Tuple(float x, float y, float z, float w) {
+Tuple::Tuple(double x, double y, double z, double w) {
     this->x = x;
     this->y = y;
     this->z = z;
     this->w = w;
 }
 
-Tuple Tuple::point(float x, float y, float z) {
+Tuple Tuple::point(double x, double y, double z) {
     return Tuple(x, y, z, 1.0);
 }
 
-Tuple Tuple::vector(float x, float y, float z) {
+Tuple Tuple::vector(double x, double y, double z) {
     return Tuple(x, y, z, 0.0);
 }
 
@@ -27,7 +27,7 @@ Tuple Tuple::operator-(const Tuple &other) {
     return subtract(*this, other);
 }
 
-Tuple Tuple::operator*(const float &scalar) {
+Tuple Tuple::operator*(const double &scalar) {
     return multiplyScalar(*this, scalar);
 }
 
@@ -35,7 +35,7 @@ Tuple Tuple::operator*(const Tuple &other) {
     return multiply(*this, other);
 }
 
-Tuple Tuple::operator/(const float &scalar) {
+Tuple Tuple::operator/(const double &scalar) {
     return divideScalar(*this, scalar);
 }
 
@@ -119,7 +119,7 @@ Tuple Tuple::multiply(Tuple first, Tuple second) {
     return tuple;
 }
 
-Tuple Tuple::multiplyScalar(Tuple tuple, float scalar) {
+Tuple Tuple::multiplyScalar(Tuple tuple, double scalar) {
     Tuple tempTuple;
 
     tempTuple.x = tuple.x * scalar;
@@ -130,7 +130,7 @@ Tuple Tuple::multiplyScalar(Tuple tuple, float scalar) {
     return tempTuple;
 }
 
-Tuple Tuple::divideScalar(Tuple tuple, float scalar) {
+Tuple Tuple::divideScalar(Tuple tuple, double scalar) {
     Tuple tempTuple;
 
     tempTuple.x = tuple.x / scalar;
@@ -141,27 +141,27 @@ Tuple Tuple::divideScalar(Tuple tuple, float scalar) {
     return tempTuple;
 }
 
-float Tuple::magnitude() {
-    return (float) sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->w, 2));
+double Tuple::magnitude() {
+    return (double) sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->w, 2));
 }
 
 //3x faster then real calculation with ~1% approximation
-float Tuple::quickInverseSquareRoot(float number) {
+double Tuple::quickInverseSquareRoot(double number) {
     long i;
-    float x2, y;
-    const float threehalfs = 1.5F;
+    double x2, y;
+    const double threehalfs = 1.5F;
 
     x2 = number * 0.5F;
     y = number;
 
-    //Gets the binary representation of the float in long to get access to bit shit operator get the address of y (&y) then change its internal representation to a long ((long * )) then read what it is (*) as if it were a long
+    //Gets the binary representation of the double in long to get access to bit shit operator get the address of y (&y) then change its internal representation to a long ((long * )) then read what it is (*) as if it were a long
     i = *(long *) &y;
 
-    //Changes the exponent part inside float representation (IEEE 754), so instead of calculating sqrt, we divide exponent by 2 (i >> 1) (bit shifting to right == /2) hard coded number exploit the fact that the log of float is its own binary representation
+    //Changes the exponent part inside double representation (IEEE 754), so instead of calculating sqrt, we divide exponent by 2 (i >> 1) (bit shifting to right == /2) hard coded number exploit the fact that the log of double is its own binary representation
     i = 0x5f3759df - (i >> 1);
 
-    //Revert the number to a float with same principle as before
-    y = *(float *) &i;
+    //Revert the number to a double with same principle as before
+    y = *(double *) &i;
 
     //Use Newton iteration to better approximate the root of the number using the function and its derivative
     y = y * (threehalfs - (x2 * y * y));
@@ -172,7 +172,7 @@ float Tuple::quickInverseSquareRoot(float number) {
 Tuple Tuple::fastNormalize() {
     Tuple normalized;
 
-    float inverseSquare = quickInverseSquareRoot(this->x * this->x + this->y * this->y + this->z * this->z);
+    double inverseSquare = quickInverseSquareRoot(this->x * this->x + this->y * this->y + this->z * this->z);
 
     normalized.x = this->x * inverseSquare;
     normalized.y = this->y * inverseSquare;
@@ -185,7 +185,7 @@ Tuple Tuple::fastNormalize() {
 Tuple Tuple::normalize() {
     Tuple normalized;
 
-    float magnitude = this->magnitude();
+    double magnitude = this->magnitude();
 
     normalized.x = this->x / magnitude;
     normalized.y = this->y / magnitude;
@@ -201,7 +201,7 @@ Tuple Tuple::cross(Tuple other) {
                          this->x * other.y - this->y * other.x);
 }
 
-float Tuple::dot(Tuple other) {
+double Tuple::dot(Tuple other) {
     return this->x * other.x + this->y * other.y + this->z * other.z + this->w * other.w;
 }
 

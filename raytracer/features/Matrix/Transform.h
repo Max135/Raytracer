@@ -19,29 +19,29 @@ public:
 
     static Transform viewTransform(Point from, Point to, Vector up);
 
-    static Transform translation(float x, float y, float z);
+    static Transform translation(double x, double y, double z);
 
-    static Transform scaling(float x, float y, float z);
+    static Transform scaling(double x, double y, double z);
 
-    static Transform xRotation(float angle);
+    static Transform xRotation(double angle);
 
-    static Transform yRotation(float angle);
+    static Transform yRotation(double angle);
 
-    static Transform zRotation(float angle);
+    static Transform zRotation(double angle);
 
-    static Transform shearing(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY);
+    static Transform shearing(double xToY, double xToZ, double yToX, double yToZ, double zToX, double zToY);
 
-    Transform &translate(float x, float y, float z);
+    Transform &translate(double x, double y, double z);
 
-    Transform &scale(float x, float y, float z);
+    Transform &scale(double x, double y, double z);
 
-    Transform &rotateX(float angle);
+    Transform &rotateX(double angle);
 
-    Transform &rotateY(float angle);
+    Transform &rotateY(double angle);
 
-    Transform &rotateZ(float angle);
+    Transform &rotateZ(double angle);
 
-    Transform &shear(float xToY, float xToZ, float yToX, float yToZ, float zToX, float zToY);
+    Transform &shear(double xToY, double xToZ, double yToX, double yToZ, double zToX, double zToY);
 
 private:
     Transform &multiplyTransforms(const Transform &other);

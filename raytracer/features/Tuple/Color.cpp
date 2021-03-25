@@ -4,7 +4,7 @@
 
 #include "Color.h"
 
-Color::Color(float red, float green, float blue) {
+Color::Color(double red, double green, double blue) {
     this->x = red;
     this->y = green;
     this->z = blue;

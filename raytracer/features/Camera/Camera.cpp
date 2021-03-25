@@ -4,7 +4,7 @@
 
 #include "Camera.h"
 
-Camera::Camera(int hSize, int vSize, float fov) {
+Camera::Camera(int hSize, int vSize, double fov) {
     this->hSize = hSize;
     this->vSize = vSize;
     this->fov = fov;
@@ -13,24 +13,24 @@ Camera::Camera(int hSize, int vSize, float fov) {
 }
 
 void Camera::calculatePixelSize() {
-    float halfView = tan(this->fov / 2);
-    float aspect = (float) this->hSize / (float) this->vSize;
+    double halfView = tan(this->fov / 2);
+    double aspect = (double) this->hSize / (double) this->vSize;
 
     this->halfWidth = (aspect >= 1) ? halfView : halfView * aspect;
     this->halfHeight = (aspect >= 1) ? halfView / aspect : halfView;
 
-    this->pixelSize = (this->halfWidth * 2) / (float) this->hSize;
+    this->pixelSize = (this->halfWidth * 2) / (double) this->hSize;
 }
 
 Ray Camera::rayForPixel(int px, int py) {
     // the offset from the edge of the canvas to the pixel's center
-    float xOffset = (px + 0.5) * this->pixelSize;
-    float yOffset = (py + 0.5) * this->pixelSize;
+    double xOffset = (px + 0.5) * this->pixelSize;
+    double yOffset = (py + 0.5) * this->pixelSize;
 
     // the untransformed coordinates of the pixel in world space.
     // the camera looks toward -z, so +x is to the left
-    float worldX = this->halfWidth - xOffset;
-    float worldY = this->halfHeight - yOffset;
+    double worldX = this->halfWidth - xOffset;
+    double worldY = this->halfHeight - yOffset;
 
     // using the camera matrix, transform the canvas point and the origin,
     // and then compute the ray's direction vector.

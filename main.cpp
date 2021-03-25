@@ -31,7 +31,7 @@ void traceSphereThreads();
 void traceSphere();
 
 void writePixel(Intersections xs, Ray *ray, Canvas *canvas, Light *light, int x, int y);
-void calculateColisions(int canvasSize, float half, float pixelSize, float wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y);
+void calculateColisions(int canvasSize, double half, double pixelSize, double wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y);
 
 
 int main() {
@@ -64,17 +64,17 @@ void traceSphere() {
 
     Point rayOrigin(0, 0, -5);
 
-    float pixelSize = (float) wallSize / canvasSize;
-    float half = wallSize / 2.0;
+    double pixelSize = (double) wallSize / canvasSize;
+    double half = wallSize / 2.0;
 
     for (int y = 0; y < canvasSize - 1; ++y) {
         if (y % 100 == 0)
             std::cout << y << std::endl;
 
-        float worldY = half - pixelSize * (float) y;
+        double worldY = half - pixelSize * (double) y;
 //        calculateColisions(canvasSize, half, pixelSize, worldY, wallZ, rayOrigin, &sphere, &canvas, &light, y);
         for (int x = 0; x < canvasSize - 1; ++x) {
-            float worldX = -half + pixelSize * (float) x;
+            double worldX = -half + pixelSize * (double) x;
             Point position(worldX, worldY, wallZ);
             Ray ray(rayOrigin, (position - rayOrigin).normalize());
             Intersections xs = ray.intersect(&sphere);
@@ -113,8 +113,8 @@ void traceSphereThreads() {
 
     Point rayOrigin(0, 0, -5);
 
-    float pixelSize = (float) wallSize / canvasSize;
-    float half = wallSize / 2.0;
+    double pixelSize = (double) wallSize / canvasSize;
+    double half = wallSize / 2.0;
 
     for (int y = 0; y < canvasSize - 1; y+=threadNb) {
         if (y % 100 == 0)
@@ -135,10 +135,10 @@ void traceSphereThreads() {
     canvas.save();
 }
 
-void calculateColisions(int canvasSize, float half, float pixelSize, float wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y) {
-    float worldY = half - pixelSize * (float) y;
+void calculateColisions(int canvasSize, double half, double pixelSize, double wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y) {
+    double worldY = half - pixelSize * (double) y;
     for (int x = 0; x < canvasSize - 1; ++x) {
-        float worldX = -half + pixelSize * (float) x;
+        double worldX = -half + pixelSize * (double) x;
         Point position(worldX, worldY, wallZ);
         Ray ray(rayOrigin, (position - rayOrigin).normalize());
         Intersections xs = ray.intersect(sphere);

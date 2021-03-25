@@ -11,10 +11,10 @@
 class Color : public Tuple {
 public:
     //FML
-//    float& red = this->x;
-//    float& green = this->y;
-//    float& blue = this->z;
-    Color(float red, float green, float blue);
+//    double& red = this->x;
+//    double& green = this->y;
+//    double& blue = this->z;
+    Color(double red, double green, double blue);
 
     Color() {}
 

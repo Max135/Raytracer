@@ -192,10 +192,10 @@ TEST(TransformTests, TestArbitraryTransform) {
 
 Transform initResultMatrix() {
     Transform result;
-    float rowA1[] = {-0.50709, 0.50709, 0.67612, -2.36643};
-    float rowA2[] = {0.76772, 0.60609,  0.12122, -2.82843};
-    float rowA3[] = {-0.35857, 0.59761, -0.71714,  0.00000};
-    float rowA4[] = {0.00000, 0.00000,  0.00000,  1.00000};
+    double rowA1[] = {-0.50709, 0.50709, 0.67612, -2.36643};
+    double rowA2[] = {0.76772, 0.60609,  0.12122, -2.82843};
+    double rowA3[] = {-0.35857, 0.59761, -0.71714,  0.00000};
+    double rowA4[] = {0.00000, 0.00000,  0.00000,  1.00000};
     std::copy(rowA1, rowA1 + 4, result[0]);
     std::copy(rowA2, rowA2 + 4, result[1]);
     std::copy(rowA3, rowA3 + 4, result[2]);

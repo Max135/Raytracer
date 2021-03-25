@@ -22,7 +22,7 @@ Tuple Material::lighting(Light light, const Tuple &point, const Tuple &eye, cons
 
     //lightDotNormal represents the cosine of the angle between the light vector and the normal vector
     //A negative number means the light is on the other side of the surface
-    float lightDotNormal = lightVector.dot(normal);
+    double lightDotNormal = lightVector.dot(normal);
 
     Tuple currentDiffuse, currentSpecular;
     if (lightDotNormal < 0) {
@@ -35,13 +35,13 @@ Tuple Material::lighting(Light light, const Tuple &point, const Tuple &eye, cons
         //reflectDotEye represents the cosine of the angle between the reflection vector and the eye vector
         //A negative number means the light reflects away from the eye
         Tuple reflectVector = (-lightVector).reflectOff(normal);
-        float reflectDotEye = reflectVector.dot(eye);
+        double reflectDotEye = reflectVector.dot(eye);
 
         if (reflectDotEye <= 0) {
             currentSpecular = Color(0, 0, 0);
         } else {
             //Compute the specular contribution
-            float factor = pow(reflectDotEye, this->shininess);
+            double factor = pow(reflectDotEye, this->shininess);
             currentSpecular = light.intensity * this->specular * factor;
         }
     }

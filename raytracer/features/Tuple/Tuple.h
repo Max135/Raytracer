@@ -11,19 +11,19 @@
 
 class Tuple {
 public:
-    float x, y, z, w;
+    double x, y, z, w;
 
     Tuple() {}
 
-    Tuple(float x, float y, float z, float w);
+    Tuple(double x, double y, double z, double w);
 
-    static Tuple point(float x, float y, float z);
+    static Tuple point(double x, double y, double z);
 
-    static Tuple vector(float x, float y, float z);
+    static Tuple vector(double x, double y, double z);
 
-    float magnitude();
+    double magnitude();
 
-    float quickInverseSquareRoot(float number);
+    double quickInverseSquareRoot(double number);
 
     Tuple fastNormalize();
 
@@ -31,7 +31,7 @@ public:
 
     Tuple cross(Tuple other);
 
-    float dot(Tuple other);
+    double dot(Tuple other);
 
     Tuple reflectOff(Tuple other);
 
@@ -41,11 +41,11 @@ public:
 
     Tuple operator-(const Tuple &other);
 
-    Tuple operator*(const float &scalar);
+    Tuple operator*(const double &scalar);
 
     Tuple operator*(const Tuple &other);
 
-    Tuple operator/(const float &scalar);
+    Tuple operator/(const double &scalar);
 
     Tuple operator+=(const Tuple &other);
 
@@ -67,11 +67,11 @@ private:
 
     static Tuple negate(Tuple tuple);
 
-    static Tuple multiplyScalar(Tuple tuple, float scalar);
+    static Tuple multiplyScalar(Tuple tuple, double scalar);
 
     static Tuple multiply(Tuple first, Tuple second);
 
-    static Tuple divideScalar(Tuple tuple, float scalar);
+    static Tuple divideScalar(Tuple tuple, double scalar);
 };
 
 #endif //RAYTRACER_TUPLE_H

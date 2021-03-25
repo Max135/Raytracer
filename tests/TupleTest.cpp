@@ -10,7 +10,7 @@
 
 // A tuple with w=1.0 is a point
 TEST(TupleTests, TestPointValues) {
-    float x = 4.3, y = -4.2, z = 3.1, w = 1.0;
+    double x = 4.3, y = -4.2, z = 3.1, w = 1.0;
     Tuple point(x, y, z, w);
 
     ASSERT_EQ(x, point.x);
@@ -22,7 +22,7 @@ TEST(TupleTests, TestPointValues) {
 
 // A tuple with w=0.0 is a vector
 TEST(TupleTests, TestVectorValues) {
-    float x = 4.3, y = -4.2, z = 3.1, w = 0.0;
+    double x = 4.3, y = -4.2, z = 3.1, w = 0.0;
     Tuple vector(x, y, z, w);
 
     ASSERT_EQ(x, vector.x);
@@ -34,29 +34,29 @@ TEST(TupleTests, TestVectorValues) {
 
 // Point() creates tuples with w=1
 TEST(TupleTests, TestPointCreation) {
-    float x = 4.3, y = -4.2, z = 3.1;
+    double x = 4.3, y = -4.2, z = 3.1;
     Vector vector = Vector(x, y, z);
     ASSERT_EQ(0.0, vector.w);
 }
 
 // Vector() creates tuples with w=1
 TEST(TupleTests, TestVectorCreation) {
-    float x = 4.3, y = -4.2, z = 3.1;
+    double x = 4.3, y = -4.2, z = 3.1;
     Point point = Point(x, y, z);
     ASSERT_EQ(1.0, point.w);
 }
 
 // Round off errors still compare to true
 TEST(TupleTests, TestTupleEquation) {
-    float x1 = 4.3, y1 = -4.2, z1 = 3.1;
+    double x1 = 4.3, y1 = -4.2, z1 = 3.1;
     Point point1 = Point(x1, y1, z1);
 
-    float x2 = 1.0, y2 = 1.0, z2 = 1.0;
+    double x2 = 1.0, y2 = 1.0, z2 = 1.0;
     Point point2 = Point(x2, y2, z2);
     Point point3 = Point(x2, y2, z2);
     Vector vector1 = Vector(x2, y2, z2);
 
-    float x3 = 1.00000001, y3 = 1.00000001, z3 = 1.00000001;
+    double x3 = 1.00000001, y3 = 1.00000001, z3 = 1.00000001;
     Vector vector2 = Vector(x3, y3, z3);
 
     ASSERT_FALSE(point1 == point2);
@@ -68,10 +68,10 @@ TEST(TupleTests, TestTupleEquation) {
 
 // Adding two tuples
 TEST(TupleTests, TestAddTuples) {
-    float x1 = 1.0, y1 = -1.0, z1 = 1.0;
+    double x1 = 1.0, y1 = -1.0, z1 = 1.0;
     Vector vector = Vector(x1, y1, z1);
 
-    float x2 = 0.5, y2 = 0.5, z2 = 0.5;
+    double x2 = 0.5, y2 = 0.5, z2 = 0.5;
     Point point = Point(x2, y2, z2);
 
     ASSERT_TRUE(Point(1.5, -0.5, 1.5) == (point + vector));
@@ -82,11 +82,11 @@ TEST(TupleTests, TestAddTuples) {
 
 // Subtracting two points, a vector from a point and two vectors
 TEST(TupleTests, TestSubstractTuples) {
-    float x1 = 3, y1 = 2, z1 = 1;
+    double x1 = 3, y1 = 2, z1 = 1;
     Point point1 = Point(x1, y1, z1);
     Vector vector1 = Vector(x1, y1, z1);
 
-    float x2 = 5, y2 = 6, z2 = 7;
+    double x2 = 5, y2 = 6, z2 = 7;
     Point point2 = Point(x2, y2, z2);
     Vector vector2 = Vector(x2, y2, z2);
 
@@ -97,10 +97,10 @@ TEST(TupleTests, TestSubstractTuples) {
 
 // Negating a tuple
 TEST(TupleTests, TestNegatingTuple) {
-    float x1 = 3, y1 = 2, z1 = 1;
+    double x1 = 3, y1 = 2, z1 = 1;
     Point point1 = Point(x1, y1, z1);
 
-    float x2 = -3, y2 = 2, z2 = -1;
+    double x2 = -3, y2 = 2, z2 = -1;
     Vector vector1 = Vector(x2, y2, z2);
 
     ASSERT_TRUE(Tuple(-3, -2, -1, -1) == -point1);
@@ -169,9 +169,9 @@ TEST(TupleTests, TestCross) {
 // Colors are (red, green, blue) tuples
 TEST(TupleTests, TestColorAssignation) {
     Color color = Color(-0.5, 0.4, 1.7);
-    ASSERT_EQ(-0.5f, color.x);
-    ASSERT_EQ(0.4f, color.y);
-    ASSERT_EQ(1.7f, color.z);
+    ASSERT_EQ(-0.5, color.x);
+    ASSERT_EQ(0.4, color.y);
+    ASSERT_EQ(1.7, color.z);
 //    ASSERT_EQ(-0.5f, color.red);
 //    ASSERT_EQ(0.4f, color.green);
 //    ASSERT_EQ(1.7f, color.blue);

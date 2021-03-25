@@ -11,10 +11,10 @@
 
 class Intersection {
 public:
-    float t;
+    double t;
     Sphere *sphere;
 
-    Intersection(float t, Sphere *sphere) : t(t), sphere(sphere) {}
+    Intersection(double t, Sphere *sphere) : t(t), sphere(sphere) {}
 
     Intersection();
 

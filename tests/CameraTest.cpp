@@ -11,7 +11,7 @@
 TEST(CameraTests, TestConstructingCamera) {
     int hsize = 160;
     int vsize = 120;
-    float fov = M_PI_2;
+    double fov = M_PI_2;
 
     Camera camera(hsize, vsize, fov);
 

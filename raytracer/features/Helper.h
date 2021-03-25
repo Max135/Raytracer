@@ -7,12 +7,12 @@
 
 
 class Helper {
-    constexpr static const float EPSILON = 0.00001;
+    constexpr static const double EPSILON = 0.00001;
 
 public:
-    static bool compareFloat(float a, float b);
+    static bool compareFloat(double a, double b);
 
-    bool compareFloat(float a, float b, float range);
+    bool compareFloat(double a, double b, double range);
 };
 
 
