@@ -29,7 +29,7 @@ set(Headers
         raytracer/features/World/World.h
         raytracer/features/Intersection/Intersections.h
         raytracer/features/Ray/PreComputation.h
-        raytracer/features/Intersection/Junctions.h)
+        raytracer/features/Intersection/Junctions.h raytracer/features/Camera/Camera.cpp raytracer/features/Camera/Camera.h)
 
 set(Sources
         raytracer/features/Helper.cpp

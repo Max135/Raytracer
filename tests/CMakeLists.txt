@@ -13,7 +13,8 @@ set(Sources
         ShapeTest.cpp
         LightTest.cpp
         MaterialTest.cpp
-        WorldTest.cpp)
+        WorldTest.cpp
+        CameraTest.cpp)
 
 add_executable(${This} ${Sources})
 

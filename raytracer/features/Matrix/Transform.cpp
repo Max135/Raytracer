@@ -4,6 +4,28 @@
 
 #include "Transform.h"
 
+Transform Transform::viewTransform(Point from, Point to, Vector up) {
+    Tuple forward = (to - from).normalize();
+    Tuple left = forward.cross(up.normalize());
+    Tuple trueUp = left.cross(forward);
+
+    Transform orientation;
+
+    orientation.matrix[0][0] = left.x;
+    orientation.matrix[0][1] = left.y;
+    orientation.matrix[0][2] = left.z;
+
+    orientation.matrix[1][0] = trueUp.x;
+    orientation.matrix[1][1] = trueUp.y;
+    orientation.matrix[1][2] = trueUp.z;
+
+    orientation.matrix[2][0] = -forward.x;
+    orientation.matrix[2][1] = -forward.y;
+    orientation.matrix[2][2] = -forward.z;
+
+    return orientation.translate(-from.x, -from.y, -from.z);
+}
+
 Transform Transform::translation(float x, float y, float z) {
     Transform transform;
 

@@ -6,6 +6,8 @@
 #include "../raytracer/features/Matrix/Matrices.h"
 #include "gtest/gtest.h"
 
+Transform initResultMatrix();
+
 // Multiplying by a translation matrix
 TEST(TransformTests, TestTranslationMatrixMultiplication) {
     Transform transform = Transform::translation(5, -3, 2);
@@ -149,8 +151,55 @@ TEST(TransformTests, TestChaining) {
     transform1.rotateX(M_PI_2);
 
     Transform transform2;
-    transform2.translate(10, 5, 7).scale(5, 5, 5).rotateX(M_PI_2);//Have to chain in reverse order
+    transform2.translate(10, 5, 7).scale(5, 5, 5).rotateX(M_PI_2);
 
     ASSERT_TRUE(Point(15, 0, 7) == transform1 * point);
     ASSERT_TRUE(Point(15, 0, 7) == transform2 * point);
+}
+
+// A view transformation matrix looking in positive z direction
+TEST(TransformTests, TestViewTransformation) {
+    Point from(0, 0, 0);
+    Point to(0, 0, 1);
+    Vector up(0, 1, 0);
+
+    Transform transform = Transform::viewTransform(from, to, up);
+
+    ASSERT_TRUE(Transform::scaling(-1, 1, -1) == transform);
+}
+
+// The view transformation moves the world
+TEST(TransformTests, TestMovingWorld) {
+    Point from(0, 0, 8);
+    Point to(0, 0, 0);
+    Vector up(0, 1, 0);
+
+    Transform transform = Transform::viewTransform(from, to, up);
+
+    ASSERT_TRUE(Transform::translation(0, 0, -8) == transform);
+}
+
+// An arbitrary view transformation
+TEST(TransformTests, TestArbitraryTransform) {
+    Point from(1, 3, 2);
+    Point to(4, -2, 8);
+    Vector up(1, 1, 0);
+
+    Transform transform = Transform::viewTransform(from, to, up);
+
+    ASSERT_TRUE(initResultMatrix() == transform);
+}
+
+Transform initResultMatrix() {
+    Transform result;
+    float rowA1[] = {-0.50709, 0.50709, 0.67612, -2.36643};
+    float rowA2[] = {0.76772, 0.60609,  0.12122, -2.82843};
+    float rowA3[] = {-0.35857, 0.59761, -0.71714,  0.00000};
+    float rowA4[] = {0.00000, 0.00000,  0.00000,  1.00000};
+    std::copy(rowA1, rowA1 + 4, result[0]);
+    std::copy(rowA2, rowA2 + 4, result[1]);
+    std::copy(rowA3, rowA3 + 4, result[2]);
+    std::copy(rowA4, rowA4 + 4, result[3]);
+
+    return result;
 }

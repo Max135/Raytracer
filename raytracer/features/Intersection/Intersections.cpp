@@ -48,21 +48,18 @@ void Intersections::quickSortIntersections(std::vector<Intersection> *vector, in
     quickSortIntersections(vector, lastSorted + 1, endIndex);
 }
 
-//TODO: Test speed with and without temp vector
 int Intersections::partition(std::vector<Intersection> *vector, int startIndex, int endIndex) {
-    std::vector<Intersection> &array = *vector;
-
     int i = startIndex - 1, j = endIndex;
-    Intersection value = array[endIndex];
+    Intersection value = vector->at(endIndex);
     for (;;) {
-        while (array[++i].t < value.t);
-        while (value.t < array[--j].t) {
+        while (vector->at(++i).t < value.t);
+        while (value.t < vector->at(--j).t) {
             if (j == startIndex) break;
         }
         if (i >= j) break;
-        std::swap(array[i], array[j]);
+        std::swap(vector->at(i), vector->at(j));
     }
-    std::swap(array[i], array[endIndex]);
+    std::swap(vector->at(i), vector->at(endIndex));
     return i;
 }
 

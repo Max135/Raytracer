@@ -222,4 +222,3 @@ std::string Matrix::toString() {
 
     return string;
 }
-
