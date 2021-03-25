@@ -7,6 +7,8 @@
 
 
 #include "../Matrix/Transform.h"
+#include "../Ray/Ray.h"
+#include "../Canvas/Canvas.h"
 
 class Camera {
 public:
@@ -17,6 +19,10 @@ public:
     float fov;
     float pixelSize;
     Transform transform;
+
+    Ray rayForPixel(int px, int py);
+
+    Canvas render(const World& world);
 
 private:
     float halfWidth;
