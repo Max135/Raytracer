@@ -10,7 +10,7 @@ bool Material::operator==(const Material &other) {
            Helper::compareFloat(this->shininess, other.shininess);
 }
 
-Tuple Material::lighting(Light light, const Tuple &point, const Tuple &eye, const Tuple &normal) {
+Tuple Material::lighting(const Light& light, const Tuple &point, const Tuple &eye, const Tuple &normal) {
     //Combine the surface color with the light's color/intensity
     Tuple effectiveColor = this->color * light.intensity;
 
@@ -24,7 +24,7 @@ Tuple Material::lighting(Light light, const Tuple &point, const Tuple &eye, cons
     //A negative number means the light is on the other side of the surface
     double lightDotNormal = lightVector.dot(normal);
 
-    Tuple currentDiffuse, currentSpecular;
+    Color currentDiffuse, currentSpecular;
     if (lightDotNormal < 0) {
         currentDiffuse = Color(0, 0, 0);
         currentSpecular = Color(0, 0, 0);

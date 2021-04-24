@@ -21,57 +21,57 @@ public:
 
     static Tuple vector(double x, double y, double z);
 
-    double magnitude();
+    double magnitude() const;
 
     double quickInverseSquareRoot(double number);
 
     Tuple fastNormalize();
 
-    Tuple normalize();
+    Tuple normalize() const;
 
-    Tuple cross(Tuple other);
+    Tuple cross(const Tuple& other) const;
 
-    double dot(Tuple other);
+    double dot(const Tuple& other) const;
 
-    Tuple reflectOff(Tuple other);
+    Tuple reflectOff(const Tuple& other);
 
     std::string toString() const;
 
-    Tuple operator+(const Tuple &other);
+    Tuple operator+(const Tuple &other) const;
 
-    Tuple operator-(const Tuple &other);
+    Tuple operator-(const Tuple &other) const;
 
-    Tuple operator*(const double &scalar);
+    Tuple operator*(const double &scalar) const;
 
-    Tuple operator*(const Tuple &other);
+    Tuple operator*(const Tuple &other) const;
 
-    Tuple operator/(const double &scalar);
+    Tuple operator/(const double &scalar) const;
 
-    Tuple operator+=(const Tuple &other);
+    Tuple operator+=(const Tuple &other) const;
 
     virtual Tuple &operator=(const Tuple &other);
 
-    bool operator==(const Tuple &other);
+    bool operator==(const Tuple &other) const;
 
-    bool operator!=(const Tuple &other);
+    bool operator!=(const Tuple &other) const;
 
-    Tuple operator-();
+    Tuple operator-() const;
 
 
 private:
-    static bool areEqual(Tuple first, Tuple second);
+    static bool areEqual(const Tuple& first, const Tuple& second);
 
-    static Tuple add(Tuple first, Tuple second);
+    static Tuple add(const Tuple& first, const Tuple& second);
 
-    static Tuple subtract(Tuple first, Tuple second);
+    static Tuple subtract(const Tuple& first, const Tuple& second);
 
-    static Tuple negate(Tuple tuple);
+    static Tuple negate(const Tuple& tuple);
 
-    static Tuple multiplyScalar(Tuple tuple, double scalar);
+    static Tuple multiplyScalar(const Tuple& tuple, double scalar);
 
-    static Tuple multiply(Tuple first, Tuple second);
+    static Tuple multiply(const Tuple& first, const Tuple& second);
 
-    static Tuple divideScalar(Tuple tuple, double scalar);
+    static Tuple divideScalar(const Tuple& tuple, double scalar);
 };
 
 #endif //RAYTRACER_TUPLE_H

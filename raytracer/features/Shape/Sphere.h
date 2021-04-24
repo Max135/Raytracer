@@ -17,7 +17,7 @@ public:
     Material material;
     Point origin = Point(0, 0, 0);
 
-    Sphere() {}
+    Sphere() = default;
 
     Sphere(Point origin);
 
@@ -25,7 +25,7 @@ public:
 
     bool operator==(const Sphere &other);
 
-    void setTransform(Transform transform);
+    void setTransform(const Transform &transform);
 
     Tuple normalAt(const Tuple &worldPoint);
 

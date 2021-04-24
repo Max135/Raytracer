@@ -19,27 +19,27 @@ Tuple Tuple::vector(double x, double y, double z) {
     return Tuple(x, y, z, 0.0);
 }
 
-Tuple Tuple::operator+(const Tuple &other) {
+Tuple Tuple::operator+(const Tuple &other) const {
     return add(*this, other);
 }
 
-Tuple Tuple::operator-(const Tuple &other) {
+Tuple Tuple::operator-(const Tuple &other) const {
     return subtract(*this, other);
 }
 
-Tuple Tuple::operator*(const double &scalar) {
+Tuple Tuple::operator*(const double &scalar) const {
     return multiplyScalar(*this, scalar);
 }
 
-Tuple Tuple::operator*(const Tuple &other) {
+Tuple Tuple::operator*(const Tuple &other) const {
     return multiply(*this, other);
 }
 
-Tuple Tuple::operator/(const double &scalar) {
+Tuple Tuple::operator/(const double &scalar) const {
     return divideScalar(*this, scalar);
 }
 
-Tuple Tuple::operator+=(const Tuple &other) {
+Tuple Tuple::operator+=(const Tuple &other) const {
     return *this + other;
 }
 
@@ -55,27 +55,27 @@ Tuple &Tuple::operator=(const Tuple &other) {
     return *this;
 }
 
-bool Tuple::operator==(const Tuple &other) {
+bool Tuple::operator==(const Tuple &other) const {
     return areEqual(*this, other);
 }
 
-bool Tuple::operator!=(const Tuple &other) {
+bool Tuple::operator!=(const Tuple &other) const {
     return !areEqual(*this, other);
 }
 
-Tuple Tuple::operator-() {
+Tuple Tuple::operator-() const {
     return negate(*this);
 }
 
 
-bool Tuple::areEqual(Tuple first, Tuple second) {
+bool Tuple::areEqual(const Tuple& first, const Tuple& second) {
     return Helper::compareFloat(first.x, second.x)
            && Helper::compareFloat(first.y, second.y)
            && Helper::compareFloat(first.z, second.z)
            && Helper::compareFloat(first.w, second.w);
 }
 
-Tuple Tuple::add(Tuple first, Tuple second) {
+Tuple Tuple::add(const Tuple& first, const Tuple& second) {
     Tuple tuple;
 
     tuple.x = first.x + second.x;
@@ -86,7 +86,7 @@ Tuple Tuple::add(Tuple first, Tuple second) {
     return tuple;
 }
 
-Tuple Tuple::subtract(Tuple first, Tuple second) {
+Tuple Tuple::subtract(const Tuple& first, const Tuple& second) {
     Tuple tuple;
 
     tuple.x = first.x - second.x;
@@ -97,7 +97,7 @@ Tuple Tuple::subtract(Tuple first, Tuple second) {
     return tuple;
 }
 
-Tuple Tuple::negate(Tuple tuple) {
+Tuple Tuple::negate(const Tuple& tuple) {
     Tuple tempTuple;
 
     tempTuple.x = -tuple.x;
@@ -108,7 +108,7 @@ Tuple Tuple::negate(Tuple tuple) {
     return tempTuple;
 }
 
-Tuple Tuple::multiply(Tuple first, Tuple second) {
+Tuple Tuple::multiply(const Tuple& first, const Tuple& second) {
     Tuple tuple;
 
     tuple.x = first.x * second.x;
@@ -119,7 +119,7 @@ Tuple Tuple::multiply(Tuple first, Tuple second) {
     return tuple;
 }
 
-Tuple Tuple::multiplyScalar(Tuple tuple, double scalar) {
+Tuple Tuple::multiplyScalar(const Tuple& tuple, double scalar) {
     Tuple tempTuple;
 
     tempTuple.x = tuple.x * scalar;
@@ -130,7 +130,7 @@ Tuple Tuple::multiplyScalar(Tuple tuple, double scalar) {
     return tempTuple;
 }
 
-Tuple Tuple::divideScalar(Tuple tuple, double scalar) {
+Tuple Tuple::divideScalar(const Tuple& tuple, double scalar) {
     Tuple tempTuple;
 
     tempTuple.x = tuple.x / scalar;
@@ -141,7 +141,7 @@ Tuple Tuple::divideScalar(Tuple tuple, double scalar) {
     return tempTuple;
 }
 
-double Tuple::magnitude() {
+double Tuple::magnitude() const {
     return (double) sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->w, 2));
 }
 
@@ -182,7 +182,7 @@ Tuple Tuple::fastNormalize() {
     return normalized;
 }
 
-Tuple Tuple::normalize() {
+Tuple Tuple::normalize() const {
     Tuple normalized;
 
     double magnitude = this->magnitude();
@@ -195,13 +195,13 @@ Tuple Tuple::normalize() {
     return normalized;
 }
 
-Tuple Tuple::cross(Tuple other) {
+Tuple Tuple::cross(const Tuple& other) const {
     return Tuple::vector(this->y * other.z - this->z * other.y,
                          this->z * other.x - this->x * other.z,
                          this->x * other.y - this->y * other.x);
 }
 
-double Tuple::dot(Tuple other) {
+double Tuple::dot(const Tuple& other) const {
     return this->x * other.x + this->y * other.y + this->z * other.z + this->w * other.w;
 }
 
@@ -216,6 +216,6 @@ std::string Tuple::toString() const {
     return string;
 }
 
-Tuple Tuple::reflectOff(Tuple other) {
+Tuple Tuple::reflectOff(const Tuple& other) {
     return *this - other * 2 * this->dot(other);
 }

@@ -6,6 +6,7 @@
 #define RAYTRACER_RAY_H
 
 
+#include <utility>
 #include <vector>
 #include <iostream>
 #include "../Tuple/Tuples.h"
@@ -18,13 +19,13 @@ public:
     Tuple origin;
     Tuple direction;
 
-    Ray(Point origin, Vector direction) : origin(origin), direction(direction) {}
+    Ray(const Point& origin, const Vector& direction) : origin(origin), direction(direction) {}
 
-    Ray(Tuple origin, Tuple direction) : origin(origin), direction(direction) {}
+    Ray(const Tuple& origin, const Tuple& direction) : origin(origin), direction(direction) {}
 
-    PreComputation prepareComputations(Intersection intersection);
+    PreComputation prepareComputations(const Intersection &intersection) const;
 
-    Tuple position(double time);
+    Tuple position(double time) const;
 
     Intersections intersect(Sphere *sphere);
 
@@ -32,12 +33,12 @@ public:
 
     Tuple colorAt(World world);
 
-    Ray transform(Matrix *transform);
+    Ray transform(Matrix *transform) const;
 
-    std::string toString();
+    std::string toString() const;
 
 private:
-    std::vector<Intersection> intersection(Ray ray, Sphere *sphere);
+    std::vector<Intersection> intersection(const Ray& ray, Sphere *sphere);
 };
 
 

@@ -17,7 +17,7 @@ public:
 
     Transform(const Transform &other) : Matrix(other) {}
 
-    static Transform viewTransform(Point from, Point to, Vector up);
+    static Transform viewTransform(const Point& from, const Point& to, const Vector& up);
 
     static Transform translation(double x, double y, double z);
 

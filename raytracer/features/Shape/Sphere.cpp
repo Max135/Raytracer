@@ -4,7 +4,7 @@
 
 #include "Sphere.h"
 
-void Sphere::setTransform(Transform transform) {
+void Sphere::setTransform(const Transform& transform) {
     this->transform = transform;
 }
 

@@ -4,7 +4,7 @@
 
 #include "Ray.h"
 
-PreComputation Ray::prepareComputations(Intersection intersection) {
+PreComputation Ray::prepareComputations(const Intersection &intersection) const {
     // Instantiate a data structure for storing some precomputed values
     PreComputation comps;
 
@@ -27,7 +27,7 @@ PreComputation Ray::prepareComputations(Intersection intersection) {
     return comps;
 }
 
-Tuple Ray::position(double time) {
+Tuple Ray::position(double time) const {
     return origin + direction * time;
 }
 
@@ -57,12 +57,12 @@ Intersections Ray::intersect(World *world) {
     return intersections;
 }
 
-Ray Ray::transform(Matrix *transform) {
+Ray Ray::transform(Matrix *transform) const {
     Ray ray(*transform * this->origin, *transform * this->direction);
     return ray;
 }
 
-std::vector<Intersection> Ray::intersection(Ray ray, Sphere *sphere) {
+std::vector<Intersection> Ray::intersection(const Ray& ray, Sphere *sphere) {
     Tuple sphereToRay = ray.origin - sphere->origin;
 
     double a = ray.direction.dot(ray.direction);
@@ -92,7 +92,7 @@ std::vector<Intersection> Ray::intersection(Ray ray, Sphere *sphere) {
     return vector;
 }
 
-std::string Ray::toString() {
+std::string Ray::toString() const {
     std::string string;
     string.append("Origin: ");
     string.append(this->origin.toString());

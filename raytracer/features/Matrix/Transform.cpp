@@ -4,7 +4,7 @@
 
 #include "Transform.h"
 
-Transform Transform::viewTransform(Point from, Point to, Vector up) {
+Transform Transform::viewTransform(const Point& from, const Point& to, const Vector& up) {
     Tuple forward = (to - from).normalize();
     Tuple left = forward.cross(up.normalize());
     Tuple trueUp = left.cross(forward);
