@@ -72,7 +72,9 @@ TEST(CameraTests, TestRenderingWorld) {
     Vector up(0, 1, 0);
 
     camera.transform = Transform::viewTransform(from, to, up);
-    Canvas image = camera.render(world);
+    Canvas image = camera.render(&world);
+    Canvas imageMultiThread = camera.multiThreadRender(&world);
 
     ASSERT_TRUE(Color(0.38066, 0.47583, 0.2855) == image.pixelAt(5, 5));
+    ASSERT_TRUE(Color(0.38066, 0.47583, 0.2855) == imageMultiThread.pixelAt(5, 5));
 }

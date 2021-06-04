@@ -6,6 +6,7 @@
 #define RAYTRACER_CAMERA_H
 
 
+#include <thread>
 #include "../Matrix/Transform.h"
 #include "../Ray/Ray.h"
 #include "../Canvas/Canvas.h"
@@ -22,13 +23,17 @@ public:
 
     Ray rayForPixel(int px, int py);
 
-    Canvas render(const World& world);
+    Canvas render(World *world);
+
+    Canvas multiThreadRender(World *world, int nbThreads = 10);
 
 private:
     double halfWidth;
     double halfHeight;
 
     void calculatePixelSize();
+
+    void renderPixelRow(int y, Canvas *canvas, World *world);
 };
 
 

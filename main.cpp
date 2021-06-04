@@ -30,7 +30,7 @@ void renderWorld();
 void traceSphere();
 void traceSphereThreads();
 void writePixel(Intersections xs, Ray *ray, Canvas *canvas, Light *light, int x, int y);
-void calculateColisions(int canvasSize, double half, double pixelSize, double wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y);
+void calculateColisions(int canvasSize, double half, double pixelSize, double wallZ, const Point &rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y);
 
 //Projectile trajectory
 void projectileTrajectory();
@@ -70,13 +70,13 @@ void renderWorld() {
     Sphere rightWall;
     rightWall.transform = rightWall.transform.translate(0, 0, 5).rotateY(M_PI_4).rotateX(M_PI_2).scale(10, 0.01, 10);
     rightWall.material = floor.material;
-    
+
     Sphere middle;
     middle.transform = Transform::translation(-0.5, 1, 0.5);
     middle.material.color = Color(0.1, 1, 0.5);
     middle.material.diffuse = 0.7;
     middle.material.specular = 0.3;
-    
+
     Sphere right;
     right.transform = right.transform.translate(1.5, 0.5, -0.5).scale(0.5, 0.5, 0.5);
     right.material.color = Color(0.5, 1, 0.1);
@@ -102,7 +102,7 @@ void renderWorld() {
     Camera camera(1000, 500, M_PI / 3);
     camera.transform = Transform::viewTransform(Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0));
 
-    Canvas canvas = camera.render(world);
+    Canvas canvas = camera.multiThreadRender(&world);
     canvas.save();
 }
 
@@ -178,7 +178,7 @@ void traceSphereThreads() {
     double pixelSize = (double) wallSize / canvasSize;
     double half = wallSize / 2.0;
 
-    for (int y = 0; y < canvasSize - 1; y+=threadNb) {
+    for (int y = 0; y < canvasSize - 1; y += threadNb) {
         if (y % 100 == 0)
             std::cout << y << std::endl;
 
@@ -189,7 +189,7 @@ void traceSphereThreads() {
             threads.push_back(std::move(thread));
 //          calculateColisions(canvasSize, half, pixelSize, worldY, wallZ, rayOrigin, &sphere, &canvas, &light, y);
         }
-        for(auto & thread : threads) {
+        for (auto &thread : threads) {
             thread.join();
         }
     }
@@ -197,7 +197,7 @@ void traceSphereThreads() {
     canvas.save();
 }
 
-void calculateColisions(int canvasSize, double half, double pixelSize, double wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y) {
+void calculateColisions(int canvasSize, double half, double pixelSize, double wallZ, const Point &rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y) {
     double worldY = half - pixelSize * (double) y;
     for (int x = 0; x < canvasSize - 1; ++x) {
         double worldX = -half + pixelSize * (double) x;

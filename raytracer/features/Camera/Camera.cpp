@@ -44,17 +44,42 @@ Ray Camera::rayForPixel(int px, int py) {
     return Ray(origin, direction);
 }
 
-//TODO: Implement multithreading
-Canvas Camera::render(const World& world) {
+Canvas Camera::render(World *world) {
     Canvas canvas(this->hSize, this->vSize);
 
     for (int y = 0; y < this->vSize; ++y) {
         for (int x = 0; x < this->hSize; ++x) {
             Ray ray = this->rayForPixel(x, y);
-            Tuple color = ray.colorAt(world);
+            Tuple color = ray.colorAt(*world);
             canvas.writePixel(x, y, color);
         }
     }
 
     return canvas;
+}
+
+Canvas Camera::multiThreadRender(World *world, int nbThreads) {
+    Canvas canvas(this->hSize, this->vSize);
+
+    for (int y = 0; y < this->vSize; y += nbThreads) {
+        std::vector<std::thread> threads;
+        for (int z = y; z < y + nbThreads; z++) {
+            if (z >= this->vSize) break;
+            std::thread thread(&Camera::renderPixelRow, this, z, &canvas, world);
+            threads.push_back(std::move(thread));
+        }
+        for (auto &thread : threads) {
+            thread.join();
+        }
+    }
+
+    return canvas;
+}
+
+void Camera::renderPixelRow(int y, Canvas *canvas, World *world) {
+    for (int x = 0; x < this->hSize; ++x) {
+        Ray ray = this->rayForPixel(x, y);
+        Tuple color = ray.colorAt(*world);
+        canvas->writePixel(x, y, color);
+    }
 }
