@@ -20,7 +20,7 @@ public:
 
     bool operator==(const Material &other);
 
-    Tuple lighting(const Light& light, const Tuple &point, const Tuple &eye, const Tuple &normal);
+    Tuple lighting(const Light& light, const Tuple &point, const Tuple &eye, const Tuple &normal, bool inShadow = false);
 
     std::string toString();
 };

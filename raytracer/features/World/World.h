@@ -23,6 +23,8 @@ public:
     bool contains(const Sphere &sphere);
 
     Tuple shadeHit(const PreComputation& comps);
+
+    bool isShadowed(const Tuple& point);
 };
 
 

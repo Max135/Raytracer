@@ -12,7 +12,7 @@ class PreComputation {
 public:
     double t;
     Sphere *object;
-    Tuple point, eyeV, normalV;
+    Tuple point, overPoint, eyeV, normalV;
     bool inside;
 };
 

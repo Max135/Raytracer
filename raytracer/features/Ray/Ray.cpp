@@ -24,6 +24,9 @@ PreComputation Ray::prepareComputations(const Intersection &intersection) const 
         comps.inside = false;
     }
 
+    // After computing and (if appropriate) negating the normal vector...
+    comps.overPoint = comps.point + comps.normalV * Helper::getEPSILON();
+
     return comps;
 }
 

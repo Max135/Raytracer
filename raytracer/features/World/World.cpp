@@ -3,6 +3,7 @@
 //
 
 #include "World.h"
+#include "../Ray/Ray.h"
 
 World::World() {
     light = Light();
@@ -36,5 +37,16 @@ bool World::contains(const Sphere &sphere) {
 //TODO: Support multiple lights
 //Page: 96
 Tuple World::shadeHit(const PreComputation& comps) {
-    return comps.object->material.lighting(light, comps.point, comps.eyeV, comps.normalV);
+    return comps.object->material.lighting(light, comps.point, comps.eyeV, comps.normalV, isShadowed(comps.overPoint));
+}
+
+bool World::isShadowed(const Tuple& point) {
+    Tuple v = (this->light.position - point);
+    double distance = v.magnitude();
+    Tuple direction = v.normalize();
+
+    Ray ray(point, direction);
+    Intersections intersections = ray.intersect(this);
+    Intersection intersection = intersections.hit();
+    return (intersection.sphere != nullptr && intersection.t < distance);
 }

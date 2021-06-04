@@ -13,6 +13,7 @@
 #include "../Shape/Sphere.h"
 #include "../Intersection/Junctions.h"
 #include "../World/World.h"
+#include "../Helper.h"
 
 class Ray {
 public:

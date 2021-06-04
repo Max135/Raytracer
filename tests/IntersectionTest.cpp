@@ -98,3 +98,15 @@ TEST(IntersectionTests, TestGoodHit) {
 
     ASSERT_TRUE(i == i4);
 }
+
+// The hit should offset the point
+TEST(IntersectionTests, TestHitPointOffset) {
+    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere shape;
+    shape.transform = shape.transform.translate(0, 0, 1);
+    Intersection i(5, &shape);
+    PreComputation comps = ray.prepareComputations(i);
+
+    ASSERT_TRUE(-Helper::getEPSILON()/2 > comps.overPoint.z);
+    ASSERT_TRUE(comps.overPoint.z < comps.point.z);
+}

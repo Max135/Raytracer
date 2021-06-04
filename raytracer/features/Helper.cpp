@@ -13,3 +13,7 @@ bool Helper::compareFloat(double a, double b) {
 bool Helper::compareFloat(double a, double b, double range) {
     return abs(a - b) < range;
 }
+
+double Helper::getEPSILON() {
+    return EPSILON;
+}

@@ -66,3 +66,49 @@ TEST(WorldTests, TestShadingInside) {
 
     ASSERT_TRUE(Color(0.90498, 0.90498, 0.90498) == c);
 }
+
+// There is no shadow when nothing is collinear with point and light
+TEST(WorldTests, TestNoShadow) {
+    World world = World::defaultWorld();
+    Point p(0, 10, 0);
+
+    ASSERT_FALSE(world.isShadowed(p));
+}
+
+// The shadow when an object is between the point and the light
+TEST(WorldTests, TestInShadow) {
+    World world = World::defaultWorld();
+    Point p(10, -10, 10);
+
+    ASSERT_TRUE(world.isShadowed(p));
+}
+
+// There is no shadow when an object is behind the point
+TEST(WorldTests, TestNoShadowObjectBehind) {
+    World world = World::defaultWorld();
+    Point p1(-20, 20, -20);
+    Point p2(-2, 2, -2);
+
+    ASSERT_FALSE(world.isShadowed(p1));
+    ASSERT_FALSE(world.isShadowed(p2));
+}
+
+// world.shadeHit() is given an intersection in shadow
+TEST(WorldTests, TestShadeHitInShadow) {
+    World world;
+    world.light = Light(Point(0, 0, -10), Color(1, 1, 1));
+
+    Sphere s1;
+    world.objects.push_back(s1);
+
+    Sphere s2;
+    s2.transform = s2.transform.translate(0, 0, 10);
+    world.objects.push_back(s2);
+
+    Ray ray(Point(0, 0, 5), Vector(0, 0, 1));
+    Intersection i(4, &s2);
+    PreComputation comps = ray.prepareComputations(i);
+    Tuple c = world.shadeHit(comps);
+
+    ASSERT_TRUE(Color(0.1, 0.1, 0.1) == c);
+}

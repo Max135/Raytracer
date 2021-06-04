@@ -80,3 +80,17 @@ TEST(MaterialTests, TestEyeBehindSurface) {
 
     ASSERT_TRUE(Color(0.1, 0.1, 0.1) == result);
 }
+
+// Lighting with the surface in shadow
+TEST(MaterialTests, TestSurfaceInShadow) {
+    Material m;
+    Point position(0, 0, 0);
+    Vector eyeV(0, 0, -1);
+    Vector normalV(0, 0, -1);
+    Light light(Point(0, 0, -10), Color(1, 1, 1));
+    bool inShadow = true;
+
+    Tuple result = m.lighting(light, position, eyeV, normalV, inShadow);
+
+    ASSERT_TRUE(Color(0.1, 0.1, 0.1) == result);
+}
