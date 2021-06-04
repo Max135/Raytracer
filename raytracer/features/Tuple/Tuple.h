@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <cmath>
 #include "../Helper.h"
 
 class Tuple {
