@@ -12,6 +12,7 @@
 #include "raytracer/features/Ray/Ray.h"
 #include "raytracer/features/Intersection/Intersection.h"
 #include "raytracer/features/Shape/Shapes.h"
+#include "raytracer/features/Camera/Camera.h"
 
 struct Projectile {
     Tuple position, velocity;
@@ -22,17 +23,18 @@ struct Environment {
 };
 
 
-Projectile tick(Environment, Projectile, Canvas *);
+//World ray tracing
+void renderWorld();
 
-void projectileTrajectory();
-
-void traceSphereThreads();
-
+//Sphere ray tracing
 void traceSphere();
-
+void traceSphereThreads();
 void writePixel(Intersections xs, Ray *ray, Canvas *canvas, Light *light, int x, int y);
 void calculateColisions(int canvasSize, double half, double pixelSize, double wallZ, const Point& rayOrigin, Sphere *sphere, Canvas *canvas, Light *light, int y);
 
+//Projectile trajectory
+void projectileTrajectory();
+Projectile tick(Environment, Projectile, Canvas *);
 
 int main() {
     std::chrono::time_point<std::chrono::system_clock> start, end;
@@ -40,7 +42,8 @@ int main() {
 
 //    projectileTrajectory();
 //    traceSphere();
-    traceSphereThreads();
+//    traceSphereThreads();
+    renderWorld();
 
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
@@ -48,6 +51,65 @@ int main() {
 
     return 0;
 }
+
+
+/*
+ * Updated implementation of the ray tracer to render a world
+ */
+
+void renderWorld() {
+    Sphere floor;
+    floor.transform = Transform::scaling(10, 0.01, 10);
+    floor.material.color = Color(1, 0.9, 0.9);
+    floor.material.specular = 0;
+
+    Sphere leftWall;
+    leftWall.transform = leftWall.transform.translate(0, 0, 5).rotateY(-M_PI_4).rotateX(M_PI_2).scale(10, 0.01, 10);
+    leftWall.material = floor.material;
+
+    Sphere rightWall;
+    rightWall.transform = rightWall.transform.translate(0, 0, 5).rotateY(M_PI_4).rotateX(M_PI_2).scale(10, 0.01, 10);
+    rightWall.material = floor.material;
+    
+    Sphere middle;
+    middle.transform = Transform::translation(-0.5, 1, 0.5);
+    middle.material.color = Color(0.1, 1, 0.5);
+    middle.material.diffuse = 0.7;
+    middle.material.specular = 0.3;
+    
+    Sphere right;
+    right.transform = right.transform.translate(1.5, 0.5, -0.5).scale(0.5, 0.5, 0.5);
+    right.material.color = Color(0.5, 1, 0.1);
+    right.material.diffuse = 0.7;
+    right.material.specular = 0.3;
+
+    Sphere left;
+    left.transform = left.transform.translate(-1.5, 0.33, -0.75).scale(0.33, 0.33, 0.33);
+    left.material.color = Color(1, 0.8, 0.1);
+    left.material.diffuse = 0.7;
+    left.material.specular = 0.3;
+
+    World world;
+    world.objects.push_back(floor);
+    world.objects.push_back(leftWall);
+    world.objects.push_back(rightWall);
+    world.objects.push_back(middle);
+    world.objects.push_back(right);
+    world.objects.push_back(left);
+
+    world.light = Light(Point(-10, 10, -10), Color(1, 1, 1));
+
+    Camera camera(1000, 500, M_PI / 3);
+    camera.transform = Transform::viewTransform(Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0));
+
+    Canvas canvas = camera.render(world);
+    canvas.save();
+}
+
+
+/*
+ * First real implementation of the ray tracer to render a sphere
+ */
 
 void traceSphere() {
     const int canvasSize = 1000;
@@ -157,6 +219,11 @@ void writePixel(Intersections xs, Ray *ray, Canvas *canvas, Light *light, int x,
 
     canvas->writePixel(x, y, hit.sphere->material.lighting(*light, point, eye, normal));
 }
+
+
+/*
+ * First program to calculate a projectile's trajectory and displaying it on a canvas
+ */
 
 void projectileTrajectory() {
     Environment env;
